@@ -1,0 +1,31 @@
+.container {
+  @apply relative w-full;
+}
+
+.links {
+  box-shadow: 10px 15px 45px rgba(0, 0, 0, 0.1);
+  @apply z-10 bg-white rounded-lg absolute top-[36px] left-[-50%] flex items-center p-6;
+}
+
+.grid_container {
+  @apply grid grid-cols-2 gap-x-10 gap-y-5 bg-white w-[318px];
+}
+.flex_container {
+  @apply flex flex-col gap-y-7 bg-white;
+}
+
+.sub_label {
+  @apply flex shrink-0 items-center w-full gap-x-7 text-sm hover:text-[#001B89] transition duration-200 ease-in-out;
+}
+
+.image_container {
+  @apply w-9 h-9 rounded-xl shrink-0 bg-[#EEEEEE] grid place-items-center;
+}
+
+.image_container img {
+  @apply w-5 h-5;
+}
+
+.details {
+  @apply flex flex-col gap-y-2 items-start text-black hover:text-midnight duration-200 ease-in-out font-medium text-sm  truncate leading-[17px];
+}
