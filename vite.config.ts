@@ -7,7 +7,7 @@ export default defineConfig({
   base: '/cowas-shop/',
   server: {
     fs: {
-      allow: ['cowas.livinglagos.com']
+      allow: ['..']
     }
   }
 })
