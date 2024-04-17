@@ -9,9 +9,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
+    # strategy:
+    #   matrix:
+    #     node-version: [16.x]
 
     steps:
       - name: Checkout Code 🚚
