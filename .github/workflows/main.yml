@@ -26,11 +26,11 @@ jobs:
       - name: Upload to cPanel 📂
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.techspicelimited.com
-          username: cowas-care@cowas.techspicelimited.com
+          server: ftp.livinglagos.com
+          username: cowas-care@livinglagos.com
           password: cowascare@123
           # server-dir: /cowas-care/
-          server-dir: /home/techspi1/cowas.techspicelimited.com/cowas-care/
+          server-dir: /public_html/
           exclude: |
             **/.git**
             **/.git*/**
