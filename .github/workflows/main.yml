@@ -29,7 +29,8 @@ jobs:
           server: ftp.techspicelimited.com
           username: cowas-care@cowas.techspicelimited.com
           password: cowascare@123
-          server-dir: /cowas-care/
+          # server-dir: /cowas-care/
+          server-dir: /home/techspi1/cowas.techspicelimited.com/cowas-care/
           exclude: |
             **/.git**
             **/.git*/**
