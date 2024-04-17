@@ -1,9 +1,9 @@
 'use client';
 import { Group } from '../Group';
 import { AnimatePresence, motion, useTransform } from 'framer-motion';
-import { NavLink } from '../NavLink';
 import { Link } from 'react-router-dom';
 import { useBoundedScroll } from '../../hooks/useBoundedScroll';
+import { CurrencySelector } from '../NavBar/components/CurrencySelector';
 
 export const ScrollingNav = () => {
   const { scrollYBounded, scrollY } = useBoundedScroll(80);
@@ -25,79 +25,84 @@ export const ScrollingNav = () => {
         }}
         className=' w-full fixed hidden fr:block '
       >
-        <div
-          className='w-full max-w-[1440px] px-10 fr:px-10 xl:px-12 ds:px-12 shadow-md py-6 mx-auto flex bg-white bg-opacity-20 backdrop-blur-[9px] items-center justify-between h-fit rounded-[18px] '
-          style={{
-            color: '#000',
-            fill: '#000',
-          }}
-        >
+        <div className='w-full max-w-[1440px] px-10 fr:px-10 xl:px-12 ds:px-20 py-6 mx-auto hidden fr:flex items-center text-black rounded-lg justify-between z-[30] bg-white absolute inset-0 h-fit '>
           <Group key='left'>
             <Link to='/'>
-              <img src='/logo.png' alt='logo' className='w-[137px]' />
+              <img src='/cowas.svg' alt='logo' className='w-[137px]' />
             </Link>
           </Group>
           <Group key='center'>
-            <ul className='flex gap-x-8 items-center text-sm font-medium'>
-              <li>
-                <Link
-                  to='/about-us'
-                  className='hover:text-midnight duration-200 transition'
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <NavLink
-                  label='Services'
-                  key={'personal'}
-                  paths={[
-                    {
-                      label: 'Accountable PISP',
-                      to: '/accountable-pisp',
-                    },
-                    {
-                      label: 'Monthly Bookkeeping',
-                      to: '/bookkeeping',
-                    },
-                    {
-                      label: 'Tax Filing & Advisory',
-                      to: '/tax',
-                    },
-                    {
-                      label: 'Accountable FMCC',
-                      to: '/accountable-fmcc',
-                    },
-                    {
-                      label: 'Catchup Accounting',
-                      to: '/catchup-bookkeeping',
-                    },
-                    {
-                      label: 'Retroactive Accounting',
-                      to: '/retrospective-bookkeeping',
-                    },
-                  ]}
-                />
-              </li>
-              <Link
-                to='/about-us'
-                className='hover:text-midnight duration-200 transition'
-              >
-                Blog
+            <ul className='flex gap-x-8 items-center font-medium text-black'>
+              <Link className='' to='/shop'>
+                Shop
               </Link>
+
+              <li>
+                <Link to='/about-us'>About Us</Link>
+              </li>
             </ul>
           </Group>
           <Group key='right'>
-            <div className=' flex items-center gap-x-3 text-sm'>
-              <Link to='#'>Watch a demo</Link>
-              <Link
-                to='https://calendar.app.google/Z9JQd7RHr52r4uoC9'
-                // dark:bg-[#001b84] dark:text-white
-                className='bg-white py-2 px-3 rounded-md font-medium transition duration-200 hover:text-[#313e74] text-[#001b84] '
-                target='_blank'
-              >
-                Talk to an expert
+            <div className=' flex items-center gap-x-6 text-sm'>
+              <CurrencySelector />
+              <button>
+                <svg
+                  width='24'
+                  height='24'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    d='M15.5303 14.4697C15.2374 14.1768 14.7626 14.1768 14.4697 14.4697C14.1768 14.7626 14.1768 15.2374 14.4697 15.5303L15.5303 14.4697ZM20.4697 21.5303C20.7626 21.8232 21.2374 21.8232 21.5303 21.5303C21.8232 21.2374 21.8232 20.7626 21.5303 20.4697L20.4697 21.5303ZM10 16.25C6.54822 16.25 3.75 13.4518 3.75 10H2.25C2.25 14.2802 5.71979 17.75 10 17.75V16.25ZM16.25 10C16.25 13.4518 13.4518 16.25 10 16.25V17.75C14.2802 17.75 17.75 14.2802 17.75 10H16.25ZM10 3.75C13.4518 3.75 16.25 6.54822 16.25 10H17.75C17.75 5.71979 14.2802 2.25 10 2.25V3.75ZM10 2.25C5.71979 2.25 2.25 5.71979 2.25 10H3.75C3.75 6.54822 6.54822 3.75 10 3.75V2.25ZM14.4697 15.5303L20.4697 21.5303L21.5303 20.4697L15.5303 14.4697L14.4697 15.5303Z'
+                    fill='black'
+                  />
+                </svg>
+              </button>
+              <Link to='/wishlist'>
+                <svg
+                  width='24'
+                  height='24'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    clipRule='evenodd'
+                    d='M21 8.50003C21 14.7444 12.0004 20 12.0004 20C12.0004 20 3 14.6667 3 8.51268C3 6.00003 5 4.00003 7.5 4.00003C10 4.00003 12 7.00003 12 7.00003C12 7.00003 14 4.00003 16.5 4.00003C19 4.00003 21 6.00003 21 8.50003Z'
+                    stroke='black'
+                    strokeWidth='1.5'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  />
+                </svg>
               </Link>
+              <button>
+                <svg
+                  width='24'
+                  height='24'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    d='M4 9H20L19.165 18.181C19.1198 18.6779 18.8906 19.14 18.5222 19.4766C18.1538 19.8131 17.673 19.9998 17.174 20H6.826C6.32704 19.9998 5.84617 19.8131 5.4778 19.4766C5.10942 19.14 4.88016 18.6779 4.835 18.181L4 9Z'
+                    stroke='black'
+                    strokeWidth='1.5'
+                    strokeLinejoin='round'
+                  />
+                  <path
+                    d='M8 11V8C8 6.93913 8.42143 5.92172 9.17157 5.17157C9.92172 4.42143 10.9391 4 12 4C13.0609 4 14.0783 4.42143 14.8284 5.17157C15.5786 5.92172 16 6.93913 16 8V11'
+                    stroke='black'
+                    strokeWidth='1.5'
+                    strokeLinecap='round'
+                  />
+                </svg>
+              </button>
+              <button className='rounded-lg bg-[#EABEAF] py-2 px-6 font-medium text-white text-base'>
+                Login
+              </button>
             </div>
           </Group>
         </div>

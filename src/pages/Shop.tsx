@@ -56,18 +56,18 @@ export const ShopPage = () => {
     },
   ];
   return (
-    <div className='flex min-h-screen flex-col pt-24'>
+    <div className='flex min-h-screen flex-col pt-20 max-md:px-6'>
       <div className='max-w-[1140px] mx-auto w-full flex flex-col'>
         <h1 className='text-[40px] font-medium mt-12'>All Products</h1>
 
         <span className='block mt-12'>Showing all 4 results</span>
-        <div className='grid grid-cols-3 w-full gap-x-10 gap-y-16 mt-12'>
+        <div className='grid max-md:gap-y-10 md:grid-cols-3 w-full gap-x-10 gap-y-16 mt-12'>
           {products.map((product) => (
             <ExploreCard key={product.id} data={product} />
           ))}
         </div>
 
-        <span className='text-center text-lg text-black/70 mt-[60px]'>
+        <span className='text-center text-lg text-black/70 mt-[60px] max-md:mb-20'>
           Viewing 1-4 of 4 products
         </span>
       </div>

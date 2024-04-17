@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Group, Panes } from '../../components';
+import { Accordion, Group, Panes } from '../../components';
 import { motion } from 'framer-motion';
 import { usePanes } from '../../hooks';
 import { Details, Returns, Reviews } from './panes';
 export const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
+  const [active, setActive] = useState('');
   const { show, handlePaneSwitch } = usePanes('details');
 
   const product = {
@@ -33,13 +34,13 @@ export const ProductPage = () => {
     { id: 'returns', label: 'Delivery & Returns', show: true },
   ];
   return (
-    <div className='flex min-h-screen flex-col pt-24'>
+    <div className='flex min-h-screen flex-col pt-20'>
       <div className='max-w-[1040px] mx-auto w-full flex flex-col items-center'>
         <Group key='product'>
-          <div className='flex items-center w-full gap-x-16 mt-[60px]'>
+          <div className='flex max-md:flex-col items-center w-full gap-x-16 mt-[60px] max-md:px-6'>
             <Group key='carousel'>
-              <div className='flex items-center gap-x-5 max-w-[520px] w-full'>
-                <div className='flex flex-col gap-y-10'>
+              <div className='flex max-md:flex-col-reverse items-center gap-x-5 max-w-[520px] w-full'>
+                <div className='flex max-md:w-full max-md:justify-between max-md:mt-5 md:flex-col gap-y-10'>
                   {product.image.map((im) => (
                     <button
                       onClick={() => setActiveImage(im)}
@@ -70,7 +71,7 @@ export const ProductPage = () => {
               </div>
             </Group>
             <Group key='cart'>
-              <div className='w-full flex flex-col'>
+              <div className='w-full flex flex-col max-md:mt-10'>
                 <h1 className='text-[32px] font-medium'>{product.name}</h1>
                 <div className='flex items-center gap-x-5 mt-4 border-b pb-4'>
                   <span className='text-xl text-black/70'>Small box of 6</span>
@@ -173,7 +174,7 @@ export const ProductPage = () => {
           </div>
         </Group>
         <Group key='panes'>
-          <div className='mt-[96px] w-full flex flex-col'>
+          <div className='max-md:hidden mt-[96px] w-full flex flex-col'>
             <Panes
               panes={panes}
               active={show}
@@ -185,6 +186,29 @@ export const ProductPage = () => {
               {show == 'reviews' && <Reviews />}
               {show == 'returns' && <Returns />}
             </div>
+          </div>
+          <div className='md:hidden pb-10 flex flex-col w-full px-6 mt-20 gap-y-10'>
+            <Accordion
+              title='Product Details'
+              isOpen={active == 'Product Details'}
+              setIsOpen={setActive}
+            >
+              <Details />
+            </Accordion>
+            <Accordion
+              title='Reviews'
+              isOpen={active == 'Reviews'}
+              setIsOpen={setActive}
+            >
+              <Reviews />
+            </Accordion>
+            <Accordion
+              title='Delivery & Returns'
+              isOpen={active == 'Delivery & Returns'}
+              setIsOpen={setActive}
+            >
+              <Returns />
+            </Accordion>
           </div>
         </Group>
       </div>

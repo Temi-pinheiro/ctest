@@ -5,3 +5,4 @@ export * from './ScrollingNav';
 export * from './Group';
 export * from './ExploreCard';
 export * from './Panes';
+export * from './Accordion';

@@ -43,7 +43,7 @@ export const HomePage = () => {
     },
   ];
   return (
-    <div className='flex min-h-screen flex-col pt-24'>
+    <div className='flex md:min-h-screen flex-col pt-20'>
       <section className='h-screen w-full relative'>
         <img
           src='https://images.unsplash.com/photo-1618553577337-f5006b34f420?q=80&w=2573&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
@@ -51,10 +51,10 @@ export const HomePage = () => {
         />
         <div className='w-full h-full absolute inset-0 backdrop-brightness-50 flex flex-col items-center py-8'>
           <div className='flex flex-col items-center h-full justify-center'>
-            <h1 className='text-[#fff] text-[62px] font-semibold cookie-regular'>
+            <h1 className='text-[#fff] text-[34px] md:text-[62px] font-semibold cookie-regular'>
               Vaginne Allure
             </h1>
-            <p className='mt-6 max-w-[800px] text-2xl text-white font-medium text-center'>
+            <p className='mt-6 max-w-[800px] text-base md:text-2xl text-white font-medium text-center max-md:px-6'>
               COWAScare offers a complete selection of intimate care products to
               maintain your secret garden with advanced scientific formulas.
               Giving you a touch of fresh and confident feeling
@@ -64,23 +64,23 @@ export const HomePage = () => {
             </button>
           </div>
           <div className='mt-auto  flex items-center gap-x-10'>
-            <span className='w-[90px] h-3 border border-white bg-white rounded-full'></span>
-            <span className='w-[90px] h-3 border border-white  rounded-full'></span>
-            <span className='w-[90px] h-3 border border-white  rounded-full'></span>
-            <span className='w-[90px] h-3 border border-white  rounded-full'></span>
+            <span className='w-3 md:w-[90px] h-3 border border-white bg-white rounded-full'></span>
+            <span className='w-3 md:w-[90px] h-3 border border-white  rounded-full'></span>
+            <span className='w-3 md:w-[90px] h-3 border border-white  rounded-full'></span>
+            <span className='w-3 md:w-[90px] h-3 border border-white  rounded-full'></span>
           </div>
         </div>
       </section>
       <Group key='restrore'>
         <section className='w-full'>
-          <div className='max-w-[1040px] w-full mx-auto flex items-center justify-between py-[120px]'>
-            <div className='w-[450px] h-[420px] rounded-lg overflow-clip'>
+          <div className='max-w-[1040px] w-full mx-auto flex max-md:flex-col gap-y-8 items-center justify-between py-[120px]'>
+            <div className='w-full md:w-[450px] h-[420px] md:rounded-lg overflow-clip'>
               <img
                 src='https://plus.unsplash.com/premium_photo-1661597206779-b6643eac8213?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
                 className='w-full h-full object-cover'
               />
             </div>
-            <div className='flex flex-col max-w-[500px] gap-y-10'>
+            <div className='flex flex-col max-w-[500px] gap-y-10 max-md:px-6'>
               <h2 className='text-2xl font-medium'>
                 Restore your youth and healthy Lifestyle
               </h2>
@@ -97,10 +97,10 @@ export const HomePage = () => {
       </Group>
       <Group key='explore'>
         <section className='w-full'>
-          <div className='w-full max-w-[1040px] flex flex-col mx-auto items-center py-[82px]'>
+          <div className='w-full max-w-[1040px] flex flex-col mx-auto items-center py-10 md:py-[82px]'>
             <h2 className='font-semibold text-4xl'>Vaginne Allure Sets</h2>
             <div className='flex flex-col items-center gap-y-8 w-full mt-12'>
-              <div className='grid grid-cols-3 w-full gap-x-10'>
+              <div className='grid md:grid-cols-3 w-full gap-x-10 max-md:px-6 gap-y-10'>
                 {products.map((product) => (
                   <ExploreCard key={product.id} data={product} />
                 ))}
@@ -114,18 +114,18 @@ export const HomePage = () => {
         </section>
       </Group>
       <Group key='cta'>
-        <section className='w-full h-screen relative '>
+        <section className='w-full h-[400px] md:h-screen relative '>
           <img
             src='https://images.unsplash.com/photo-1539622230226-3d4eb483b3f2?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
             alt='pond image'
             className='w-full h-full object-cover'
           />
           <div className='absolute inset-0 w-full h-full backdrop-brightness-[35%] text-white/80'>
-            <div className='max-w-[950px] text-center flex flex-col items-center mx-auto justify-center w-full h-full'>
-              <h3 className='text-[30px] font-medium'>
+            <div className='max-md:px-6 max-w-[950px] text-center flex flex-col items-center mx-auto justify-center w-full h-full'>
+              <h3 className='text-base md:text-[30px] font-medium'>
                 Women’s intimate hygiene and health naturally improved
               </h3>
-              <p className='mt-8 flex flex-col gap-y-6 w-full'>
+              <p className='mt-8 flex max-md:text-sm flex-col gap-y-6 w-full'>
                 Vaginne Refreshing Intimate Gel enables every woman to
                 experience natural cleanliness and comfort in their most
                 intimate parts. Vaginne and natural plant essential oil keep you
@@ -142,7 +142,7 @@ export const HomePage = () => {
       </Group>
       <Group key='why use'>
         <section>
-          <div className='max-w-[1040px] w-full mx-auto flex items-center justify-between py-[140px]'>
+          <div className='max-w-[1040px] w-full mx-auto flex max-md:flex-col gap-y-10 items-center justify-between py-20 md:py-[140px]'>
             <div>
               <h3 className='text-2xl font-semibold'>
                 Why Use Vaginne Allure?
@@ -156,7 +156,7 @@ export const HomePage = () => {
                 <li>Reduces vaginal discharge</li>
               </ul>
             </div>
-            <div className='w-[598px] h-[458px] rounded-lg overflow-clip'>
+            <div className='w-full md:w-[598px] h-[458px] rounded-lg overflow-clip'>
               <img
                 src='https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=2550&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
                 className='w-full h-full object-cover '
@@ -167,8 +167,8 @@ export const HomePage = () => {
       </Group>
       <Group key='reviews'>
         <section className='bg-[#F9F9F9]'>
-          <div className='max-w-[956px] w-full flex items-center py-[110px] mx-auto justify-between'>
-            <div className='flex flex-col max-w-[376px] items-center w-full'>
+          <div className='max-w-[956px] w-full flex max-md:flex-col items-center py-[110px] mx-auto justify-between'>
+            <div className='flex flex-col max-w-[376px] items-center w-full max-md:px-6'>
               <h3 className='text-[30px]'>Customer Reviews</h3>
               <div className='flex flex-col items-center'>
                 <div className='w-[120px] h-[120px] rounded-full overflow-clip mt-[68px]'>
@@ -191,7 +191,7 @@ export const HomePage = () => {
                 </div>
               </div>
             </div>
-            <div className='max-w-[386px] w-full grid grid-cols-3 gap-x-[42px] gap-y-[72px] '>
+            <div className='max-md:hidden max-w-[386px] w-full grid grid-cols-3 gap-x-[42px] gap-y-[72px] '>
               <div className='w-[100px] h-[100px] rounded overflow-clip'>
                 <img
                   src='https://images.unsplash.com/photo-1521146764736-56c929d59c83?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
@@ -240,12 +240,12 @@ export const HomePage = () => {
             className='w-full h-full object-cover'
           />
           <div className='absolute inset-0 w-full h-full backdrop-brightness-[35%] text-white/80'>
-            <div className='max-w-[531px] flex flex-col items-center mx-auto justify-center w-full h-full'>
+            <div className='max-md:px-6 max-w-[531px] flex flex-col items-center mx-auto justify-center w-full h-full'>
               <h3 className='text-xl font-medium'>
                 Sign up to our newsletter and get 10% of your next order
               </h3>
               <div className='mt-12 flex flex-col gap-y-6 w-full'>
-                <div className='grid grid-cols-2 gap-x-[72px] w-full'>
+                <div className='grid gap-y-6 md:grid-cols-2 gap-x-[72px] w-full'>
                   <input
                     placeholder='First name'
                     className='outline-none bg-transparent border-b border-white pb-2 placholder:text-white/80 w-full'
@@ -280,19 +280,19 @@ export const HomePage = () => {
       </Group>
       <Group key='experience'>
         <section className='bg-[#2C2844] text-white'>
-          <div className='max-w-[1136px] mx-auto flex items-center w-full py-[92px] justify-between'>
-            <h2 className='text-5xl font-medium max-w-[338px] leading-[150%]'>
+          <div className='max-md:px-6 max-w-[1136px] mx-auto flex max-md:flex-col gap-y-10 max-md:text-center items-center w-full py-[92px] justify-between'>
+            <h2 className='text-3xl md:text-5xl font-medium max-w-[338px] leading-[150%]'>
               Experience the Difference Today!
             </h2>
             <div className='max-w-[566px] w-full'>
-              <p className='leading-[180%]'>
+              <p className='leading-[120%] md:leading-[180%]'>
                 Ready to elevate your routine and prioritize your intimate
                 health? Join thousands of women who trust our products to feel
                 fresh, confident, and empowered every day. Explore our
                 collection now and discover the secret to keeping your intimate
                 area radiant and healthy.
               </p>
-              <a className='mt-9 block bg-[#EABEAF] py-3 rounded-lg px-6 w-fit font-medium'>
+              <a className='mt-9 block bg-[#EABEAF] py-3 rounded-lg px-6 w-fit font-medium max-md:mx-auto'>
                 Shop Now
               </a>
             </div>
@@ -301,8 +301,8 @@ export const HomePage = () => {
       </Group>
       <Group key='health notice'>
         <section className='w-full bg-gradient-to-r from-[#F2D8CF]/50 via-[#F2D8CF] to-[#F2D8CF]/50'>
-          <div className='py-[200px] flex flex-col items-center text-center w-full max-w-[768px] mx-auto'>
-            <h2 className='flex items-center gap-x-[11px] text-4xl '>
+          <div className='py-[200px] max-md:px-6 flex flex-col items-center text-center w-full max-w-[768px] mx-auto'>
+            <h2 className='flex items-center gap-x-[11px] text-2xl md:text-4xl '>
               <svg
                 width='37'
                 height='37'

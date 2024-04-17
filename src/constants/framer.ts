@@ -27,3 +27,30 @@ export const fadeIn = {
   animate: { opacity: 1, transition: { duration: 0.6 } },
   exit: { opacity: 0 },
 };
+
+export const dropdown = {
+  initial: {
+    display: 'none',
+    opacity: 0,
+    y: -80,
+    scale: 0.6,
+  },
+  exit: {
+    display: 'none',
+    opacity: 0,
+    y: -80,
+    scale: 0.6,
+    transition: { display: { delay: 0.1 } },
+  },
+  animate: (custom?: number) => ({
+    display: 'block',
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      opacity: { delay: custom ? custom : 0.2 },
+      y: { delay: custom ? custom : 0.2 },
+      scale: { delay: custom ? custom : 0.2 },
+    },
+  }),
+};
