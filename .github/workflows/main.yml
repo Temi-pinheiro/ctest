@@ -1,0 +1,37 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    # strategy:
+    #   matrix:
+    #     node-version: [16.x]
+
+    steps:
+      - name: Checkout Code 🚚
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies 📦
+        run: npm install
+
+      - name: Build Vite App 🏗️
+        run: npm run build
+
+      - name: Upload to cPanel 📂
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ftp.livinglagos.com
+          username: cowas-care@livinglagos.com
+          password: cowascare@123
+          server-dir: /cowas.livinglagos.com/
+          exclude: |
+            **/.git**
+            **/.git*/**
+            **/node_modules/**
+            **/.**
