@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { Group } from '../Group';
 import { fadeIn } from '../../constants/framer';
+import { Link } from 'react-router-dom';
 
 export const ExploreCard = ({ data }: { data: any }) => {
   const [showAdd, setShowAdd] = useState(false);
@@ -11,10 +12,10 @@ export const ExploreCard = ({ data }: { data: any }) => {
     <div
       onMouseEnter={() => setShowAdd(true)}
       onMouseLeave={() => setShowAdd(false)}
-      className='flex flex-col w-full h-[425px] rounded-lg '
+      className='flex flex-col w-full pb-2 rounded-lg '
     >
       <Group key='image'>
-        <div className='relative rounded-lg h-[70%] overflow-clip shrink-0'>
+        <div className='relative rounded-lg h-[300px] overflow-clip shrink-0'>
           <Group key='background'>
             <img
               src={data.image[0]}
@@ -49,7 +50,7 @@ export const ExploreCard = ({ data }: { data: any }) => {
                   initial='initial'
                   className='absolute inset-0 w-full h-full flex items-center justify-center bg-[#1D1D1D]/[70%] rounded-t-[3px]'
                 >
-                  <button className='bg-[#1D1D1D] rounded-full p-[5px] flex items-center gap-x-[9px] text-xs text-white font-semibold p-3'>
+                  <button className='bg-[#1D1D1D] rounded-full flex items-center gap-x-[9px] text-xs text-white font-semibold p-3'>
                     <span>Add to cart</span>
                   </button>
                 </motion.div>
@@ -59,8 +60,13 @@ export const ExploreCard = ({ data }: { data: any }) => {
         </div>
       </Group>
 
-      <div className='flex items-center justify-between w-full mt-5'>
-        <span>{data.name}</span>
+      <div className='flex flex-col justify-between w-full mt-5'>
+        <span className='flex items-center w-full justify-between'>
+          <Link className='hover:underline' to={data.id.toString()}>
+            {data.name}
+          </Link>
+          <span className='text-black/50 text-xs'>0 reviews</span>
+        </span>
         <span className='text-black/70'>N{data.amount}</span>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { AppLayout } from '../layouts';
-import { AboutUsPage, ShopPage } from '../pages';
+import { AboutUsPage, ProductPage, ShopPage } from '../pages';
 import { HomePage } from '../pages/Home';
 
 export const AppRoutes = [
@@ -9,8 +9,14 @@ export const AppRoutes = [
     element: <AppLayout />,
     children: [
       { index: true, element: <HomePage />, errorElement: '' },
-      { path: '/about-us', element: <AboutUsPage />, errorElement: '' },
-      { path: '/shop', element: <ShopPage />, errorElement: '' },
+      {
+        exact: true,
+        path: '/about-us',
+        element: <AboutUsPage />,
+        errorElement: '',
+      },
+      { exact: true, path: '/shop', element: <ShopPage />, errorElement: '' },
+      { path: '/shop/:id', element: <ProductPage />, errorElement: '' },
     ],
   },
 ];

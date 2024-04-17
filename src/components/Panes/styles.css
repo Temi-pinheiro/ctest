@@ -1,0 +1,31 @@
+.pane-conatiner {
+  @apply flex border-b-2 w-full justify-between items-center h-[40px] px-[10px];
+}
+
+.pane {
+  @apply relative pt-[2px] pb-3;
+}
+
+.smooth {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.pane-label {
+  @apply smooth text-2xl text-[#1D1D1D];
+}
+
+.pane-value {
+  @apply text-xs font-bold rounded-xl px-2 py-[2px] smooth;
+}
+
+.pane-value--active {
+  @apply font-semibold bg-[#FCE9EC];
+}
+
+.pane-label--active {
+  @apply font-semibold;
+}
+
+.pane-underline {
+  @apply bg-[#F7A2A1] h-[4px] mx-auto relative -bottom-[7px] z-10;
+}

@@ -29,7 +29,7 @@ export const HomePage = () => {
       'amount': 32000,
     },
     {
-      'id': 7,
+      'id': 12,
       'name': 'VA Small Box of 6',
       'description': 'Product 3 description',
       'quantity': 10,
@@ -71,7 +71,7 @@ export const HomePage = () => {
           </div>
         </div>
       </section>
-      <Group key='explore'>
+      <Group key='restrore'>
         <section className='w-full'>
           <div className='max-w-[1040px] w-full mx-auto flex items-center justify-between py-[120px]'>
             <div className='w-[450px] h-[420px] rounded-lg overflow-clip'>
