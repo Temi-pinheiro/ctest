@@ -29,8 +29,7 @@ jobs:
           server: ftp.livinglagos.com
           username: cowas-care@livinglagos.com
           password: cowascare@123
-          # server-dir: /cowas-care/
-          server-dir: /public_html/
+          server-dir: /cowas-care.livinglagos.com/
           exclude: |
             **/.git**
             **/.git*/**
