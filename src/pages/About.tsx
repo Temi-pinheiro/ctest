@@ -3,20 +3,22 @@ import { Group } from '../components';
 export const AboutUsPage = () => {
   return (
     <div className='flex min-h-screen flex-col pt-20'>
-      <section className='h-screen w-full relative'>
-        <video
-          src='/skin.mp4'
-          autoPlay
-          muted
-          loop
-          controls={false}
-          className='w-full h-full object-cover'
-        />
+      <section className=' w-full relative'>
+        <div className='max-w-[1040px] w-full md:rounded-[24px] mt-14 mx-auto overflow-clip'>
+          <video
+            src='/skin.mp4'
+            autoPlay
+            muted
+            loop
+            controls={false}
+            className='w-full h-full object-cover'
+          />
+        </div>
       </section>
 
       <Group key='story'>
         <section className='w-full'>
-          <div className='max-w-[1040px] w-full mx-auto flex flex-col py-10 md:py-20 max-md:px-6'>
+          <div className='max-w-[1040px] w-full mx-auto flex flex-col gap-y-6 py-10 md:py-20 max-md:px-6'>
             <h2 className='text-2xl md:text-[40px] font-medium text-[#2C2844]'>
               Our Story
             </h2>
@@ -40,7 +42,7 @@ export const AboutUsPage = () => {
       </Group>
       <Group key='mission'>
         <section className='w-full'>
-          <div className='max-w-[1040px] w-full mx-auto flex flex-col py-10 md:py-20 max-md:px-6'>
+          <div className='max-w-[1040px] w-full mx-auto gap-y-6 flex flex-col py-10 md:py-20 max-md:px-6'>
             <h2 className='text-2xl md:text-[40px] font-medium text-[#2C2844]'>
               Our Mission
             </h2>

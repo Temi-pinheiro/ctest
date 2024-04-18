@@ -22,7 +22,7 @@ export const ExploreCard = ({ data }: { data: any }) => {
               className='object-cover w-full h-full'
               alt={data.name}
             />
-            <button className='absolute w-[30px] h-[30px] rounded-full bg-[#F5F5F5] hover:fill-[#F47175] flex items-center justify-center top-3 right-3'>
+            <button className='absolute w-[30px] z-[20] h-[30px] rounded-full bg-[#F5F5F5] hover:fill-[#F47175] flex items-center justify-center top-3 right-3'>
               <svg
                 width='16'
                 height='16'
@@ -62,7 +62,7 @@ export const ExploreCard = ({ data }: { data: any }) => {
 
       <div className='flex flex-col justify-between w-full mt-5'>
         <span className='flex items-center w-full justify-between'>
-          <Link className='hover:underline' to={data.id.toString()}>
+          <Link className='hover:underline' to={`/shop/${data.id.toString()}`}>
             {data.name}
           </Link>
           <span className='text-black/50 text-xs'>0 reviews</span>

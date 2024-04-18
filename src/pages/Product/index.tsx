@@ -82,7 +82,7 @@ export const ProductPage = () => {
                     fill='none'
                     xmlns='http://www.w3.org/2000/svg'
                   >
-                    <circle cx='4' cy='4.69434' r='4' fill='#2C2844' />
+                    <circle cx='4' cy='4.69434' r='4' fill='#EABEAF' />
                   </svg>
                   <span className='text-xl font-medium'>N{product.amount}</span>
                 </div>
@@ -91,16 +91,16 @@ export const ProductPage = () => {
                   nisi eu lectus imperdiet quis ac urna. Orci lobortis nulla
                   ultricies proin morbi blandit vulputate ultrices aliquet.
                 </p>
-                <button className='text-xl text-white bg-[#2C2844] mt-12 py-3 rounded-md'>
+                <button className='text-xl text-white bg-[#EABEAF] mt-12 py-3 rounded-md font-medium'>
                   Add to Bag
                 </button>
                 <div className='mt-12 flex items-center w-full justify-between'>
                   <Group key='quantity'>
-                    <div className='flex items-center justify-between w-[35%] rounded-lg h-[50px] border border-[#1D1D1D] '>
+                    <div className='flex items-center justify-between w-[35%] rounded-lg h-[50px] border border-[#1D1D1D]/30 '>
                       <button
                         disabled={quantity <= 1}
                         onClick={handleDecrease}
-                        className='w-[42px] h-full flex items-center rounded-l-lg justify-center bg-[#2C2844]/70 disabled:opacity-40'
+                        className='w-[42px] h-full flex items-center rounded-l-lg justify-center bg-[#EABEAF]/70 disabled:opacity-40'
                       >
                         <svg
                           width='16'
@@ -118,7 +118,7 @@ export const ProductPage = () => {
                       <button
                         //   disabled={leftOver <= quantity}
                         onClick={handleIncrease}
-                        className='w-[42px] h-full flex items-center rounded-r-lg justify-center bg-[#2C2844]/70 disabled:opacity-40'
+                        className='w-[42px] h-full flex items-center rounded-r-lg justify-center bg-[#EABEAF]/70 disabled:opacity-40'
                       >
                         <svg
                           width='16'

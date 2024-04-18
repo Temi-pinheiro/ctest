@@ -1,5 +1,12 @@
 import { AppLayout } from '../layouts';
-import { AboutUsPage, ProductPage, ShopPage } from '../pages';
+import {
+  AboutUsPage,
+  PrivacyPolicyPage,
+  ProductPage,
+  ReturnsPolicyPage,
+  ShopPage,
+  TermsPage,
+} from '../pages';
 import { HomePage } from '../pages/Home';
 
 export const AppRoutes = [
@@ -17,6 +24,13 @@ export const AppRoutes = [
       },
       { exact: true, path: '/shop', element: <ShopPage />, errorElement: '' },
       { path: '/shop/:id', element: <ProductPage />, errorElement: '' },
+      { path: '/terms', element: <TermsPage />, errorElement: '' },
+      {
+        path: '/privacy-policy',
+        element: <PrivacyPolicyPage />,
+        errorElement: '',
+      },
+      { path: '/returns', element: <ReturnsPolicyPage />, errorElement: '' },
     ],
   },
 ];

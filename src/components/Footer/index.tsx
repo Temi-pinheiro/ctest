@@ -15,7 +15,7 @@ export const Footer = () => {
               {' '}
               <div className='flex flex-col'>
                 <img
-                  src='/footerlogo.png'
+                  src='/cowas.svg'
                   alt='footer logo'
                   className='max-w-[176px]'
                 />
@@ -110,13 +110,13 @@ export const Footer = () => {
                       </li>
 
                       <li>
-                        <Link to='/resources'>Terms of Use</Link>
+                        <Link to='/terms'>Terms of Use</Link>
                       </li>
                       <li>
-                        <Link to='/careers'>Returns Policy</Link>
+                        <Link to='/returns'>Returns Policy</Link>
                       </li>
                       <li>
-                        <Link to='/careers'>Privacy Policy</Link>
+                        <Link to='/privacy-policy'>Privacy Policy</Link>
                       </li>
                     </ul>
                   </div>

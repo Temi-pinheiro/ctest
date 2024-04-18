@@ -59,9 +59,12 @@ export const HomePage = () => {
               maintain your secret garden with advanced scientific formulas.
               Giving you a touch of fresh and confident feeling
             </p>
-            <button className='mt-9 block border border-white py-3 rounded-lg px-6 w-fit font-medium text-white'>
+            <a
+              href='/shop'
+              className='mt-9 block border border-white py-3 rounded-lg px-6 w-fit font-medium text-white'
+            >
               Shop Now
-            </button>
+            </a>
           </div>
           <div className='mt-auto  flex items-center gap-x-10'>
             <span className='w-3 md:w-[90px] h-3 border border-white bg-white rounded-full'></span>
@@ -106,7 +109,10 @@ export const HomePage = () => {
                 ))}
               </div>
 
-              <a className='block mt-4 bg-[#e4b3a3] py-3 rounded-lg px-6 w-fit font-medium text-white'>
+              <a
+                href='/shop'
+                className='block mt-4 bg-[#e4b3a3] py-3 rounded-lg px-6 w-fit font-medium text-white'
+              >
                 See more
               </a>
             </div>
@@ -133,9 +139,12 @@ export const HomePage = () => {
                 out.
               </p>
 
-              <button className="mt-9 block border border-white py-3 rounded-lg px-6 w-fit font-medium'">
+              <a
+                href='/shop'
+                className="mt-9 block border border-white py-3 rounded-lg px-6 w-fit font-medium'"
+              >
                 Explore All
-              </button>
+              </a>
             </div>
           </div>
         </section>
@@ -292,7 +301,10 @@ export const HomePage = () => {
                 collection now and discover the secret to keeping your intimate
                 area radiant and healthy.
               </p>
-              <a className='mt-9 block bg-[#EABEAF] py-3 rounded-lg px-6 w-fit font-medium max-md:mx-auto'>
+              <a
+                href='/shop'
+                className='mt-9 block bg-[#EABEAF] py-3 rounded-lg px-6 w-fit font-medium max-md:mx-auto'
+              >
                 Shop Now
               </a>
             </div>
