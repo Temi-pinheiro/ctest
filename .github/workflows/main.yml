@@ -27,7 +27,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ftp.livinglagos.com
-          username: cowas-care@livinglagos.com
+          username: cowas-care@cowas.livinglagos.com
           password: cowascare@123
           server-dir: /cowas.livinglagos.com/
           exclude: |
