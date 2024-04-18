@@ -12,7 +12,7 @@ export const MobileNav = () => {
   }, [pathname]);
   return (
     <div className='fr:hidden overflow-y-clip'>
-      <div className='fixed bg-[#fff] p-4 text-black h-[72px] z-[22] flex items-center justify-between inset-0 w-full'>
+      <div className='fixed bg-[#fff] p-4 text-black h-[72px] z-[22] flex items-center justify-between inset-0 w-full border-b'>
         <Link to='/'>
           <img src='/cowas.svg' />
         </Link>
