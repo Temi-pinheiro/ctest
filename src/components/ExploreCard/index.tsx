@@ -4,9 +4,21 @@ import { useState } from 'react';
 import { Group } from '../Group';
 import { fadeIn } from '../../constants/framer';
 import { Link } from 'react-router-dom';
+import { useCart } from '../../providers';
 
 export const ExploreCard = ({ data }: { data: any }) => {
   const [showAdd, setShowAdd] = useState(false);
+  const { addItemtoWishlist } = useCart();
+
+  const handleAdd = () => {
+    addItemtoWishlist({
+      available: true,
+      description: data.description,
+      id: data.id,
+      name: data.name,
+      price: data.amount,
+    });
+  };
 
   return (
     <div
@@ -22,7 +34,10 @@ export const ExploreCard = ({ data }: { data: any }) => {
               className='object-cover w-full h-full'
               alt={data.name}
             />
-            <button className='absolute w-[30px] z-[20] h-[30px] rounded-full bg-[#F5F5F5] hover:fill-[#F47175] flex items-center justify-center top-3 right-3'>
+            <button
+              onClick={handleAdd}
+              className='absolute w-[30px] z-[20] h-[30px] rounded-full bg-[#F5F5F5] hover:fill-[#F47175] flex items-center justify-center top-3 right-3'
+            >
               <svg
                 width='16'
                 height='16'

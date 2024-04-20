@@ -1,27 +1,27 @@
 type Cart = {
   items: {
     id: string;
-    deliveryDate: string;
-    vendor: { name: string; picture: string };
-    meal: {
-      id: number;
-      quantity: number;
-      price: number;
-      name: string;
-      description: string;
-      picture: string;
-      additives: { name: string; price: number }[];
-    };
-    price?: number;
+    name: string;
+    description: string;
+    quantity: number;
+    price: number;
+  }[];
+  wishList: {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    available: boolean;
   }[];
   totalPrice: number;
 };
 
 type CartHooks = {
   cart: Cart;
-  removeItem: (id: string, price: number) => void;
+  removeItemFromCart: (id: string, price: number) => void;
+  removeItemFromWishlist: (id: string) => void;
   increaseQuantity: (id: string) => void;
   reduceQuantity: (id: string) => void;
-  addItem: (v: Cart['items'][0]) => void;
-  getDeliveryFee: () => number;
+  addItemToCart: (v: Cart['items'][0]) => void;
+  addItemtoWishlist: (v: Cart['wishList'][0]) => void;
 };

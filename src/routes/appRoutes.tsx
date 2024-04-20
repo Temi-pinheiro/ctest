@@ -1,11 +1,13 @@
 import { AppLayout } from '../layouts';
 import {
   AboutUsPage,
+  BagPage,
   PrivacyPolicyPage,
   ProductPage,
   ReturnsPolicyPage,
   ShopPage,
   TermsPage,
+  WishlistPage,
 } from '../pages';
 import { HomePage } from '../pages/Home';
 
@@ -31,6 +33,8 @@ export const AppRoutes = [
         errorElement: '',
       },
       { path: '/returns', element: <ReturnsPolicyPage />, errorElement: '' },
+      { path: '/bag', element: <BagPage />, errorElement: '' },
+      { path: '/wishlist', element: <WishlistPage />, errorElement: '' },
     ],
   },
 ];
