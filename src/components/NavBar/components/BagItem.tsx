@@ -39,7 +39,7 @@ export const BagItem = ({ item }: { item: Cart['items'][0] }) => {
               </svg>
             </button>
             <button
-              onClick={() => removeItemFromCart.remove(item.itemId)}
+              onClick={() => removeItemFromCart.remove(item.itemId, item.price)}
               disabled={removeItemFromCart.removing(item.itemId)}
               className='flex items-center justify-center rounded-full bg-[#EDEDED] w-[26px] h-[26px] '
             >

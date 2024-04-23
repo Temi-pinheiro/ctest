@@ -1,5 +1,5 @@
 .btn {
-  @apply p-[10px] text-sm font-medium transition-all duration-200 ease-in-out;
+  @apply p-3 text-sm font-medium transition-all duration-200 ease-in-out;
 }
 
 .btn svg,

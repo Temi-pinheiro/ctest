@@ -14,7 +14,7 @@ export const ErrorPage = () => {
           <span className='text-black/70'>
             {error.status == 404
               ? 'The page you are looking for does not exist'
-              : error.error.message}
+              : error?.error?.message || 'An error has occured'}
           </span>
         </div>
         <Link

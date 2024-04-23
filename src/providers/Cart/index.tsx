@@ -13,8 +13,7 @@ import { addToCart, removeFromCart } from '../../mutations/cartMutations';
 const CartContext = createContext<any>({});
 
 const storedCart: Cart = JSON.parse(
-  localStorage.getItem('cart') ||
-    JSON.stringify({ items: [], totalPrice: 0, wishList: [] })
+  localStorage.getItem('cowas_cart') || JSON.stringify({ items: [], bill: 0 })
 );
 // Create a custom hook to use the cart context
 // eslint-disable-next-line react-refresh/only-export-components
@@ -23,6 +22,7 @@ export const useCart = () => {
 };
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated } = useAuth();
+  console.log({ isAuthenticated });
   const [cart, setCart] = useState<Cart>({ ...storedCart });
   const [addingId, setAddingId] = useState();
   const [removingId, setRemovingId] = useState();
@@ -31,7 +31,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     queryKey: ['cart'],
     queryFn: async () => {
       const data = await getCart();
-      setCart(data.cart);
+      setCart(data.cart ?? []);
       return data;
     },
     ...{
@@ -66,7 +66,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     } else {
       setCart((prevCart) => ({
         ...prevCart,
-        items: prevCart.items.filter((item) => item.itemId.toString() !== id),
+        items: prevCart.items?.filter((item) => item.itemId.toString() !== id),
         totalPrice: Number(prevCart.bill) - price,
       }));
       updateStore();

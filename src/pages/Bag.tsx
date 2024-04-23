@@ -69,7 +69,7 @@ export const BagPage = () => {
         ) : (
           <Group key='empty wishlist'>
             <div className='w-full flex flex-col items-center justify-center max-md:pb-[96px] pt-[96px]'>
-              <img src='/emptywishlist.svg' alt='empty wishlist' />
+              <img src='/emptycart.svg' alt='empty wishlist' />
               <div className='mt-10 md:mt-[72px] flex flex-col items-center gap-y-5 text-center'>
                 <h2 className='text-xl'>Your bag is empty</h2>
                 <span className='text-black/70'>

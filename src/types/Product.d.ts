@@ -4,6 +4,6 @@ type Product = {
   quantity: number;
   image: string[];
   amount: number;
-  description: string;
-  createdAt: string;
+  description?: string;
+  createdAt?: string;
 };

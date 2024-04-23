@@ -65,10 +65,10 @@ export const ExploreCard = ({ data }: { data: Product }) => {
                 >
                   <button
                     onClick={handleAdd}
-                    disabled={addItemtoCart.adding}
+                    disabled={addItemtoCart.adding(data.id)}
                     className='bg-[#1D1D1D] rounded-full flex items-center gap-x-[9px] text-xs text-white font-semibold p-3'
                   >
-                    {addItemtoCart.adding ? (
+                    {addItemtoCart.adding(data.id) ? (
                       <Loader />
                     ) : (
                       <span>Add to cart</span>

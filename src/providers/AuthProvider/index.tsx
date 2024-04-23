@@ -34,7 +34,7 @@ export const useAuth = () => {
     setIsAuthenticated: (v: boolean) => void;
   }>(AuthContext);
 };
-const token = JSON.parse(localStorage.getItem('cowas_token') || '');
+const token = JSON.parse(localStorage.getItem('cowas_token') || 'null');
 const storedUser = JSON.parse(localStorage.getItem('cowas_user') || '{}');
 
 export const AuthProvider = ({ children }: AuthProvider) => {

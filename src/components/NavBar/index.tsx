@@ -5,6 +5,7 @@ import { CurrencySelector } from './components/CurrencySelector';
 import { openModal, useAuth } from '../../providers';
 import { AuthModal } from '../../actions/auth/Auth';
 import { Bag } from './components/Bag';
+import { SignupModal } from '../../actions';
 
 export const NavBar = () => {
   const popup = openModal();
@@ -71,12 +72,20 @@ export const NavBar = () => {
           </Link>
           <Bag />
           {!isAuthenticated ? (
-            <button
-              onClick={() => popup({ component: <AuthModal /> })}
-              className='rounded-lg bg-[#EABEAF] py-2 px-6 font-medium text-white text-base'
-            >
-              Login
-            </button>
+            <div className='flex items-center gap-x-3'>
+              <button
+                onClick={() => popup({ component: <AuthModal /> })}
+                className='rounded-lg bg-[#EABEAF] py-2 px-6 font-medium text-white text-base'
+              >
+                Login
+              </button>
+              <button
+                onClick={() => popup({ component: <SignupModal /> })}
+                className='rounded-lg text-[#2C2844] border-[#2C2844] border py-2 px-6 font-medium  text-base'
+              >
+                Sign Up
+              </button>
+            </div>
           ) : (
             <button
               onClick={handleLogout}

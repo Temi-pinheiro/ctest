@@ -20,8 +20,8 @@ export const AuthModal = ({ close }: { close?: () => void }) => {
       setUser(data.user);
       close?.();
     },
-    throwOnError(err: { data: { message: string } }) {
-      console.error(err);
+    throwOnError() {
+      toast.error('problem with auth');
       return false;
     },
   });
@@ -30,9 +30,25 @@ export const AuthModal = ({ close }: { close?: () => void }) => {
   };
   return (
     <div className='p-8 flex flex-col items-center gap-y-8 '>
-      <h3 className='text-2xl font-medium'>Log in</h3>
+      <header className='w-full flex items-center justify-between'>
+        <h3 className='text-lg font-medium'>LOG IN</h3>
+        <button onClick={close}>
+          <svg
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+            fill='none'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <path
+              d='M13.0664 12L21.1523 20.0977L20.0977 21.1523L12 13.0664L3.90234 21.1523L2.84766 20.0977L10.9336 12L2.84766 3.90234L3.90234 2.84766L12 10.9336L20.0977 2.84766L21.1523 3.90234L13.0664 12Z'
+              fill='black'
+            />
+          </svg>
+        </button>
+      </header>
 
-      <div className='flex flex-col gap-y-3'>
+      <div className='flex flex-col gap-y-6 w-full'>
         <TextInput
           name='email'
           type='email'

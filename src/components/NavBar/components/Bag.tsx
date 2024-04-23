@@ -84,11 +84,29 @@ export const Bag = () => {
 
             {cart.items.length < 1 ? (
               <Group key='empty'>
-                <div className='w-full h-[300px] flex flex-col items-center justify-center'>
-                  <h5 className='text-lg font-medium'>Cart Empty</h5>
-                  <span className='text-sm text-[#BDBDBD]'>
-                    Please add items to view them here
-                  </span>
+                <div className='w-full h-[300px] flex flex-col px-10 items-center justify-center'>
+                  <img
+                    src='/emptycart.svg'
+                    alt='empty wishlist'
+                    className='w-[30%]'
+                  />
+                  <div className='mt-10 flex flex-col items-center gap-y-5 text-center'>
+                    <h2 className='text-xl'>Your bag is empty</h2>
+                  </div>
+                  <div className='flex flex-col gap-y-5 items-center mt-10 w-full'>
+                    <Link
+                      className='py-3 w-full block text-center rounded-lg border border-transparent bg-[#EABEAF] text-white'
+                      to='/checkout'
+                    >
+                      Go to Checkout
+                    </Link>
+                    <Link
+                      className='py-3 w-full block text-center rounded-lg border border-[#2C2844] text-[#2C2844]'
+                      to='/bag'
+                    >
+                      View Bag
+                    </Link>
+                  </div>
                 </div>
               </Group>
             ) : (

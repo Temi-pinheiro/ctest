@@ -34,14 +34,14 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const mode = primary
-    ? ' bg-[#35B9E9] text-white duration-200 transition disabled:bg-[#F1F1F4] disabled:text-[#CDD0D5]'
+    ? ' bg-[#EABEAF] text-white duration-200 transition disabled:bg-[#F1F1F4] disabled:text-[#CDD0D5]'
     : danger
     ? 'bg-white text-[#DF1C41] border border-[#DF1C41] hover:bg-[#DF1C41] hover:text-white hover:shadow-none duration-200 transition  '
     : yellow
     ? 'bg-white text-[#263238] bg-[#F9CF1C] duration-200 transition  '
     : mono
     ? 'bg-white border border-[#E2E4E9] text-[#525866] duration-200 transition   '
-    : ' bg-[#35B9E9] text-white duration-200 transition disabled:bg-[#F1F1F4]/60 disabled:text-[#CDD0D5]';
+    : ' bg-[#EABEAF] text-white duration-200 transition disabled:bg-[#F1F1F4]/60 disabled:text-[#CDD0D5]';
 
   return (
     <button
@@ -49,7 +49,7 @@ export const Button = ({
       className={[
         'btn',
         `${mode}`,
-        ` rounded-xl`,
+        ` rounded-md`,
         icon ? 'flex items-center gap-x-3' : '',
       ].join(' ')}
       disabled={disabled || loading}
