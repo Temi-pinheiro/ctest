@@ -7,3 +7,4 @@ export * from './Returns';
 export * from './Terms';
 export * from './Bag';
 export * from './Wishlist';
+export * from './Error';

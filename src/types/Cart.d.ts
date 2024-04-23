@@ -1,27 +1,39 @@
 type Cart = {
+  bill: string;
+  createdAt: string;
+  id: number;
   items: {
-    id: string;
+    itemId: number;
     name: string;
-    description: string;
+    image: string[];
     quantity: number;
     price: number;
   }[];
-  wishList: {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    available: boolean;
-  }[];
-  totalPrice: number;
+  unique_id: null;
+  updatedAt: string;
+  user_id: number;
 };
 
 type CartHooks = {
   cart: Cart;
-  removeItemFromCart: (id: string, price: number) => void;
-  removeItemFromWishlist: (id: string) => void;
+  removeItemFromCart: {
+    remove: (id: number) => void;
+    removing: (id: number) => boolean;
+  };
+  addItemtoCart: {
+    add: (
+      data:
+        | { itemId: number; quantity: number }
+        | {
+            itemId: number;
+            name: string;
+            image: string[];
+            quantity: number;
+            price: number;
+          }
+    ) => void;
+    adding: (id: number) => boolean;
+  };
   increaseQuantity: (id: string) => void;
   reduceQuantity: (id: string) => void;
-  addItemToCart: (v: Cart['items'][0]) => void;
-  addItemtoWishlist: (v: Cart['wishList'][0]) => void;
 };

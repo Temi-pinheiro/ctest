@@ -1,0 +1,8 @@
+.btn {
+  @apply p-[10px] text-sm font-medium transition-all duration-200 ease-in-out;
+}
+
+.btn svg,
+.btn img {
+  @apply shrink-0;
+}

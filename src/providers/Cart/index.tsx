@@ -4,6 +4,11 @@
 'use client';
 
 import { createContext, ReactNode, useContext, useState } from 'react';
+import { useAuth } from '../AuthProvider';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { getCart } from '../../queries/cartQueries';
+import { addToCart, removeFromCart } from '../../mutations/cartMutations';
 //Define the context
 const CartContext = createContext<any>({});
 
@@ -17,44 +22,105 @@ export const useCart = () => {
   return useContext<CartHooks>(CartContext);
 };
 export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const { isAuthenticated } = useAuth();
   const [cart, setCart] = useState<Cart>({ ...storedCart });
+  const [addingId, setAddingId] = useState();
+  const [removingId, setRemovingId] = useState();
+  const { refetch } = useQuery<any>({
+    enabled: isAuthenticated,
+    queryKey: ['cart'],
+    queryFn: async () => {
+      const data = await getCart();
+      setCart(data.cart);
+      return data;
+    },
+    ...{
+      throwOnError() {
+        toast.error('problem with cart');
+        return false;
+      },
+    },
+  });
+  const { mutate: removeItemFromCart, isPending: removing } = useMutation<
+    any,
+    any,
+    string,
+    unknown
+  >({
+    mutationFn: (id) => removeFromCart(id),
+    ...{
+      onSuccess() {
+        refetch();
+      },
+      throwOnError() {
+        toast.error('problem with removing');
+
+        return false;
+      },
+    },
+  });
+  const remove = (id: any, price: number) => {
+    if (isAuthenticated) {
+      setRemovingId(id);
+      removeItemFromCart(id);
+    } else {
+      setCart((prevCart) => ({
+        ...prevCart,
+        items: prevCart.items.filter((item) => item.itemId.toString() !== id),
+        totalPrice: Number(prevCart.bill) - price,
+      }));
+      updateStore();
+    }
+  };
+  const { mutate: addItemtoCart, isPending: adding } = useMutation<
+    any,
+    any,
+    string,
+    unknown
+  >({
+    mutationFn: (data: any) => addToCart(data),
+    ...{
+      onSuccess() {
+        refetch();
+      },
+      throwOnError(err) {
+        console.log(err);
+        toast.error('problem with adding');
+        return false;
+      },
+    },
+  });
+
+  const add = (data: any) => {
+    if (isAuthenticated) {
+      setAddingId(data.itemId);
+      addItemtoCart(data);
+    } else {
+      setCart((prev) => ({
+        ...prev,
+        items: [...prev.items, { ...data }],
+        totalPrice: data.price + prev.bill,
+      }));
+      updateStore();
+    }
+  };
 
   const updateStore = () => {
+    if (isAuthenticated) return;
     localStorage.setItem('cc_cart', JSON.stringify({ ...cart }));
   };
 
   // Function to set total
-  const getCartTotal = (price: number) => (cart.totalPrice + price).toFixed(2);
-
-  // Function to remove item from cart
-  const removeItemFromCart = (itemId: string, price: number) => {
-    setCart((prevCart) => ({
-      ...prevCart,
-      items: prevCart.items.filter(
-        (item: { id: string }) => item.id !== itemId
-      ),
-      totalPrice: prevCart.totalPrice - price,
-    }));
-    updateStore();
-  };
+  const getCartTotal = (price: number) =>
+    (Number(cart.bill) + price).toFixed(2);
 
   // Function to remove item from wishlist
-
-  const removeItemFromWishlist = (itemId: string) => {
-    setCart((prevCart) => ({
-      ...prevCart,
-      wishList: prevCart.wishList.filter(
-        (item: { id: string }) => item.id !== itemId
-      ),
-    }));
-    updateStore();
-  };
 
   // Function to increase quantity of an item in cart
 
   const increaseQuantity = (itemId: string) => {
     const [item] = cart.items.filter(
-      (item: { id: string }) => item.id == itemId
+      (item) => item.itemId.toString() == itemId
     );
     const items = cart.items;
     const indexOf = cart.items.indexOf(item);
@@ -74,9 +140,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const reduceQuantity = (itemId: string) => {
     const [item] = cart.items.filter(
-      (item: { id: string }) => item.id == itemId
+      (item) => item.itemId.toString() == itemId
     );
-    if (item.quantity <= 1) return removeItemFromCart(itemId, item.price);
+    // if (item.quantity <= 1) return removeItemFromCart(itemId);
     const items = cart.items;
     const indexOf = cart.items.indexOf(item);
     item.quantity = --item.quantity;
@@ -93,35 +159,29 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   // Function to add item to cart
 
-  const addItemToCart = (cartItem: Cart['items'][0]) => {
-    setCart((prev) => ({
-      ...prev,
-      items: [...prev.items, { ...cartItem }],
-      totalPrice: cartItem.price + prev.totalPrice,
-    }));
-    updateStore();
-  };
-
+  // const addItemToCart = (cartItem: Cart['items'][0]) => {
+  //   setCart((prev) => ({
+  //     ...prev,
+  //     items: [...prev.items, { ...cartItem }],
+  //     totalPrice: cartItem.price + prev.bill,
+  //   }));
+  //   updateStore();
+  // };
   // Function to add item to wishlist
-
-  const addItemtoWishlist = (wishListItem: Cart['wishList'][0]) => {
-    console.log({ cart });
-    setCart((prev) => ({
-      ...prev,
-      wishList: [...prev.wishList, { ...wishListItem }],
-    }));
-    updateStore();
-  };
 
   // Provide the cart state and functions through the context
   const cartContextValue = {
     cart,
-    removeItemFromCart,
-    removeItemFromWishlist,
+    removeItemFromCart: {
+      remove,
+      removing: (id: number) => id == removingId && removing,
+    },
+    addItemtoCart: {
+      add,
+      adding: (id: number) => id == addingId && adding,
+    },
     increaseQuantity,
     reduceQuantity,
-    addItemtoWishlist,
-    addItemToCart,
   };
   return (
     <CartContext.Provider value={cartContextValue}>

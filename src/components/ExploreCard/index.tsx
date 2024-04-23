@@ -4,20 +4,17 @@ import { useState } from 'react';
 import { Group } from '../Group';
 import { fadeIn } from '../../constants/framer';
 import { Link } from 'react-router-dom';
+import { getFullMoney } from '../../utils/FormatAmount';
 import { useCart } from '../../providers';
+import Loader from '../Loader';
 
-export const ExploreCard = ({ data }: { data: any }) => {
+export const ExploreCard = ({ data }: { data: Product }) => {
   const [showAdd, setShowAdd] = useState(false);
-  const { addItemtoWishlist } = useCart();
+  const { addItemtoCart } = useCart();
 
   const handleAdd = () => {
-    addItemtoWishlist({
-      available: true,
-      description: data.description,
-      id: data.id,
-      name: data.name,
-      price: data.amount,
-    });
+    console.log('adding');
+    addItemtoCart.add({ itemId: data.id, quantity: 1 });
   };
 
   return (
@@ -30,12 +27,13 @@ export const ExploreCard = ({ data }: { data: any }) => {
         <div className='relative rounded-lg h-[300px] overflow-clip shrink-0'>
           <Group key='background'>
             <img
-              src={data.image[0]}
+              // src={data.image[0]}
+              src='https://plus.unsplash.com/premium_photo-1661597206779-b6643eac8213?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
               className='object-cover w-full h-full'
               alt={data.name}
             />
             <button
-              onClick={handleAdd}
+              // onClick={() => handleAdd()}
               className='absolute w-[30px] z-[20] h-[30px] rounded-full bg-[#F5F5F5] hover:fill-[#F47175] flex items-center justify-center top-3 right-3'
             >
               <svg
@@ -65,8 +63,16 @@ export const ExploreCard = ({ data }: { data: any }) => {
                   initial='initial'
                   className='absolute inset-0 w-full h-full flex items-center justify-center bg-[#1D1D1D]/[70%] rounded-t-[3px]'
                 >
-                  <button className='bg-[#1D1D1D] rounded-full flex items-center gap-x-[9px] text-xs text-white font-semibold p-3'>
-                    <span>Add to cart</span>
+                  <button
+                    onClick={handleAdd}
+                    disabled={addItemtoCart.adding}
+                    className='bg-[#1D1D1D] rounded-full flex items-center gap-x-[9px] text-xs text-white font-semibold p-3'
+                  >
+                    {addItemtoCart.adding ? (
+                      <Loader />
+                    ) : (
+                      <span>Add to cart</span>
+                    )}
                   </button>
                 </motion.div>
               ) : null}
@@ -82,7 +88,7 @@ export const ExploreCard = ({ data }: { data: any }) => {
           </Link>
           <span className='text-black/50 text-xs'>0 reviews</span>
         </span>
-        <span className='text-black/70'>N{data.amount}</span>
+        <span className='text-black/70'>{getFullMoney(data.amount)}</span>
       </div>
     </div>
   );

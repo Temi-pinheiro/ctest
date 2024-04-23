@@ -99,8 +99,8 @@ export const MobileNavLink = ({
                         <path
                           d='M2 4L2 24'
                           stroke='#00AEEF'
-                          stroke-width='8'
-                          stroke-linecap='round'
+                          strokeWidth='8'
+                          strokeLinecap='round'
                         />
                       </svg>
                     </span>

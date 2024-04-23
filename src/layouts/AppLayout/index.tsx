@@ -2,6 +2,7 @@ import { useLayoutEffect } from 'react';
 import { Footer, MobileNav, NavBar, ScrollingNav } from '../../components';
 import { MobileFooter } from '../../components/Footer/mobile';
 import { Outlet } from 'react-router-dom';
+import ModalProvider from '../../providers/ModalProvider';
 
 export const AppLayout = () => {
   useLayoutEffect(() => {
@@ -13,16 +14,18 @@ export const AppLayout = () => {
   }, []);
   return (
     <div className='w-full h-full'>
-      <nav className='relative'>
-        <MobileNav />
-        <NavBar />
-        <ScrollingNav />
-      </nav>
-      <main id='main'>
-        <Outlet />
-      </main>
-      <MobileFooter />
-      <Footer />
+      <ModalProvider>
+        <nav className='relative'>
+          <MobileNav />
+          <NavBar />
+          <ScrollingNav />
+        </nav>
+        <main id='main'>
+          <Outlet />
+        </main>
+        <MobileFooter />
+        <Footer />
+      </ModalProvider>
     </div>
   );
 };

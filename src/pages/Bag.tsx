@@ -34,37 +34,7 @@ export const BagPage = () => {
             </span>
           </button>
         </Group>
-        {/* <Group key='with items'>
-          <section aria-label='item section' className='  mt-10 md:mt-12'>
-            <table className='hidden md:table w-full' cellPadding={16}>
-              <thead className='text-[#2C2844] text-2xl font-medium border-b'>
-                <tr>
-                  <th align='left' colSpan={18} className='font-medium w-[40%]'>
-                    Product
-                  </th>
-                  <th align='right' className='font-medium'>
-                    Price
-                  </th>
-                  <th align='center' className='font-medium'>
-                    Quantity
-                  </th>
-                  <th align='right' className='font-medium'>
-                    Subtotal
-                  </th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-            <div className='w-full mt-[120px] flex items-center justify-center gap-x-10'>
-              <button className='rounded border bg-[] px-[30px] py-[15px] text-xl font-medium text-[#2C2844] border-[#2C2844]'>
-                Remove All
-              </button>
-              <button className='rounded border bg-[#EABEAF] px-[30px] py-[15px] text-xl font-medium text-[#fff] border-transparent'>
-                Add All to Bag
-              </button>
-            </div>
-          </section>
-        </Group> */}
+
         {cart.items?.length > 0 ? (
           <Group key='with items'>
             <section

@@ -2,6 +2,7 @@ import { AppLayout } from '../layouts';
 import {
   AboutUsPage,
   BagPage,
+  ErrorPage,
   PrivacyPolicyPage,
   ProductPage,
   ReturnsPolicyPage,
@@ -14,27 +15,44 @@ import { HomePage } from '../pages/Home';
 export const AppRoutes = [
   {
     path: '/',
-    errorElement: '',
+    errorElement: <ErrorPage />,
     element: <AppLayout />,
     children: [
-      { index: true, element: <HomePage />, errorElement: '' },
+      { index: true, element: <HomePage />, errorElement: <ErrorPage /> },
       {
         exact: true,
         path: '/about-us',
         element: <AboutUsPage />,
-        errorElement: '',
+        errorElement: <ErrorPage />,
       },
-      { exact: true, path: '/shop', element: <ShopPage />, errorElement: '' },
-      { path: '/shop/:id', element: <ProductPage />, errorElement: '' },
-      { path: '/terms', element: <TermsPage />, errorElement: '' },
+      {
+        exact: true,
+        path: '/shop',
+        element: <ShopPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: '/shop/:id',
+        element: <ProductPage />,
+        errorElement: <ErrorPage />,
+      },
+      { path: '/terms', element: <TermsPage />, errorElement: <ErrorPage /> },
       {
         path: '/privacy-policy',
         element: <PrivacyPolicyPage />,
-        errorElement: '',
+        errorElement: <ErrorPage />,
       },
-      { path: '/returns', element: <ReturnsPolicyPage />, errorElement: '' },
-      { path: '/bag', element: <BagPage />, errorElement: '' },
-      { path: '/wishlist', element: <WishlistPage />, errorElement: '' },
+      {
+        path: '/returns',
+        element: <ReturnsPolicyPage />,
+        errorElement: <ErrorPage />,
+      },
+      { path: '/bag', element: <BagPage />, errorElement: <ErrorPage /> },
+      {
+        path: '/wishlist',
+        element: <WishlistPage />,
+        errorElement: <ErrorPage />,
+      },
     ],
   },
 ];

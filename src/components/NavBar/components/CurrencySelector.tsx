@@ -20,16 +20,16 @@ export const CurrencySelector = () => {
           fill='none'
           xmlns='http://www.w3.org/2000/svg'
         >
-          <g clip-path='url(#clip0_359_2052)'>
+          <g clipPath='url(#clip0_359_2052)'>
             <path
-              fill-rule='evenodd'
-              clip-rule='evenodd'
+              fillRule='evenodd'
+              clipRule='evenodd'
               d='M0 0H24V18H0V0Z'
               fill='white'
             />
             <path
-              fill-rule='evenodd'
-              clip-rule='evenodd'
+              fillRule='evenodd'
+              clipRule='evenodd'
               d='M15.9975 0H24V18H15.9975V0ZM0 0H7.99875V18H0V0Z'
               fill='#008753'
             />
@@ -53,7 +53,7 @@ export const CurrencySelector = () => {
           fill='none'
           xmlns='http://www.w3.org/2000/svg'
         >
-          <g clip-path='url(#clip0_359_2058)'>
+          <g clipPath='url(#clip0_359_2058)'>
             <path d='M0 0H24V18H0' fill='#BD3D44' />
             <path
               d='M0 2.07422H24H0ZM0 4.83797H24H0ZM0 7.61297H24H0ZM0 10.388H24H0ZM0 13.163H24H0ZM0 15.938H24H0Z'
@@ -62,7 +62,7 @@ export const CurrencySelector = () => {
             <path
               d='M0 2.07422H24M0 4.83797H24M0 7.61297H24M0 10.388H24M0 13.163H24M0 15.938H24'
               stroke='white'
-              stroke-width='1.3875'
+              strokeWidth='1.3875'
             />
             <path d='M0 0H13.68V9.69375H0' fill='#192F5D' />
           </g>
@@ -85,7 +85,7 @@ export const CurrencySelector = () => {
           fill='none'
           xmlns='http://www.w3.org/2000/svg'
         >
-          <g clip-path='url(#clip0_359_2151)'>
+          <g clipPath='url(#clip0_359_2151)'>
             <path d='M0 0H24V18H0V0Z' fill='#012169' />
             <path
               d='M2.8125 0L11.9625 6.7875L21.075 0H24V2.325L15 9.0375L24 15.7125V18H21L12 11.2875L3.0375 18H0V15.75L8.9625 9.075L0 2.4V0H2.8125Z'
@@ -178,9 +178,9 @@ export const CurrencySelector = () => {
                       <path
                         d='M13.3333 4.66699L6.66666 11.3337L3.33333 8.00033'
                         stroke='black'
-                        stroke-width='1.33333'
-                        stroke-linecap='round'
-                        stroke-linejoin='round'
+                        strokeWidth='1.33333'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
                       />
                     </svg>
                   </span>
