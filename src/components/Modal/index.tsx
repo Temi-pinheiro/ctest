@@ -59,7 +59,7 @@ export const Modal = ({
                 initial={{ scaleX: 0.5, opacity: 0 }}
                 animate={{ scaleX: 1, opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className='max-w-[1440px] w-auto'
+                className='max-w-[1440px] max-md:w-full w-auto'
                 layout
               >
                 <div

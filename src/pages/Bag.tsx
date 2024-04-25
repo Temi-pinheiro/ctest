@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Group } from '../components';
 import { useCart } from '../providers';
 
@@ -82,7 +82,7 @@ export const BagPage = () => {
                 to='/shop'
                 className='text-white font-semibold bg-[#EABEAF] rounded block mt-8 px-6 py-3 md:mt-[60px]'
               >
-                Sign in
+                Go shopping
               </Link>
             </div>
           </Group>

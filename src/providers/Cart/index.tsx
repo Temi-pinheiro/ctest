@@ -31,7 +31,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     queryKey: ['cart'],
     queryFn: async () => {
       const data = await getCart();
-      setCart(data.cart ?? []);
+      setCart(data.cart ?? { items: [], bill: 0 });
       return data;
     },
     ...{

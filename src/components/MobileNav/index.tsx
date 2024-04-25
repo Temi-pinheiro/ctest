@@ -4,9 +4,20 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Group } from '..';
 import { Link, useLocation } from 'react-router-dom';
+import { openModal, useAuth, useCart } from '../../providers';
+import { AuthModal, SignupModal } from '../../actions';
 export const MobileNav = () => {
   const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const popup = openModal();
+  const { isAuthenticated, setIsAuthenticated, setUser } = useAuth();
+  const { cart } = useCart();
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setUser({});
+    localStorage.removeItem('cowas_token');
+    localStorage.removeItem('cowas_user');
+  };
   useEffect(() => {
     isOpen && setIsOpen(false);
   }, [pathname]);
@@ -29,7 +40,7 @@ export const MobileNav = () => {
         {isOpen && (
           <motion.div
             layout
-            className='fixed inset-0 w-full max-h-screen bg-[#12213C] h-full bg-opacity-90 text-2xl z-[30] overflow-y-scroll'
+            className='fixed inset-0 w-full h-screen  bg-opacity-90 text-2xl z-[30] overflow-y-scroll'
             initial={{ y: -window.innerHeight, opacity: 0 }}
             transition={{
               type: 'tween',
@@ -39,36 +50,24 @@ export const MobileNav = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -window.innerHeight, opacity: 0 }}
           >
-            <div className='bg-[#fff] relative w-full  overflow-y-scroll'>
+            <div className='bg-[#fff] relative w-full h-full flex flex-col overflow-y-scroll'>
               <Group key='header'>
                 <div className=' bg-[#fff] p-4 text-black h-[72px] z-[30] flex items-center justify-between inset-0 w-full'>
                   <Link to='/'>
                     <img src='/cowas.svg' />
                   </Link>
 
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className='flex items-center py-2 px-4 border border-white gap-x-2 rounded-[80px]'
-                  >
-                    Close
+                  <button onClick={() => setIsOpen(false)}>
                     <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
+                      width='24'
+                      height='24'
+                      viewBox='0 0 24 24'
                       fill='none'
                       xmlns='http://www.w3.org/2000/svg'
                     >
                       <path
-                        d='M0 2.80001C0 2.13727 0.596955 1.60001 1.33333 1.60001H14.6667C15.403 1.60001 16 2.13727 16 2.80001C16 3.46274 15.403 4.00001 14.6667 4.00001H1.33333C0.596953 4.00001 0 3.46274 0 2.80001Z'
-                        fill='white'
-                      />
-                      <path
-                        d='M0 7.99999C0 7.33725 0.596955 6.79999 1.33333 6.79999H9.33333C10.0697 6.79999 10.6667 7.33725 10.6667 7.99999C10.6667 8.66272 10.0697 9.19999 9.33333 9.19999H1.33333C0.596953 9.19999 0 8.66272 0 7.99999Z'
-                        fill='white'
-                      />
-                      <path
-                        d='M0 13.2C0 12.5373 0.596955 12 1.33333 12H14.6667C15.403 12 16 12.5373 16 13.2C16 13.8627 15.403 14.4 14.6667 14.4H1.33333C0.596953 14.4 0 13.8627 0 13.2Z'
-                        fill='white'
+                        d='M13.0664 12L21.1523 20.0977L20.0977 21.1523L12 13.0664L3.90234 21.1523L2.84766 20.0977L10.9336 12L2.84766 3.90234L3.90234 2.84766L12 10.9336L20.0977 2.84766L21.1523 3.90234L13.0664 12Z'
+                        fill='black'
                       />
                     </svg>
                   </button>
@@ -82,24 +81,6 @@ export const MobileNav = () => {
                     style={{ fontWeight: pathname == '/' ? 'bold' : 'normal' }}
                   >
                     Home
-                    {pathname == '/' && (
-                      <span className='absolute left-0 top-[50%] translate-y-[-50%]'>
-                        <svg
-                          width='6'
-                          height='28'
-                          viewBox='0 0 6 28'
-                          fill='none'
-                          xmlns='http://www.w3.org/2000/svg'
-                        >
-                          <path
-                            d='M2 4L2 24'
-                            stroke='#00AEEF'
-                            strokeWidth='8'
-                            strokeLinecap='round'
-                          />
-                        </svg>
-                      </span>
-                    )}
                   </Link>
                   <Link
                     to='/about-us'
@@ -109,24 +90,6 @@ export const MobileNav = () => {
                     }}
                   >
                     About Us
-                    {pathname == '/about-us' && (
-                      <span className='absolute left-0 top-[50%] translate-y-[-50%]'>
-                        <svg
-                          width='6'
-                          height='28'
-                          viewBox='0 0 6 28'
-                          fill='none'
-                          xmlns='http://www.w3.org/2000/svg'
-                        >
-                          <path
-                            d='M2 4L2 24'
-                            stroke='#00AEEF'
-                            strokeWidth='8'
-                            strokeLinecap='round'
-                          />
-                        </svg>
-                      </span>
-                    )}
                   </Link>
                   <Link
                     to='/shop'
@@ -136,37 +99,48 @@ export const MobileNav = () => {
                     }}
                   >
                     Shop
-                    {pathname == '/shop' && (
-                      <span className='absolute left-0 top-[50%] translate-y-[-50%]'>
-                        <svg
-                          width='6'
-                          height='28'
-                          viewBox='0 0 6 28'
-                          fill='none'
-                          xmlns='http://www.w3.org/2000/svg'
-                        >
-                          <path
-                            d='M2 4L2 24'
-                            stroke='#00AEEF'
-                            strokeWidth='8'
-                            strokeLinecap='round'
-                          />
-                        </svg>
-                      </span>
-                    )}
+                  </Link>
+                  <Link
+                    to='/bag'
+                    className='py-4 text-2xl px-4 flex relative items-center gap-x-3'
+                    style={{
+                      fontWeight: pathname == '/shop' ? 'bold' : 'normal',
+                    }}
+                  >
+                    Bag
+                    <span className=' w-8 h-8 rounded-full flex items-center bg-[#EABEAF] text-white font-semibold text-[15px] justify-center'>
+                      {cart.items.length}
+                    </span>
                   </Link>
                 </ul>
               </Group>
-              <Group key='buttons'>
-                <div className='flex items-center justify-between p-5 gap-5 bg-[#9FA6B5]'>
-                  <a className='flex px-5 py-3 rounded-[60px] bg-white text-xl text-slate-800 font-extrabold w-full justify-center'>
-                    Login
-                  </a>
-                  <a className='flex px-5 py-3 rounded-[60px] bg-white text-xl text-slate-800 font-extrabold w-full justify-center'>
-                    Sign Up
-                  </a>
+              {!isAuthenticated ? (
+                <Group key='buttons'>
+                  <div className='flex flex-col items-center mt-auto justify-between p-5 gap-5 bg-[#fff]'>
+                    <button
+                      onClick={() => popup({ component: <AuthModal /> })}
+                      className='flex px-5 py-3 rounded-md bg-[#EABEAF] text-xl text-whitefont-extrabold w-full justify-center'
+                    >
+                      Login
+                    </button>
+                    <button
+                      onClick={() => popup({ component: <SignupModal /> })}
+                      className='flex px-5 py-3 rounded-md bg-[#EABEAF] text-xl text-whitefont-extrabold w-full justify-center'
+                    >
+                      Sign Up
+                    </button>
+                  </div>
+                </Group>
+              ) : (
+                <div className='flex flex-col items-center mt-auto justify-between p-5 gap-5 bg-[#fff]'>
+                  <button
+                    onClick={handleLogout}
+                    className='flex px-5 py-3 rounded-md bg-[#EABEAF] text-xl text-whitefont-extrabold w-full justify-center'
+                  >
+                    Logout
+                  </button>
                 </div>
-              </Group>
+              )}
             </div>
           </motion.div>
         )}
