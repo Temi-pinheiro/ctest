@@ -2,17 +2,19 @@
 import { Link } from 'react-router-dom';
 import { Group } from '../Group';
 import { CurrencySelector } from './components/CurrencySelector';
-import { openModal, useAuth } from '../../providers';
+import { openModal, useAuth, useCart } from '../../providers';
 import { AuthModal } from '../../actions/auth/Auth';
 import { Bag } from './components/Bag';
 import { SignupModal } from '../../actions';
 
 export const NavBar = () => {
   const popup = openModal();
+  const { resetCart } = useCart();
   const { isAuthenticated, setIsAuthenticated, setUser } = useAuth();
   const handleLogout = () => {
     setIsAuthenticated(false);
     setUser({});
+    resetCart();
     localStorage.removeItem('cowas_token');
     localStorage.removeItem('cowas_user');
   };

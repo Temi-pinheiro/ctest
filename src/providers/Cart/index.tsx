@@ -22,10 +22,15 @@ export const useCart = () => {
 };
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated } = useAuth();
-  console.log({ isAuthenticated });
+
   const [cart, setCart] = useState<Cart>({ ...storedCart });
   const [addingId, setAddingId] = useState();
   const [removingId, setRemovingId] = useState();
+  const updateStore = (data: any) => {
+    if (isAuthenticated) return;
+    console.log({ cart });
+    localStorage.setItem('cowas_cart', JSON.stringify({ ...cart, ...data }));
+  };
   const { refetch } = useQuery<any>({
     enabled: isAuthenticated,
     queryKey: ['cart'],
@@ -60,16 +65,22 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     },
   });
   const remove = (id: any, price: number) => {
+    console.log({ id, price });
     if (isAuthenticated) {
       setRemovingId(id);
       removeItemFromCart(id);
     } else {
       setCart((prevCart) => ({
         ...prevCart,
-        items: prevCart.items?.filter((item) => item.itemId.toString() !== id),
-        totalPrice: Number(prevCart.bill) - price,
+        items: prevCart.items?.filter(
+          (item) => item.itemId.toString() !== id.toString()
+        ),
+        bill: (Number(prevCart.bill) - price).toString(),
       }));
-      updateStore();
+      updateStore({
+        items: cart.items?.filter((item) => item.itemId.toString() !== id),
+        bill: Number(cart.bill) - price,
+      });
     }
   };
   const { mutate: addItemtoCart, isPending: adding } = useMutation<
@@ -96,18 +107,24 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       setAddingId(data.itemId);
       addItemtoCart(data);
     } else {
-      setCart((prev) => ({
-        ...prev,
-        items: [...prev.items, { ...data }],
-        totalPrice: data.price + prev.bill,
-      }));
-      updateStore();
+      const [item] = cart.items.filter((i) => i.itemId == data.itemId);
+      if (item) return;
+      try {
+        setCart((prev) => ({
+          ...prev,
+          items: [...prev.items, { ...data }],
+          bill: data.price + prev.bill,
+        }));
+      } catch (e) {
+        console.log(e);
+      }
+      // setTimeout(() => {
+      updateStore({
+        items: [...cart.items, { ...data }],
+        bill: data.price + cart.bill,
+      });
+      // }, 1000);
     }
-  };
-
-  const updateStore = () => {
-    if (isAuthenticated) return;
-    localStorage.setItem('cc_cart', JSON.stringify({ ...cart }));
   };
 
   // Function to set total
@@ -115,6 +132,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     (Number(cart.bill) + price).toFixed(2);
 
   // Function to remove item from wishlist
+
+  const resetCart = () => {
+    setCart({ ...storedCart });
+  };
 
   // Function to increase quantity of an item in cart
 
@@ -131,9 +152,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCart((prevCart: any) => ({
       ...prevCart,
       items: [...items],
-      totalPrice: Number(getCartTotal(item.price)),
+      bill: Number(getCartTotal(item.price)),
     }));
-    updateStore();
+    updateStore({ items: [...items], bill: Number(getCartTotal(item.price)) });
   };
 
   // Function to reduce quantity of an item in  cart
@@ -152,9 +173,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCart((prevCart: any) => ({
       ...prevCart,
       items: [...items],
-      totalPrice: Number(getCartTotal(-item.price)),
+      bill: Number(getCartTotal(-item.price)),
     }));
-    updateStore();
+    updateStore({ items: [...items], bill: Number(getCartTotal(-item.price)) });
   };
 
   // Function to add item to cart
@@ -172,6 +193,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   // Provide the cart state and functions through the context
   const cartContextValue = {
     cart,
+    resetCart,
     removeItemFromCart: {
       remove,
       removing: (id: number) => id == removingId && removing,

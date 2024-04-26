@@ -4,10 +4,14 @@ import { toast } from 'react-hot-toast';
 
 axios.interceptors.request.use(async (request: any): Promise<any> => {
   const token = JSON.parse(localStorage.getItem('cowas_token') || 'null');
-  if (!token && !request?.url?.includes('/auth')) {
+  if (
+    !token &&
+    !request?.url?.includes('/auth') &&
+    !request?.url?.includes('/products')
+  ) {
     // window.location.href = '/';
     console.log('hold on');
-    return;
+    return request;
   }
 
   if (!request.headers?.Authorization && token) {

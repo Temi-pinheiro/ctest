@@ -32,7 +32,10 @@ export const SignupModal = ({ close }: { close?: () => void }) => {
       },
     },
   });
-  const handleSignup = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleSignup = (e: any) => {
+    e.preventDefault();
+    e;
     mutate();
   };
   return (

@@ -16,6 +16,7 @@ type Cart = {
 
 type CartHooks = {
   cart: Cart;
+  resetCart: () => void;
   removeItemFromCart: {
     remove: (id: number, price: number) => void;
     removing: (id: number) => boolean;

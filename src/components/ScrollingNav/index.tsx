@@ -4,6 +4,9 @@ import { AnimatePresence, motion, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useBoundedScroll } from '../../hooks/useBoundedScroll';
 import { CurrencySelector } from '../NavBar/components/CurrencySelector';
+import { openModal, useAuth, useCart } from '../../providers';
+import { Bag } from './components/Bag';
+import { AuthModal, SignupModal } from '../../actions';
 
 export const ScrollingNav = () => {
   const { scrollYBounded, scrollY } = useBoundedScroll(80);
@@ -14,7 +17,16 @@ export const ScrollingNav = () => {
   );
   const toDisplay = useTransform(scrollY, [92, 440], [0, 1]);
   const zIndex = useTransform(scrollY, [92, 440], [0, 33]);
-
+  const popup = openModal();
+  const { resetCart } = useCart();
+  const { isAuthenticated, setIsAuthenticated, setUser } = useAuth();
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setUser({});
+    resetCart();
+    localStorage.removeItem('cowas_token');
+    localStorage.removeItem('cowas_user');
+  };
   return (
     <AnimatePresence initial={false}>
       <motion.div
@@ -78,31 +90,30 @@ export const ScrollingNav = () => {
                   />
                 </svg>
               </Link>
-              <button>
-                <svg
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  xmlns='http://www.w3.org/2000/svg'
+              <Bag />
+              {!isAuthenticated ? (
+                <div className='flex items-center gap-x-3'>
+                  <button
+                    onClick={() => popup({ component: <AuthModal /> })}
+                    className='rounded-lg bg-[#EABEAF] py-2 px-6 font-medium text-white text-base'
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={() => popup({ component: <SignupModal /> })}
+                    className='rounded-lg text-[#2C2844] border-[#2C2844] border py-2 px-6 font-medium  text-base'
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={handleLogout}
+                  className='rounded-lg bg-[#EABEAF] py-2 px-6 font-medium text-white text-base'
                 >
-                  <path
-                    d='M4 9H20L19.165 18.181C19.1198 18.6779 18.8906 19.14 18.5222 19.4766C18.1538 19.8131 17.673 19.9998 17.174 20H6.826C6.32704 19.9998 5.84617 19.8131 5.4778 19.4766C5.10942 19.14 4.88016 18.6779 4.835 18.181L4 9Z'
-                    stroke='black'
-                    strokeWidth='1.5'
-                    strokeLinejoin='round'
-                  />
-                  <path
-                    d='M8 11V8C8 6.93913 8.42143 5.92172 9.17157 5.17157C9.92172 4.42143 10.9391 4 12 4C13.0609 4 14.0783 4.42143 14.8284 5.17157C15.5786 5.92172 16 6.93913 16 8V11'
-                    stroke='black'
-                    strokeWidth='1.5'
-                    strokeLinecap='round'
-                  />
-                </svg>
-              </button>
-              <button className='rounded-lg bg-[#EABEAF] py-2 px-6 font-medium text-white text-base'>
-                Login
-              </button>
+                  Log Out
+                </button>
+              )}
             </div>
           </Group>
         </div>
