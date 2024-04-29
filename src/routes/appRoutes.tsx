@@ -1,4 +1,4 @@
-import { AppLayout } from '../layouts';
+import { AppLayout, SettingsLayout } from '../layouts';
 import {
   AboutUsPage,
   BagPage,
@@ -10,6 +10,13 @@ import {
   TermsPage,
   WishlistPage,
 } from '../pages';
+import {
+  AccountPage,
+  OrdersPage,
+  ProfilePage,
+  ReturnsPage,
+  WalletPage,
+} from '../pages/account-pages';
 import { HomePage } from '../pages/Home';
 
 export const AppRoutes = [
@@ -52,6 +59,40 @@ export const AppRoutes = [
         path: '/wishlist',
         element: <WishlistPage />,
         errorElement: <ErrorPage />,
+      },
+      {
+        path: '/my-account',
+        exact: true,
+        element: <SettingsLayout />,
+        errorElement: '',
+        children: [
+          {
+            index: true,
+            element: <AccountPage />,
+            errorElement: '',
+          },
+          {
+            path: 'profile',
+            element: <ProfilePage />,
+            errorElement: '',
+          },
+          {
+            path: 'wallet',
+            element: <WalletPage />,
+            errorElement: '',
+          },
+          {
+            path: 'orders',
+            element: <OrdersPage />,
+            errorElement: '',
+          },
+
+          {
+            path: 'returns',
+            element: <ReturnsPage />,
+            errorElement: '',
+          },
+        ],
       },
     ],
   },

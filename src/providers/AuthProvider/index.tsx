@@ -13,22 +13,18 @@ interface AuthProvider {
 export const useAuth = () => {
   return useContext<{
     user: {
-      user: {
+      id: string;
+      firstname: string;
+      lastname: string;
+      email: string;
+      phone_number: string;
+      role: {
         id: string;
-        firstname: string;
-        lastname: string;
-        email: string;
-        phone_number: string;
-        role: {
-          id: string;
-          title: string;
-          slug: string;
-        };
-      };
-      token: {
-        token: string;
+        title: string;
+        slug: string;
       };
     };
+
     setUser: (v: any) => void;
     isAuthenticated: boolean;
     setIsAuthenticated: (v: boolean) => void;

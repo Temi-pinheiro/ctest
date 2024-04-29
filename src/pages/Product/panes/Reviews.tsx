@@ -94,7 +94,7 @@ export const Reviews = () => {
           <div className='ml-auto mt-10'>
             <button
               onClick={handleReview}
-              className='bg-[#2C2844] px-8 py-4 rounded-md font-medium text-white flex justify-center'
+              className='bg-[#EABEAF] px-8 py-4 rounded-md font-medium text-white flex justify-center'
             >
               {isPending ? <Loader /> : 'Publish'}
             </button>

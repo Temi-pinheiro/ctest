@@ -2,22 +2,16 @@
 import { Link } from 'react-router-dom';
 import { Group } from '../Group';
 import { CurrencySelector } from './components/CurrencySelector';
-import { openModal, useAuth, useCart } from '../../providers';
+import { openModal, useAuth } from '../../providers';
 import { AuthModal } from '../../actions/auth/Auth';
 import { Bag } from './components/Bag';
 import { SignupModal } from '../../actions';
+import { ProfileDropdown } from './components/ProfileDropdown';
 
 export const NavBar = () => {
   const popup = openModal();
-  const { resetCart } = useCart();
-  const { isAuthenticated, setIsAuthenticated, setUser } = useAuth();
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    setUser({});
-    resetCart();
-    localStorage.removeItem('cowas_token');
-    localStorage.removeItem('cowas_user');
-  };
+  const { isAuthenticated } = useAuth();
+
   return (
     <div className='w-full max-w-[1440px] px-10 fr:px-10 xl:px-12 ds:px-20 py-6 mx-auto hidden fr:flex items-center text-black rounded-lg justify-between z-[30] bg-transparent absolute inset-0 h-fit '>
       <Group key='left'>
@@ -89,12 +83,7 @@ export const NavBar = () => {
               </button>
             </div>
           ) : (
-            <button
-              onClick={handleLogout}
-              className='rounded-lg bg-[#EABEAF] py-2 px-6 font-medium text-white text-base'
-            >
-              Log Out
-            </button>
+            <ProfileDropdown />
           )}
         </div>
       </Group>
