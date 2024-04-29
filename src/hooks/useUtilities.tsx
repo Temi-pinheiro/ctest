@@ -77,6 +77,13 @@ export function useForm<T>({
     setErrors({ ...errors, [name]: '' });
   };
 
+  const clear = (name: string) => {
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      [name]: null,
+    }));
+  };
+
   const errorCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value: formValue }: { name: string; value: any } = e.target;
 
@@ -109,6 +116,7 @@ export function useForm<T>({
 
   return {
     formData,
+    clear,
     check: errorCheck,
     update: updateFormData,
     errors,

@@ -21,7 +21,7 @@ export const useCart = () => {
   return useContext<CartHooks>(CartContext);
 };
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, clearAuth } = useAuth();
 
   const [cart, setCart] = useState<Cart>({ ...storedCart });
   const [addingId, setAddingId] = useState();
@@ -40,8 +40,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return data;
     },
     ...{
-      throwOnError() {
-        toast.error('problem with cart');
+      throwOnError(error: any) {
+        if (error.status == 401) {
+          clearAuth();
+        } else {
+          toast.error(error.data.message);
+        }
         return false;
       },
     },

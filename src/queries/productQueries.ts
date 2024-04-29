@@ -40,3 +40,19 @@ export const getProduct = async (id: any) => {
     throw err.response;
   }
 };
+export const getProductReviews = async (id: any) => {
+  const config = {
+    method: 'GET',
+    url: `${baseUrl}/product/${id}/reviews`,
+    headers,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};

@@ -32,6 +32,7 @@ export const useAuth = () => {
     setUser: (v: any) => void;
     isAuthenticated: boolean;
     setIsAuthenticated: (v: boolean) => void;
+    clearAuth: () => void;
   }>(AuthContext);
 };
 const token = JSON.parse(localStorage.getItem('cowas_token') || 'null');
@@ -40,11 +41,16 @@ const storedUser = JSON.parse(localStorage.getItem('cowas_user') || '{}');
 export const AuthProvider = ({ children }: AuthProvider) => {
   const [user, setUser] = useState({ ...storedUser });
   const [isAuthenticated, setIsAuthenticated] = useState(Boolean(token));
-
+  const clearAuth = () => {
+    setUser(null), setIsAuthenticated(false);
+    localStorage.removeItem('cowas_user');
+    localStorage.removeItem('cowas_token');
+  };
   const authHooks = {
     user,
     setUser,
     isAuthenticated,
+    clearAuth,
     setIsAuthenticated,
   };
   return (
