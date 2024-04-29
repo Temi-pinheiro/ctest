@@ -1,13 +1,15 @@
 import { AppLayout, SettingsLayout } from '../layouts';
 import {
   AboutUsPage,
-  BagPage,
+  // BagPage,
+  CheckoutPage,
   ErrorPage,
   PrivacyPolicyPage,
   ProductPage,
   ReturnsPolicyPage,
   ShopPage,
   TermsPage,
+  VerifyPaymentPage,
   WishlistPage,
 } from '../pages';
 import {
@@ -54,7 +56,17 @@ export const AppRoutes = [
         element: <ReturnsPolicyPage />,
         errorElement: <ErrorPage />,
       },
-      { path: '/bag', element: <BagPage />, errorElement: <ErrorPage /> },
+      { path: '/bag', element: <WishlistPage />, errorElement: <ErrorPage /> },
+      {
+        path: '/checkout',
+        element: <CheckoutPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: '/verify-booking',
+        element: <VerifyPaymentPage />,
+        errorElement: <ErrorPage />,
+      },
       {
         path: '/wishlist',
         element: <WishlistPage />,

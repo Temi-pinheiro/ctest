@@ -8,3 +8,5 @@ export * from './Terms';
 export * from './Bag';
 export * from './Wishlist';
 export * from './Error';
+export * from './Checkout';
+export * from './VerifyPayment';

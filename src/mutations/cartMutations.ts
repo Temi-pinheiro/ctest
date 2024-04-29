@@ -42,3 +42,36 @@ export const removeFromCart = async (itemId: any) => {
     throw err.response;
   }
 };
+export const makePayment = async (data: any) => {
+  const config = {
+    method: 'POST',
+    url: `${baseUrl}/cart/checkout`,
+    headers,
+    data,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};
+export const verifyPayment = async (reference: string) => {
+  const config = {
+    method: 'POST',
+    url: `${baseUrl}/cart/verify?reference=${reference}`,
+    headers,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};

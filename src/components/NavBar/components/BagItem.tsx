@@ -17,6 +17,7 @@ export const BagItem = ({ item }: { item: Cart['items'][0] }) => {
         <span className='text-xs text-black/50 mt-2 block'>
           Extra product details
         </span>
+        <span>Qty: {item.quantity}</span>
         <span className='mt-2 block font-semibold text-black'>
           {getFullMoney(item.price)}
         </span>
