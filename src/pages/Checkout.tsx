@@ -103,7 +103,7 @@ export const CheckoutPage = () => {
                   <span>{user.phone_number}</span>
                 </div>
               ) : (
-                <div className='flex flex-col'>
+                <div className='flex flex-col mt-5 max-w-[510px]'>
                   {/* <TextInput
                     label='Email'
                     value={formData.email}

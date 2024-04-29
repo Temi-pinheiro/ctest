@@ -28,7 +28,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [removingId, setRemovingId] = useState();
   const updateStore = (data: any) => {
     if (isAuthenticated) return;
-    console.log({ cart });
     localStorage.setItem('cowas_cart', JSON.stringify({ ...cart, ...data }));
   };
   const { refetch } = useQuery<any>({
@@ -117,7 +116,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         setCart((prev) => ({
           ...prev,
           items: [...prev.items, { ...data }],
-          bill: data.price + prev.bill,
+          bill: (Number(data.price) + Number(prev.bill)).toString(),
         }));
       } catch (e) {
         console.log(e);
@@ -125,7 +124,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       // setTimeout(() => {
       updateStore({
         items: [...cart.items, { ...data }],
-        bill: data.price + cart.bill,
+        bill: Number(data.price) + Number(cart.bill),
       });
       // }, 1000);
     }
@@ -139,6 +138,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const resetCart = () => {
     setCart({ ...storedCart });
+    refetch();
+  };
+  const clearCart = () => {
+    localStorage.removeItem('cowas_cart');
+    resetCart();
   };
 
   // Function to increase quantity of an item in cart
@@ -198,6 +202,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const cartContextValue = {
     cart,
     resetCart,
+    clearCart,
     removeItemFromCart: {
       remove,
       removing: (id: number) => id == removingId && removing,

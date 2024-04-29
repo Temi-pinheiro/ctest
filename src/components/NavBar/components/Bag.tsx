@@ -13,7 +13,7 @@ import { getFullMoney } from '../../../utils/FormatAmount';
 export const Bag = () => {
   const { cart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
-
+  console.log(cart);
   const containerRef = useOutsideClick<HTMLDivElement>(handleClickOutside);
 
   function handleClickOutside(e: any) {
@@ -84,7 +84,7 @@ export const Bag = () => {
 
             {cart.items.length < 1 ? (
               <Group key='empty'>
-                <div className='w-full h-[300px] flex flex-col px-10 items-center justify-center'>
+                <div className='w-full h-[500px] flex flex-col px-10 items-center justify-center'>
                   <img
                     src='/emptycart.svg'
                     alt='empty wishlist'

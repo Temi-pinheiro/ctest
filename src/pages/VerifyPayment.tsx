@@ -2,13 +2,24 @@ import { useQuery } from '@tanstack/react-query';
 import { Link, useSearchParams } from 'react-router-dom';
 import { verifyPayment } from '../mutations/cartMutations';
 import Loader from '../components/Loader';
+import { useAuth, useCart } from '../providers';
 
 export const VerifyPaymentPage = () => {
   const searchParams = useSearchParams()[0];
+  const { isAuthenticated } = useAuth();
+  const { resetCart, clearCart } = useCart();
   const ref = searchParams.get('trxref');
   const { isLoading } = useQuery({
     queryKey: ['verify payment', ref],
-    queryFn: () => verifyPayment(ref!),
+    queryFn: async () => {
+      const data = await verifyPayment(ref!);
+      if (isAuthenticated) {
+        resetCart();
+      } else {
+        clearCart();
+      }
+      return data;
+    },
   });
   return isLoading ? (
     <div className='w-full flex flex-col items-center justify-center min-h-[70vh] max-md:pb-[96px] pt-[96px]'>
