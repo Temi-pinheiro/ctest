@@ -14,7 +14,13 @@ export const ExploreCard = ({ data }: { data: Product }) => {
 
   const handleAdd = () => {
     console.log('adding');
-    addItemtoCart.add({ itemId: data.id, quantity: 1, price: data.amount });
+    addItemtoCart.add({
+      itemId: data.id,
+      quantity: 1,
+      price: data.amount,
+
+      name: data.name,
+    });
   };
 
   return (

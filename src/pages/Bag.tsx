@@ -1,10 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Group } from '../components';
+import { Button, Group, TextInput } from '../components';
 import { useCart } from '../providers';
+import { getFullMoney } from '../utils/FormatAmount';
 
 export const BagPage = () => {
   const navigate = useNavigate();
-  const { cart } = useCart();
+  const { cart, removeItemFromCart } = useCart();
   return (
     <div className='flex md:min-h-screen flex-col pt-20'>
       <div className='max-w-[1440px] px-6 fr:px-10 xl:px-12 ds:px-20 mx-auto flex flex-col w-full md:mt-12'>
@@ -39,12 +40,12 @@ export const BagPage = () => {
           <Group key='with items'>
             <section
               aria-label='item section'
-              className='rounded-lg mt-10 md:mt-12'
+              className='rounded-lg mt-10 md:mt-12 pb-10'
             >
               <table className='hidden md:table w-full' cellPadding={16}>
-                <thead className='text-[#7E88C3] dark:text-[#DFE3FA] font-medium'>
+                <thead className='text-[#2C2844] text-2xl font-medium border-b'>
                   <tr>
-                    <th align='left' colSpan={8} className='font-medium'>
+                    <th align='left' colSpan={1} className='font-medium'>
                       Product
                     </th>
                     <th align='center' className='font-medium'>
@@ -58,12 +59,102 @@ export const BagPage = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody className='w-full'>
+                  {cart.items?.map((it) => (
+                    <tr key={it.itemId}>
+                      <td
+                        align='left'
+                        className='flex items-center'
+                        colSpan={8}
+                      >
+                        <button
+                          onClick={() =>
+                            removeItemFromCart.remove(it.itemId, it.price)
+                          }
+                        >
+                          <svg
+                            width='20'
+                            height='21'
+                            viewBox='0 0 20 21'
+                            fill='none'
+                            xmlns='http://www.w3.org/2000/svg'
+                          >
+                            <path
+                              d='M10.8887 10.3575L17.627 17.1056L16.748 17.9845L10 11.2462L3.25195 17.9845L2.37305 17.1056L9.11133 10.3575L2.37305 3.6095L3.25195 2.73059L10 9.46887L16.748 2.73059L17.627 3.6095L10.8887 10.3575Z'
+                              fill='black'
+                            />
+                          </svg>
+                        </button>
+                        <div className='w-[100px] rounded-lg h-[100px] overflow-clip ml-3'>
+                          <img
+                            src='https://plus.unsplash.com/premium_photo-1661597206779-b6643eac8213?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                            className='object-cover w-full'
+                          />
+                        </div>
+                        <span className='ml-6'>{it.name}</span>
+                      </td>
+                      <td align='center' className='font-medium'>
+                        {getFullMoney(it.price)}
+                      </td>
+                      <td align='right'>{it.quantity}</td>
+                      <td align='right' className='font-medium'>
+                        {getFullMoney(it.price * it.quantity)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
-              <div className='rounded-b-lg bg-[#373B53] dark:bg-[#0C0E16] p-6 md:py-6 md:px-8 flex items-center justify-between text-white'>
-                <span className='md:hidden text-sm'>Grand Total</span>
-                <span className=' hidden md:inline text-sm'>Amount Due</span>
-              </div>
+              <Group key='promo'>
+                <div className='flex flex-col mt-10 max-w-[560px]'>
+                  <h5 className='text-xl font-medium'>Promo Code</h5>
+                  <div className='flex items-center gap-x-9 mt-4 w-full'>
+                    <div className='flex-1'>
+                      <TextInput
+                        name='promo'
+                        readOnly
+                        value=''
+                        placeholder='Enter Promo Code'
+                      />
+                    </div>
+                    <div className='w-[150px]'>
+                      <Button label='Apply' {...{ style: { width: '100%' } }} />
+                    </div>
+                  </div>
+                </div>
+              </Group>
+              <Group key='total'>
+                <div className='mt-20 flex flex-col max-w-[804px] w-full'>
+                  <h3 className='text-2xl font-semibold'>Bag Total</h3>
+                  <div className='flex items-center w-full justify-between mt-8'>
+                    <span className=' text-lg '>Subtotal</span>
+                    <span>{getFullMoney(Number(cart.bill))}</span>
+                  </div>
+                  <div className='border-t border-b border-[#00000080] border-dashed mt-6 py-5 flex flex-col gap-y-5'>
+                    <div className='flex items-center w-full justify-between '>
+                      <span className=' text-sm '>Discount</span>
+                      <span> </span>
+                    </div>
+                    <div className='flex items-center w-full justify-between '>
+                      <span className=' text-sm '>Promo Code</span>
+                      <span> </span>
+                    </div>
+                    <div className='flex items-center w-full justify-between '>
+                      <span className=' text-sm '>Amount</span>
+                      <span> </span>
+                    </div>
+                  </div>
+                  <div className='flex items-center w-full justify-between mt-8'>
+                    <span className=' text-lg '>Total</span>
+                    <span>{getFullMoney(Number(cart.bill))}</span>
+                  </div>
+                </div>
+              </Group>
+              <Link
+                to='/shop'
+                className='text-white font-semibold bg-[#EABEAF] text-xl rounded block mt-8 px-6 py-3 md:mt-[120px] max-w-[401px] text-center mx-auto'
+              >
+                Proceed To Checkout
+              </Link>
             </section>
           </Group>
         ) : (

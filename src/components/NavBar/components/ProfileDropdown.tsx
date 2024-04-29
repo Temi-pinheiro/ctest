@@ -41,7 +41,7 @@ export const ProfileDropdown = () => {
           />
         </svg>
       ),
-      path: '/indulge/my-orders',
+      path: '/my-account/orders',
     },
     {
       label: 'Returns',
@@ -58,7 +58,7 @@ export const ProfileDropdown = () => {
           />
         </svg>
       ),
-      path: '/indulge/payment-methods',
+      path: '/my-account/returns',
     },
     {
       label: 'Wallet',
@@ -75,7 +75,7 @@ export const ProfileDropdown = () => {
           />
         </svg>
       ),
-      path: '/indulge/payment-methods',
+      path: '/my-account/wallet',
     },
   ];
 

@@ -1,7 +1,7 @@
 import { AppLayout, SettingsLayout } from '../layouts';
 import {
   AboutUsPage,
-  // BagPage,
+  BagPage,
   CheckoutPage,
   ErrorPage,
   PrivacyPolicyPage,
@@ -56,7 +56,7 @@ export const AppRoutes = [
         element: <ReturnsPolicyPage />,
         errorElement: <ErrorPage />,
       },
-      { path: '/bag', element: <WishlistPage />, errorElement: <ErrorPage /> },
+      { path: '/bag', element: <BagPage />, errorElement: <ErrorPage /> },
       {
         path: '/checkout',
         element: <CheckoutPage />,
