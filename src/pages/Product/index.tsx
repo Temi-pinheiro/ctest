@@ -72,10 +72,10 @@ export const ProductPage = () => {
             <Loader big />
           </div>
         ) : (
-          <div className=''>
+          <div className='max-md:w-full'>
             {' '}
             <Group key='product'>
-              <div className='flex max-md:flex-col items-center w-full gap-x-16 mt-[60px] max-md:px-6'>
+              <div className='flex max-md:flex-col items-center w-full md:gap-x-16 mt-[60px] max-md:px-6'>
                 <Group key='carousel'>
                   <div className='flex max-md:flex-col-reverse items-center gap-x-5 max-w-[520px] w-full'>
                     <div className='flex max-md:w-full max-md:justify-between max-md:mt-5 md:flex-col gap-y-10'>

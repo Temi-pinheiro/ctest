@@ -49,8 +49,8 @@ export const CheckoutPage = () => {
   };
   return (
     <div className='flex md:min-h-screen flex-col pt-20'>
-      <div className='max-w-[1440px] px-6 fr:px-10 xl:px-12 ds:px-20 mx-auto flex flex-col w-full md:mt-12'>
-        <div className='flex items-center w-full '>
+      <div className='max-w-[1440px] px-6 fr:px-10 xl:px-12 ds:px-20 mx-auto flex flex-col w-full md:mt-12 max-md:pb-10'>
+        <div className='flex max-md:flex-col gap-y-5 md:items-center w-full '>
           <Group key='go back'>
             <button
               onClick={() => navigate('/bag')}
@@ -79,144 +79,148 @@ export const CheckoutPage = () => {
             Checkout
           </h1>
         </div>
-        <div className='flex justify-between items-start w-full h-full mt-[102px] gap-x-[109px]'>
-          <div className='flex flex-col w-full gap-y-10'>
-            <div className='flex flex-col '>
-              <h2 className='text-xl font-medium'>Customer Information</h2>
-              {!isAuthenticated && (
-                <span className='text-[#000000B2]'>
-                  Already have an account?{' '}
-                  <button
-                    onClick={() => popup({ component: <AuthModal /> })}
-                    className='underline text-[#2046A6]'
-                  >
-                    Login Here
-                  </button>
-                </span>
-              )}
-              {isAuthenticated ? (
-                <div className=' flex flex-col mt-5 gap-y-[10px]'>
-                  <span>
-                    {user.firstname} {user.lastname} ({user.email})
+        <div className='flex max-md:flex-col md:justify-between items-start w-full h-full mt-10 md:mt-[102px] gap-x-[109px]'>
+          <Group key='info'>
+            <div className='flex flex-col w-full gap-y-10'>
+              <div className='flex flex-col '>
+                <h2 className='text-xl font-medium'>Customer Information</h2>
+                {!isAuthenticated && (
+                  <span className='text-[#000000B2]'>
+                    Already have an account?{' '}
+                    <button
+                      onClick={() => popup({ component: <AuthModal /> })}
+                      className='underline text-[#2046A6]'
+                    >
+                      Login Here
+                    </button>
                   </span>
-                  <span>VVIP</span>
-                  <span>{user.phone_number}</span>
-                </div>
-              ) : (
-                <div className='flex flex-col mt-5 max-w-[510px]'>
-                  {/* <TextInput
+                )}
+                {isAuthenticated ? (
+                  <div className=' flex flex-col mt-5 gap-y-[10px]'>
+                    <span>
+                      {user.firstname} {user.lastname} ({user.email})
+                    </span>
+                    <span>VVIP</span>
+                    <span>{user.phone_number}</span>
+                  </div>
+                ) : (
+                  <div className='flex flex-col mt-5 max-w-[510px]'>
+                    {/* <TextInput
                     label='Email'
                     value={formData.email}
                     name='email'
                     handleInputChange={update}
                   /> */}
+                    <TextInput
+                      label='Phone Number'
+                      value={formData.phone_number}
+                      name='phone_number'
+                      handleInputChange={update}
+                    />
+                  </div>
+                )}
+              </div>
+              <div className='flex flex-col'>
+                <h2 className='text-xl font-medium'>Delivery Information</h2>
+                <div className='flex flex-col max-w-[510px] w-full gap-y-5 mt-8'>
+                  <div className='grid gap-y-5 md:grid-cols-2 gap-x-10'>
+                    <TextInput
+                      label='First name'
+                      value={formData.first_name}
+                      name='first_name'
+                      handleInputChange={update}
+                    />
+                    <TextInput
+                      label='Last name'
+                      value={formData.last_name}
+                      name='last_name'
+                      handleInputChange={update}
+                    />
+                  </div>
                   <TextInput
-                    label='Phone Number'
-                    value={formData.phone_number}
-                    name='phone_number'
-                    handleInputChange={update}
-                  />
-                </div>
-              )}
-            </div>
-            <div className='flex flex-col'>
-              <h2 className='text-xl font-medium'>Delivery</h2>
-              <div className='flex flex-col max-w-[510px] w-full gap-y-5 mt-8'>
-                <div className='grid grid-cols-2 gap-x-10'>
-                  <TextInput
-                    label='First name'
-                    value={formData.first_name}
-                    name='first_name'
-                    handleInputChange={update}
-                  />
-                  <TextInput
-                    label='Last name'
-                    value={formData.last_name}
-                    name='last_name'
-                    handleInputChange={update}
-                  />
-                </div>
-                <TextInput
-                  label='Country / Region'
-                  value='Nigeria'
-                  readOnly
-                  name='country'
-                  handleInputChange={update}
-                />
-                <TextInput
-                  label='Address line 1'
-                  value={formData.address1}
-                  name='address1'
-                  placeholder='House number & street name'
-                  handleInputChange={update}
-                />
-                <TextInput
-                  label='Address line 2'
-                  value={formData.address2}
-                  name='address2'
-                  placeholder='Area, Estate, LGA'
-                  handleInputChange={update}
-                />
-                <div className='grid grid-cols-2 gap-x-10'>
-                  <TextInput
-                    label='Postcode/ZIP'
-                    value={formData.post_code}
-                    name='post_code'
+                    label='Country / Region'
+                    value='Nigeria'
+                    readOnly
+                    name='country'
                     handleInputChange={update}
                   />
                   <TextInput
-                    label='City'
-                    value={formData.city}
-                    name='city'
+                    label='Address line 1'
+                    value={formData.address1}
+                    name='address1'
+                    placeholder='House number & street name'
                     handleInputChange={update}
                   />
+                  <TextInput
+                    label='Address line 2'
+                    value={formData.address2}
+                    name='address2'
+                    placeholder='Area, Estate, LGA'
+                    handleInputChange={update}
+                  />
+                  <div className='grid gap-y-5 md:grid-cols-2 gap-x-10'>
+                    <TextInput
+                      label='Postcode/ZIP'
+                      value={formData.post_code}
+                      name='post_code'
+                      handleInputChange={update}
+                    />
+                    <TextInput
+                      label='City'
+                      value={formData.city}
+                      name='city'
+                      handleInputChange={update}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className='rounded-xl flex flex-col max-w-[333px] w-full'>
-            <div className='flex flex-col bg-[#2C28440D] p-5 rounded-t-xl'>
-              <h3 className='text-xl font-semibold border-b pb-4'>
-                Order summary
-              </h3>
-              <div className='flex flex-col w-full mt-5'>
-                {cart.items.map((it) => (
-                  <Item key={it.itemId} item={it} />
-                ))}
+          </Group>
+          <Group key='summary'>
+            <div className='rounded-xl flex flex-col md:max-w-[333px] w-full max-md:mt-10'>
+              <div className='flex flex-col bg-[#2C28440D] p-5 rounded-t-xl'>
+                <h3 className='text-xl font-semibold border-b pb-4'>
+                  Order summary
+                </h3>
+                <div className='flex flex-col w-full mt-5'>
+                  {cart.items.map((it) => (
+                    <Item key={it.itemId} item={it} />
+                  ))}
+                </div>
+                <div className='border-t border-b py-5 flex flex-col gap-y-5'>
+                  <div className='flex items-center w-full justify-between'>
+                    <span className='font-light text-sm'>Subtotal</span>
+                    <span>{getFullMoney(Number(cart.bill))}</span>
+                  </div>
+                  <div className='flex items-center w-full justify-between'>
+                    <span className='font-light text-sm'>Discount</span>
+                    <span>N/A</span>
+                  </div>
+                  <div className='flex items-center w-full justify-between'>
+                    <span className='font-light text-sm'>Shipping</span>
+                    <span>-</span>
+                  </div>
+                </div>
+                <div className='pt-5'>
+                  <div className='flex items-center w-full justify-between'>
+                    <span className='font-light text-sm'>Total</span>
+                    <span className='font-medium'>
+                      {getFullMoney(Number(cart.bill))}
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div className='border-t border-b py-5 flex flex-col gap-y-5'>
-                <div className='flex items-center w-full justify-between'>
-                  <span className='font-light text-sm'>Subtotal</span>
-                  <span>{getFullMoney(Number(cart.bill))}</span>
-                </div>
-                <div className='flex items-center w-full justify-between'>
-                  <span className='font-light text-sm'>Discount</span>
-                  <span>N/A</span>
-                </div>
-                <div className='flex items-center w-full justify-between'>
-                  <span className='font-light text-sm'>Shipping</span>
-                  <span>-</span>
-                </div>
-              </div>
-              <div className='pt-5'>
-                <div className='flex items-center w-full justify-between'>
-                  <span className='font-light text-sm'>Total</span>
-                  <span className='font-medium'>
-                    {getFullMoney(Number(cart.bill))}
-                  </span>
-                </div>
-              </div>
-            </div>
 
-            <div className='flex items-center justify-center bg-[#ECECEC] p-5 rounded-b-xl'>
-              <button
-                onClick={handleCheckout}
-                className='w-full bg-[#EABEAF] text-white font-bold py-[10px] leading-[28px] rounded-lg flex justify-center'
-              >
-                {isPending ? <Loader bgColor='#fff' /> : 'Place Order'}
-              </button>
+              <div className='flex items-center justify-center bg-[#ECECEC] p-5 rounded-b-xl'>
+                <button
+                  onClick={handleCheckout}
+                  className='w-full bg-[#EABEAF] text-white font-bold py-[10px] leading-[28px] rounded-lg flex justify-center'
+                >
+                  {isPending ? <Loader bgColor='#fff' /> : 'Place Order'}
+                </button>
+              </div>
             </div>
-          </div>
+          </Group>
         </div>
       </div>
     </div>

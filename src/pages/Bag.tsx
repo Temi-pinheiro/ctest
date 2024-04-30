@@ -150,7 +150,7 @@ export const BagPage = () => {
                 </div>
               </Group>
               <Link
-                to='/shop'
+                to='/checkout'
                 className='text-white font-semibold bg-[#EABEAF] text-xl rounded block mt-8 px-6 py-3 md:mt-[120px] max-w-[401px] text-center mx-auto'
               >
                 Proceed To Checkout
