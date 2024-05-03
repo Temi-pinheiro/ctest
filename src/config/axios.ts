@@ -33,7 +33,7 @@ const handleResponseError = (error: any) => {
       error.message = 'Unauthorized access';
       toast.error('Session timed out, please log back in');
     } else if (data?.message) {
-      error.message = data.message;
+      error.response.message = data.message;
     } else {
       error.message = 'An error occurred';
     }

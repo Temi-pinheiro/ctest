@@ -1,9 +1,14 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { ExploreCard, Group } from '../components';
 import { getProducts } from '../queries/productQueries';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../constants/framer';
+import { useForm } from '../hooks';
+import { FormEvent, useState } from 'react';
+import { postSubscribe } from '../mutations/userMutations';
+import Loader from '../components/Loader';
+import { Reviews } from './components';
 
 export const HomePage = () => {
   const { data: products, isLoading } = useQuery<{ products: Product[] }>({
@@ -17,7 +22,37 @@ export const HomePage = () => {
       },
     },
   });
+  const [agreed, setAgreed] = useState(false);
+  const { formData, update, clear } = useForm({
+    initial: {
+      firstname: '',
+      lastname: '',
+      email: '',
+    },
+  });
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: () => postSubscribe({ ...formData }),
+    ...{
+      onSuccess() {
+        toast.success('Successfully subscribed');
+        clear('email');
+        clear('firstname');
+        clear('lastname');
+        setAgreed(false);
+      },
+      throwOnError() {
+        toast.error('Please try again');
+
+        return false;
+      },
+    },
+  });
+
+  const handleSubscribe = (e: FormEvent) => {
+    e.preventDefault();
+    mutate();
+  };
   return (
     <div className='flex md:min-h-screen flex-col pt-20'>
       <section className='h-screen w-full relative'>
@@ -87,7 +122,7 @@ export const HomePage = () => {
               <div className='w-full max-w-[1040px] flex flex-col mx-auto items-center py-10 md:py-[82px]'>
                 <h2 className='font-semibold text-4xl'>Vaginne Allure Sets</h2>
                 <div className='flex flex-col items-center gap-y-8 w-full mt-12'>
-                  <div className='grid md:grid-cols-3 w-full gap-x-10 max-md:px-6 gap-y-10'>
+                  <div className='flex items-center w-full gap-x-10 max-md:px-6 gap-y-10'>
                     {products?.products?.map((product) => (
                       <ExploreCard key={product.id} data={product} />
                     ))}
@@ -158,74 +193,7 @@ export const HomePage = () => {
               </div>
             </section>
           </Group>
-          <Group key='reviews'>
-            <section className='bg-[#F9F9F9]'>
-              <div className='max-w-[956px] w-full flex max-md:flex-col items-center py-[110px] mx-auto justify-between'>
-                <div className='flex flex-col max-w-[376px] items-center w-full max-md:px-6'>
-                  <h3 className='text-[30px]'>Customer Reviews</h3>
-                  <div className='flex flex-col items-center'>
-                    <div className='w-[120px] h-[120px] rounded-full overflow-clip mt-[68px]'>
-                      <img
-                        src='https://images.unsplash.com/photo-1521146764736-56c929d59c83?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                        alt='pond image'
-                        className='w-full h-full object-cover'
-                      />
-                    </div>
-                    <p className='text-center italic text-black/70 mt-9'>
-                      “I've struggled with maintaining vaginal health until I
-                      found Vaginne Allure. Their products are gentle yet
-                      effective, leaving me feeling fresh and revitalized. Thank
-                      you!”
-                    </p>
-                    <div className='flex items-center flex-col mt-9'>
-                      <h6>Somto Nwobu</h6>
-                      <span className='text-sm text-black/50'>
-                        Admin, Unesco Nigeria
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className='max-md:hidden max-w-[386px] w-full grid grid-cols-3 gap-x-[42px] gap-y-[72px] '>
-                  <div className='w-[100px] h-[100px] rounded overflow-clip'>
-                    <img
-                      src='https://images.unsplash.com/photo-1521146764736-56c929d59c83?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                      className='object-cover w-full h-full'
-                    />
-                  </div>
-                  <div className='w-[100px] h-[100px] rounded overflow-clip opacity-50'>
-                    <img
-                      src='https://images.unsplash.com/photo-1578774296842-c45e472b3028?q=80&w=2656&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                      className='object-cover w-full h-full'
-                    />
-                  </div>
-                  <div className='w-[100px] h-[100px] rounded overflow-clip opacity-50'>
-                    <img
-                      src='https://images.unsplash.com/photo-1613730317814-1cede28e0151?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                      className='object-cover w-full h-full'
-                    />
-                  </div>
-                  <div className='w-[100px] h-[100px] rounded overflow-clip opacity-50'>
-                    <img
-                      src='https://images.unsplash.com/photo-1559637621-d766677659e8?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                      className='object-cover w-full h-full'
-                    />
-                  </div>
-                  <div className='w-[100px] h-[100px] rounded overflow-clip opacity-50'>
-                    <img
-                      src='https://images.unsplash.com/photo-1585600255897-eb44d312c178?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                      className='object-cover w-full h-full'
-                    />
-                  </div>
-                  <div className='w-[100px] h-[100px] rounded overflow-clip opacity-50'>
-                    <img
-                      src='https://images.unsplash.com/photo-1630475003549-e11ab5f0670f?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                      className='object-cover w-full h-full'
-                    />
-                  </div>
-                </div>
-              </div>
-            </section>
-          </Group>
+          <Reviews />
           <Group key='contact form'>
             <section className='w-full h-[700px] relative '>
               <img
@@ -234,29 +202,43 @@ export const HomePage = () => {
                 className='w-full h-full object-cover'
               />
               <div className='absolute inset-0 w-full h-full backdrop-brightness-[35%] text-white/80'>
-                <div className='max-md:px-6 max-w-[531px] flex flex-col items-center mx-auto justify-center w-full h-full'>
+                <form
+                  onSubmit={handleSubscribe}
+                  className='max-md:px-6 max-w-[531px] flex flex-col items-center mx-auto justify-center w-full h-full'
+                >
                   <h3 className='text-xl font-medium'>
                     Sign up to our newsletter and get 10% of your next order
                   </h3>
                   <div className='mt-12 flex flex-col gap-y-6 w-full'>
                     <div className='grid gap-y-6 md:grid-cols-2 gap-x-[72px] w-full'>
                       <input
+                        value={formData?.firstname}
+                        name='firstname'
+                        onChange={update}
                         placeholder='First name'
-                        className='outline-none bg-transparent border-b border-white pb-2 placholder:text-white/80 w-full'
+                        className='outline-none bg-transparent border-b border-white pb-2 placholder:text-white/80 w-full px-2 pt-1'
                       />
                       <input
+                        value={formData?.lastname}
+                        name='lastname'
+                        onChange={update}
                         placeholder='Last name'
-                        className='outline-none bg-transparent border-b border-white pb-2 placholder:text-white/80 w-full'
+                        className='outline-none bg-transparent border-b border-white pb-2 placholder:text-white/80 w-full px-2 pt-1'
                       />
                     </div>
                     <input
+                      value={formData?.email}
+                      name='email'
+                      onChange={update}
+                      type='email'
                       placeholder='Your email adress here...'
-                      className='outline-none bg-transparent border-b border-white pb-2 placholder:text-white/80 w-full'
+                      className='outline-none bg-transparent border-b border-white pb-2 placholder:text-white/80 w-full px-2 pt-1'
                     />
                   </div>
                   <div className='flex items-center gap-x-2 w-full mt-6'>
                     <input
                       type='checkbox'
+                      onChange={(e) => setAgreed(e.target.checked)}
                       className='h-10 w-10 bg-white/10 block accent-white/10'
                     />
                     <label className='text-sm'>
@@ -265,10 +247,19 @@ export const HomePage = () => {
                       processing notice and privacy policy.
                     </label>
                   </div>
-                  <button className="mt-9 block border border-white py-3 rounded-lg px-6 w-fit font-medium'">
-                    Submit
+                  <button
+                    type='submit'
+                    disabled={
+                      !formData.email ||
+                      !formData.firstname ||
+                      !formData.lastname ||
+                      !agreed
+                    }
+                    className='mt-9 border border-white py-3 rounded-lg px-6 w-fit font-medium disabled:opacity-40 transition-opacity duration-200 flex items-center justify-center'
+                  >
+                    {isPending ? <Loader bgColor='#fff' /> : 'Submit'}
                   </button>
-                </div>
+                </form>
               </div>
             </section>
           </Group>

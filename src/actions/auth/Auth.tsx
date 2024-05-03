@@ -4,6 +4,7 @@ import { useForm } from '../../hooks';
 import { postLogin } from '../../mutations/authMutations';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../providers';
+import { FormEvent } from 'react';
 
 export const AuthModal = ({ close }: { close?: () => void }) => {
   const { setIsAuthenticated, setUser } = useAuth();
@@ -20,12 +21,13 @@ export const AuthModal = ({ close }: { close?: () => void }) => {
       setUser(data.user);
       close?.();
     },
-    throwOnError() {
-      toast.error('problem with auth');
+    onError(error) {
+      toast.error(error.message);
       return false;
     },
   });
-  const handleLogin = () => {
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
     mutate();
   };
   return (
@@ -48,7 +50,7 @@ export const AuthModal = ({ close }: { close?: () => void }) => {
         </button>
       </header>
 
-      <div className='flex flex-col gap-y-6 w-full'>
+      <form onSubmit={handleLogin} className='flex flex-col gap-y-6 w-full'>
         <TextInput
           name='email'
           type='email'
@@ -62,8 +64,8 @@ export const AuthModal = ({ close }: { close?: () => void }) => {
           label='Password'
           handleInputChange={update}
         />
-        <Button label='Log in' loading={isPending} effect={handleLogin} />
-      </div>
+        <Button type='submit' label='Log in' loading={isPending} />
+      </form>
     </div>
   );
 };
