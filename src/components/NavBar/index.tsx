@@ -33,7 +33,7 @@ export const NavBar = () => {
       <Group key='right'>
         <div className=' flex items-center gap-x-6 text-sm'>
           <CurrencySelector />
-          <button>
+          {/* <button>
             <svg
               width='24'
               height='24'
@@ -46,26 +46,29 @@ export const NavBar = () => {
                 fill='black'
               />
             </svg>
-          </button>
-          <Link to='/wishlist'>
-            <svg
-              width='24'
-              height='24'
-              viewBox='0 0 24 24'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                fillRule='evenodd'
-                clipRule='evenodd'
-                d='M21 8.50003C21 14.7444 12.0004 20 12.0004 20C12.0004 20 3 14.6667 3 8.51268C3 6.00003 5 4.00003 7.5 4.00003C10 4.00003 12 7.00003 12 7.00003C12 7.00003 14 4.00003 16.5 4.00003C19 4.00003 21 6.00003 21 8.50003Z'
-                stroke='black'
-                strokeWidth='1.5'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              />
-            </svg>
-          </Link>
+          </button> */}
+          {isAuthenticated && (
+            <Link to='/wishlist'>
+              <svg
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  fillRule='evenodd'
+                  clipRule='evenodd'
+                  d='M21 8.50003C21 14.7444 12.0004 20 12.0004 20C12.0004 20 3 14.6667 3 8.51268C3 6.00003 5 4.00003 7.5 4.00003C10 4.00003 12 7.00003 12 7.00003C12 7.00003 14 4.00003 16.5 4.00003C19 4.00003 21 6.00003 21 8.50003Z'
+                  stroke='black'
+                  strokeWidth='1.5'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            </Link>
+          )}
+
           <Bag />
           {!isAuthenticated ? (
             <div className='flex items-center gap-x-3'>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { Group } from '../../Group';
@@ -7,13 +7,14 @@ import { useCart } from '../../../providers';
 import { useOutsideClick } from '../../../hooks';
 import { dropdown } from '../../../constants/framer';
 import { BagItem } from './BagItem';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { getFullMoney } from '../../../utils/FormatAmount';
 
 export const Bag = () => {
   const { cart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
-
+  const { pathname } = useLocation();
+  console.log(cart);
   const containerRef = useOutsideClick<HTMLDivElement>(handleClickOutside);
 
   function handleClickOutside(e: any) {
@@ -21,6 +22,10 @@ export const Bag = () => {
       setIsOpen(false);
     }
   }
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
   return (
     <div className='relative w-max'>
       <button onClick={() => setIsOpen(true)} className='relative'>
@@ -84,7 +89,7 @@ export const Bag = () => {
 
             {cart.items.length < 1 ? (
               <Group key='empty'>
-                <div className='w-full h-[300px] flex flex-col px-10 items-center justify-center'>
+                <div className='w-full h-[500px] flex flex-col px-10 items-center justify-center'>
                   <img
                     src='/emptycart.svg'
                     alt='empty wishlist'
@@ -117,7 +122,7 @@ export const Bag = () => {
                       <BagItem key={item.itemId} item={item} />
                     ))}
                   </div>
-                  <div className='flex flex-col gap-y-3 mt-6 border-b pb-10'>
+                  <div className='flex flex-col gap-y-3 mt-6 border-b pb-6'>
                     <div className='flex items-center w-full justify-between'>
                       <span className='font-medium'>Subtotal</span>
                       <span>{getFullMoney(Number(cart.bill))}</span>
