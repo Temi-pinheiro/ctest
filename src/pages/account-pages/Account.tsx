@@ -31,12 +31,15 @@ export const AccountPage = () => {
             <span>{user.phone_number}</span>
           </div>
         </div>
-        <div className='border-t pt-10'>
-          <h4 className='text-xl font-medium'>Wallet Credit</h4>
-          <div className=' flex flex-col mt-5 gap-y-[10px]'>
-            <span>Wallet Balance: 12,000.00</span>
+        {user.role.title !== 'Retailer' && (
+          <div className='border-t pt-10'>
+            <h4 className='text-xl font-medium'>Wallet Credit</h4>
+            <div className=' flex flex-col mt-5 gap-y-[10px]'>
+              <span>Wallet Balance: ₦12,000.00</span>
+            </div>
           </div>
-        </div>
+        )}
+
         <div className='border-t pt-10'>
           <h4 className='text-xl font-medium'>Address</h4>
           <div className=' flex flex-col mt-5 gap-y-[10px]'>

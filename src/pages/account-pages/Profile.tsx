@@ -36,7 +36,7 @@ export const ProfilePage = () => {
             <span>
               {user.firstname} {user.lastname} ({user.email})
             </span>
-            <span>VVIP</span>
+            <span>{user.role.title}</span>
             <span>{user.phone_number}</span>
           </div>
         </div>
