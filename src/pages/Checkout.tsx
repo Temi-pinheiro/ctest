@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate } from 'react-router-dom';
-import { Group, TextInput } from '../components';
+import { Group, SelectElement, TextInput } from '../components';
 import { openModal, useAuth, useCart } from '../providers';
 import { getFullMoney } from '../utils/FormatAmount';
 import { AuthModal } from '../actions';
@@ -9,6 +9,7 @@ import { makePayment } from '../mutations/cartMutations';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import Loader from '../components/Loader';
+import { useCities, useCountries, useStates } from '../hooks/useData';
 
 export const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -23,12 +24,16 @@ export const CheckoutPage = () => {
       last_name: '',
       save_future: 'true',
       country: 'Nigeria',
+      state: 'Lagos',
       city: '',
       address1: '',
       address2: '',
       post_code: '',
     },
   });
+  const { list: Countries } = useCountries();
+  const { list: States } = useStates(formData.country);
+  const { list: Cities } = useCities(formData.country, formData.state);
   const { mutate, isPending } = useMutation({
     mutationFn: () =>
       makePayment({ ...formData, items: [...cart.items], amount: cart.bill }),
@@ -47,6 +52,7 @@ export const CheckoutPage = () => {
     e.preventDefault();
     mutate();
   };
+  console.log({ States, Cities });
   return (
     <div className='flex md:min-h-screen flex-col pt-20'>
       <div className='max-w-[1440px] px-6 fr:px-10 xl:px-12 ds:px-20 mx-auto flex flex-col w-full md:mt-12 max-md:pb-10'>
@@ -137,13 +143,24 @@ export const CheckoutPage = () => {
                       handleInputChange={update}
                     />
                   </div>
-                  <TextInput
-                    label='Country / Region'
-                    value='Nigeria'
-                    readOnly
-                    name='country'
-                    handleInputChange={update}
-                  />
+                  <div className='grid gap-y-5 md:grid-cols-2 gap-x-10'>
+                    <SelectElement
+                      placeholder='Select Country'
+                      label='Country / Region'
+                      value={formData.country}
+                      name='country'
+                      options={Countries}
+                      onChange={update}
+                    />
+                    <SelectElement
+                      placeholder='Select State'
+                      label='State'
+                      value={formData.state}
+                      name='state'
+                      options={States}
+                      onChange={update}
+                    />
+                  </div>
                   <TextInput
                     label='Address line 1'
                     value={formData.address1}
@@ -165,11 +182,13 @@ export const CheckoutPage = () => {
                       name='post_code'
                       handleInputChange={update}
                     />
-                    <TextInput
+                    <SelectElement
+                      placeholder='Select City'
                       label='City'
                       value={formData.city}
                       name='city'
-                      handleInputChange={update}
+                      options={Cities}
+                      onChange={update}
                     />
                   </div>
                 </div>

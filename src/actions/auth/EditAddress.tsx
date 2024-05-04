@@ -2,9 +2,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { updateAddress } from '../../mutations/userMutations';
 import toast from 'react-hot-toast';
-import { Button, TextInput } from '../../components';
+import { Button, SelectElement, TextInput } from '../../components';
 import { useForm } from '../../hooks';
 import { FormEvent } from 'react';
+import { useCities, useCountries, useStates } from '../../hooks/useData';
 
 export const EditAddress = ({
   data,
@@ -19,22 +20,33 @@ export const EditAddress = ({
       phone_number: data?.phone_number,
       first_name: data.first_name,
       last_name: data.last_name,
-      save_future: 'true',
-      country: 'Nigeria',
+      state: data?.state,
+      country: data.country,
       city: data.city,
       address1: data.address1,
       address2: data.address2,
       post_code: data.post_code,
     },
   });
+  const { list: Countries, data: CountryData } = useCountries();
+
+  const getCountryCode = () => {
+    const [country] = CountryData.filter(
+      (co: any) => co.name == formData.country
+    );
+    return country.country_code;
+  };
+  const { list: States } = useStates(formData.country);
+  const { list: Cities } = useCities(formData.country, formData.state);
   const { mutate, isPending } = useMutation({
-    mutationFn: () => updateAddress({ ...formData }),
+    mutationFn: () =>
+      updateAddress({ ...formData, country_code: getCountryCode() }),
     onSuccess() {
-      toast.success('');
+      toast.success('Address updated successfully');
       close?.();
     },
     onError(error) {
-      toast.error(error.message);
+      toast.error(error?.message);
       return false;
     },
   });
@@ -77,13 +89,24 @@ export const EditAddress = ({
             handleInputChange={update}
           />
         </div>
-        <TextInput
-          label='Country / Region'
-          value='Nigeria'
-          readOnly
-          name='country'
-          handleInputChange={update}
-        />
+        <div className='grid gap-y-5 md:grid-cols-2 gap-x-10'>
+          <SelectElement
+            placeholder='Select Country'
+            label='Country / Region'
+            value={formData.country}
+            name='country'
+            options={Countries}
+            onChange={update}
+          />
+          <SelectElement
+            placeholder='Select State'
+            label='State'
+            value={formData.state}
+            name='state'
+            options={States}
+            onChange={update}
+          />
+        </div>
         <TextInput
           label='Address line 1'
           value={formData.address1}
@@ -105,11 +128,13 @@ export const EditAddress = ({
             name='post_code'
             handleInputChange={update}
           />
-          <TextInput
+          <SelectElement
+            placeholder='Select City'
             label='City'
             value={formData.city}
             name='city'
-            handleInputChange={update}
+            options={Cities}
+            onChange={update}
           />
         </div>
         <Button type='submit' label='Update' loading={isPending} />

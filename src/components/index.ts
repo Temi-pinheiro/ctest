@@ -11,3 +11,4 @@ export * from './TextInput';
 export * from './PasswordInput';
 export * from './Button';
 export * from './ToastNotifications';
+export * from './SelectElement';

@@ -22,7 +22,7 @@ export const AuthModal = ({ close }: { close?: () => void }) => {
       close?.();
     },
     onError(error) {
-      toast.error(error.message);
+      toast.error(error?.message);
       return false;
     },
   });
