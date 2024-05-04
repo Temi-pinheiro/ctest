@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Group, TextInput } from '../components';
 import { useCart } from '../providers';
@@ -5,7 +6,16 @@ import { getFullMoney } from '../utils/FormatAmount';
 
 export const BagPage = () => {
   const navigate = useNavigate();
-  const { cart, removeItemFromCart } = useCart();
+  const { cart, removeItemFromCart, addItemtoCart } = useCart();
+  const quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const handleAdd = (data: any) => {
+    addItemtoCart.add({
+      itemId: data.itemId,
+      quantity: data.quantity,
+      price: data.price,
+      name: data.name,
+    });
+  };
   return (
     <div className='flex md:min-h-screen flex-col pt-20'>
       <div className='max-w-[1440px] px-6 fr:px-10 xl:px-12 ds:px-20 mx-auto flex flex-col w-full md:mt-12'>
@@ -96,7 +106,23 @@ export const BagPage = () => {
                       <td align='center' className='font-medium'>
                         {getFullMoney(it.price)}
                       </td>
-                      <td align='right'>{it.quantity}</td>
+                      <td align='right'>
+                        Qty:{' '}
+                        <select
+                          className='outline-none'
+                          onChange={(e) => {
+                            handleAdd({ ...it, quantity: e.target.value });
+                          }}
+                        >
+                          <option disabled>Qty</option>
+                          {quantities.map((qty) => (
+                            <option selected={qty == it.quantity} value={qty}>
+                              {qty}
+                            </option>
+                          ))}
+                        </select>{' '}
+                        {/* {it.quantity} */}
+                      </td>
                       <td align='right' className='font-medium'>
                         {getFullMoney(it.price * it.quantity)}
                       </td>

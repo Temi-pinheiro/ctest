@@ -56,3 +56,19 @@ export const getProductReviews = async (id: any) => {
     throw err.response;
   }
 };
+export const getWishlist = async () => {
+  const config = {
+    method: 'GET',
+    url: `${baseUrl}/wishlist`,
+    headers,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};

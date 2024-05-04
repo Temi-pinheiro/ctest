@@ -25,3 +25,54 @@ export const postSubscribe = async (data: any) => {
     throw err.response;
   }
 };
+export const updateProfile = async (data: any) => {
+  const config = {
+    method: 'PATCH',
+    url: `${baseUrl}/profile/update-profile`,
+    headers,
+    data,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};
+export const updatePassword = async (data: any) => {
+  const config = {
+    method: 'PATCH',
+    url: `${baseUrl}/profile/change-password`,
+    headers,
+    data,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};
+export const updateAddress = async (data: any) => {
+  const config = {
+    method: 'PATCH',
+    url: `${baseUrl}/profile/update-address`,
+    headers,
+    data,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};

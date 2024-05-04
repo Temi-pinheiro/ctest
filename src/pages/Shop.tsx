@@ -7,11 +7,11 @@ import Loader from '../components/Loader';
 export const ShopPage = () => {
   const { data: products, isLoading } = useQuery<{ products: Product[] }>({
     queryKey: ['products'],
-    queryFn: async () => getProducts(),
+    queryFn: () => getProducts(),
 
     ...{
-      throwOnError() {
-        toast.error('problem with shop');
+      throwOnError(err) {
+        toast.error(err.message);
         return false;
       },
     },

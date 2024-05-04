@@ -1,24 +1,21 @@
 import { useMutation } from '@tanstack/react-query';
-import { Button, PasswordInput, TextInput } from '../../components';
 import { useForm } from '../../hooks';
-import { postLogin } from '../../mutations/authMutations';
 import toast from 'react-hot-toast';
-import { useAuth } from '../../providers';
 import { FormEvent } from 'react';
+import { updatePassword } from '../../mutations/userMutations';
+import { Button, PasswordInput, TextInput } from '../../components';
 
-export const AuthModal = ({ close }: { close?: () => void }) => {
-  const { setIsAuthenticated, setUser } = useAuth();
+export const EditPassword = ({ close }: { close?: () => void }) => {
   const { formData, update } = useForm({
-    initial: { email: '', password: '' },
+    initial: {
+      old_password: '',
+      new_password: '',
+    },
   });
   const { mutate, isPending } = useMutation({
-    mutationFn: () => postLogin({ ...formData }),
-    onSuccess(data) {
-      console.log(data);
-      localStorage.setItem('cowas_token', JSON.stringify(data.token.token));
-      localStorage.setItem('cowas_user', JSON.stringify(data.user));
-      setIsAuthenticated(true);
-      setUser(data.user);
+    mutationFn: () => updatePassword({ ...formData }),
+    onSuccess() {
+      toast.success('Password updated successfully');
       close?.();
     },
     onError(error) {
@@ -26,15 +23,15 @@ export const AuthModal = ({ close }: { close?: () => void }) => {
       return false;
     },
   });
-  const handleLogin = (e: FormEvent) => {
+  const handleUpdate = (e: FormEvent) => {
     e.preventDefault();
     mutate();
   };
   return (
     <div className='p-8 flex flex-col items-center gap-y-8 '>
       <header className='w-full flex items-center justify-between'>
-        <h3 className='text-lg font-medium'>LOG IN</h3>
-        <button onClick={close}>
+        <h3 className='text-lg font-medium'>Update Password</h3>
+        <button onClick={() => close?.()}>
           <svg
             width='24'
             height='24'
@@ -50,21 +47,21 @@ export const AuthModal = ({ close }: { close?: () => void }) => {
         </button>
       </header>
 
-      <form onSubmit={handleLogin} className='flex flex-col gap-y-6 w-full'>
-        <TextInput
-          name='email'
-          type='email'
-          value={formData.email}
-          label='Email address'
-          handleInputChange={update}
-        />
+      <form onSubmit={handleUpdate} className='flex flex-col gap-y-6 w-full'>
         <PasswordInput
-          name='password'
-          value={formData.password}
-          label='Password'
+          value={formData.old_password}
+          name='old_password'
+          label='Old Password'
           handleInputChange={update}
         />
-        <Button type='submit' label='Log in' loading={isPending} />
+        <TextInput
+          value={formData.new_password}
+          name='new_password'
+          label='New Password'
+          handleInputChange={update}
+        />
+
+        <Button type='submit' label='Update' loading={isPending} />
       </form>
     </div>
   );

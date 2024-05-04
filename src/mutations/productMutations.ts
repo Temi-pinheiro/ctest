@@ -31,3 +31,52 @@ export const postReview = async (
     throw err.response;
   }
 };
+export const addToWishlist = async (data: { product_id: number }) => {
+  const config = {
+    method: 'POST',
+    url: `${baseUrl}/wishlist`,
+    headers,
+    data,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};
+export const removeFromWishlist = async (id: any) => {
+  const config = {
+    method: 'GET',
+    url: `${baseUrl}/wishlist/remove/${id}`,
+    headers,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};
+export const addWishlistItemToBag = async (id: any) => {
+  const config = {
+    method: 'POST',
+    url: `${baseUrl}/wishlist/add-to-bag/${id}`,
+    headers,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};

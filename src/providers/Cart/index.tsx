@@ -68,7 +68,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     },
   });
   const remove = (id: any, price: number) => {
-    console.log({ id, price });
     if (isAuthenticated) {
       setRemovingId(id);
       removeItemFromCart(id);
@@ -89,7 +88,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const { mutate: addItemtoCart, isPending: adding } = useMutation<
     any,
     any,
-    string,
+    any,
     unknown
   >({
     mutationFn: (data: any) => addToCart(data),
@@ -98,8 +97,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         refetch();
       },
       throwOnError(err) {
-        console.log(err);
-        toast.error('problem with adding');
+        toast.error(err.message);
         return false;
       },
     },
@@ -108,7 +106,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const add = (data: any) => {
     if (isAuthenticated) {
       setAddingId(data.itemId);
-      addItemtoCart(data);
+      addItemtoCart({
+        itemId: data.itemId,
+        quantity: data.quantity,
+      });
     } else {
       const [item] = cart.items.filter((i) => i.itemId == data.itemId);
       if (item) return;
@@ -156,7 +157,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     item.quantity = ++item.quantity;
     item.price = item.quantity * item.price;
     items[indexOf] == item;
-    console.log(item);
     setCart((prevCart: any) => ({
       ...prevCart,
       items: [...items],
@@ -202,6 +202,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const cartContextValue = {
     cart,
     resetCart,
+    refetch,
     clearCart,
     removeItemFromCart: {
       remove,

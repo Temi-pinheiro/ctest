@@ -7,12 +7,14 @@ import { useParams } from 'react-router-dom';
 import { getProduct } from '../../queries/productQueries';
 import toast from 'react-hot-toast';
 import Loader from '../../components/Loader';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getFullMoney } from '../../utils/FormatAmount';
 import { useAuth, useCart } from '../../providers';
+import { addToWishlist } from '../../mutations/productMutations';
 export const ProductPage = () => {
   const { id } = useParams();
   const { isAuthenticated } = useAuth();
+  const qc = useQueryClient();
   const [quantity, setQuantity] = useState(1);
   const { addItemtoCart } = useCart();
   const [active, setActive] = useState('');
@@ -51,6 +53,21 @@ export const ProductPage = () => {
           }
     );
   };
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: () => addToWishlist({ product_id: Number(id!) }),
+    ...{
+      onSuccess() {
+        toast.success('Item added to wishlist');
+        qc.invalidateQueries({ queryKey: ['wishlist'] });
+      },
+      onError(err) {
+        toast.error(err.message);
+
+        return false;
+      },
+    },
+  });
 
   const [activeImage, setActiveImage] = useState(images?.[0] || '');
   const handleIncrease = () => {
@@ -116,7 +133,7 @@ export const ProductPage = () => {
                     </h1>
                     <div className='flex items-center gap-x-5 mt-4 border-b pb-4'>
                       <span className='text-xl text-black/70'>
-                        Small box of 6
+                        {product?.product.description}
                       </span>
                       <svg
                         width='8'
@@ -197,24 +214,28 @@ export const ProductPage = () => {
                       </Group>
                       <Group key='wishlist'>
                         <div className='flex items-center gap-x-3'>
-                          <button>
-                            <svg
-                              width='37'
-                              height='37'
-                              viewBox='0 0 37 37'
-                              fill='none'
-                              xmlns='http://www.w3.org/2000/svg'
-                            >
-                              <path
-                                fillRule='evenodd'
-                                clipRule='evenodd'
-                                d='M32.3984 13.25C32.3984 22.6166 18.899 30.5 18.899 30.5C18.899 30.5 5.39844 22.5 5.39844 13.269C5.39844 9.50004 8.39844 6.50004 12.1484 6.50004C15.8984 6.50004 18.8984 11 18.8984 11C18.8984 11 21.8984 6.50004 25.6484 6.50004C29.3984 6.50004 32.3984 9.50004 32.3984 13.25Z'
-                                stroke='black'
-                                strokeWidth='2'
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
-                              />
-                            </svg>
+                          <button disabled={isPending} onClick={() => mutate()}>
+                            {isPending ? (
+                              <Loader />
+                            ) : (
+                              <svg
+                                width='37'
+                                height='37'
+                                viewBox='0 0 37 37'
+                                fill='none'
+                                xmlns='http://www.w3.org/2000/svg'
+                              >
+                                <path
+                                  fillRule='evenodd'
+                                  clipRule='evenodd'
+                                  d='M32.3984 13.25C32.3984 22.6166 18.899 30.5 18.899 30.5C18.899 30.5 5.39844 22.5 5.39844 13.269C5.39844 9.50004 8.39844 6.50004 12.1484 6.50004C15.8984 6.50004 18.8984 11 18.8984 11C18.8984 11 21.8984 6.50004 25.6484 6.50004C29.3984 6.50004 32.3984 9.50004 32.3984 13.25Z'
+                                  stroke='black'
+                                  strokeWidth='2'
+                                  strokeLinecap='round'
+                                  strokeLinejoin='round'
+                                />
+                              </svg>
+                            )}
                           </button>
                           <span className='text-xl'>Add to Wishlist</span>
                         </div>

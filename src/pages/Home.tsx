@@ -41,8 +41,8 @@ export const HomePage = () => {
         clear('lastname');
         setAgreed(false);
       },
-      throwOnError() {
-        toast.error('Please try again');
+      onError(err) {
+        toast.error(err.message);
 
         return false;
       },

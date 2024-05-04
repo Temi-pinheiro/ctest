@@ -1,7 +1,22 @@
+import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../../providers';
+import { getAddress } from '../../queries/profileQueries';
+import toast from 'react-hot-toast';
+import Loader from '../../components/Loader';
 
 export const AccountPage = () => {
   const { user } = useAuth();
+  const { data, isLoading } = useQuery<{ address: Address }>({
+    queryKey: ['address'],
+    queryFn: async () => getAddress(),
+
+    ...{
+      throwOnError() {
+        toast.error('problem with shop');
+        return false;
+      },
+    },
+  });
   return (
     <div className='w-full flex flex-col text-[#2C2844]'>
       <h1 className='text-2xl font-semibold pb-6'>Account Overview</h1>
@@ -12,7 +27,7 @@ export const AccountPage = () => {
             <span>
               {user.firstname} {user.lastname} ({user.email})
             </span>
-            <span>VVIP</span>
+            <span>{user.role.title}</span>
             <span>{user.phone_number}</span>
           </div>
         </div>
@@ -27,12 +42,16 @@ export const AccountPage = () => {
           <div className=' flex flex-col mt-5 gap-y-[10px]'>
             Your default shipping address:
             <br />
-            <span>
-              {user.firstname} {user.lastname}
-              <br /> 21 Aladekoba Street,
-              <br /> Maryland, Ikeja,
-              <br /> Lagos +2349700156728 / +2348145782553
-            </span>
+            {isLoading ? (
+              <Loader big />
+            ) : (
+              <span>
+                {user.firstname} {user.lastname}
+                {data?.address.address}
+                <br /> {data?.address.city}
+                <br /> {data?.address.state}
+              </span>
+            )}
           </div>
         </div>
       </div>
