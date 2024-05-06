@@ -258,14 +258,14 @@ export const CheckoutPage = () => {
                     <span className='font-light text-sm'>Subtotal</span>
                     <span>{getFullMoney(Number(cart.bill))}</span>
                   </div>
-                  <div className='flex items-center w-full justify-between'>
+                  {/* <div className='flex items-center w-full justify-between'>
                     <span className='font-light text-sm'>Discount</span>
                     <span>N/A</span>
                   </div>
                   <div className='flex items-center w-full justify-between'>
                     <span className='font-light text-sm'>Shipping</span>
                     <span>-</span>
-                  </div>
+                  </div> */}
                 </div>
                 <div className='pt-5'>
                   <div className='flex items-center w-full justify-between'>

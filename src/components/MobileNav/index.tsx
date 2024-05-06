@@ -101,6 +101,15 @@ export const MobileNav = () => {
                     Shop
                   </Link>
                   <Link
+                    to='/wishlist'
+                    className='py-4 text-2xl px-4 flex relative'
+                    style={{
+                      fontWeight: pathname == '/wishlist' ? 'bold' : 'normal',
+                    }}
+                  >
+                    Wishlist
+                  </Link>
+                  <Link
                     to='/bag'
                     className='py-4 text-2xl px-4 flex relative items-center gap-x-3'
                     style={{
