@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from '@tanstack/react-query';
 import { EditAddress, EditPassword, EditProfile } from '../../actions';
 import { Button } from '../../components';
@@ -11,11 +12,17 @@ export const ProfilePage = () => {
   const popup = openModal();
   const { data, isLoading } = useQuery<{ address: Address }>({
     queryKey: ['address'],
-    queryFn: async () => getAddress(),
+    queryFn: async () => {
+      try {
+        const data = await getAddress();
+        return data;
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
+    },
 
     ...{
       throwOnError() {
-        toast.error('problem with shop');
         return false;
       },
     },

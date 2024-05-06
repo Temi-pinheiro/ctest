@@ -14,7 +14,6 @@ export const Bag = () => {
   const { cart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const { pathname } = useLocation();
-  console.log(cart);
   const containerRef = useOutsideClick<HTMLDivElement>(handleClickOutside);
 
   function handleClickOutside(e: any) {

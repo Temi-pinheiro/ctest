@@ -6,31 +6,63 @@ import { getFullMoney } from '../utils/FormatAmount';
 import { AuthModal } from '../actions';
 import { useForm } from '../hooks';
 import { makePayment } from '../mutations/cartMutations';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import Loader from '../components/Loader';
 import { useCities, useCountries, useStates } from '../hooks/useData';
+import { getAddress } from '../queries/profileQueries';
+import { useEffect } from 'react';
 
 export const CheckoutPage = () => {
   const navigate = useNavigate();
   const { cart } = useCart();
   const { isAuthenticated, user } = useAuth();
   const popup = openModal();
-  const { formData, update } = useForm({
+  const { formData, update, setData } = useForm({
     initial: {
-      //   email: '',
       phone_number: user?.phone_number,
       first_name: '',
       last_name: '',
       save_future: 'true',
-      country: 'Nigeria',
-      state: 'Lagos',
+      country: '',
+      state: '',
       city: '',
       address1: '',
       address2: '',
       post_code: '',
     },
   });
+  const { data, isLoading } = useQuery<{ address: Address }>({
+    enabled: isAuthenticated,
+    queryKey: ['address'],
+    queryFn: async () => {
+      try {
+        const data = await getAddress();
+        setData({
+          phone_number: user?.phone_number,
+          first_name: data.address.first_name,
+          last_name: data.address.last_name,
+          save_future: 'true',
+          country: data.address.country,
+          state: data.address.state,
+          city: data.address.city,
+          address1: data.address.address,
+          address2: '',
+          post_code: data.address.post_code,
+        });
+        return data;
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
+    },
+
+    ...{
+      throwOnError() {
+        return false;
+      },
+    },
+  });
+
   const { list: Countries } = useCountries();
   const { list: States } = useStates(formData.country);
   const { list: Cities } = useCities(formData.country, formData.state);
@@ -52,9 +84,17 @@ export const CheckoutPage = () => {
     e.preventDefault();
     mutate();
   };
-  console.log({ States, Cities });
-  return (
-    <div className='flex md:min-h-screen flex-col pt-20'>
+
+  useEffect(() => {}, [data]);
+  return isLoading ? (
+    <div className='h-screen flex items-center'>
+      <Loader big />
+    </div>
+  ) : (
+    <form
+      onSubmit={handleCheckout}
+      className='flex md:min-h-screen flex-col pt-20'
+    >
       <div className='max-w-[1440px] px-6 fr:px-10 xl:px-12 ds:px-20 mx-auto flex flex-col w-full md:mt-12 max-md:pb-10'>
         <div className='flex max-md:flex-col gap-y-5 md:items-center w-full '>
           <Group key='go back'>
@@ -133,12 +173,14 @@ export const CheckoutPage = () => {
                     <TextInput
                       label='First name'
                       value={formData.first_name}
+                      required
                       name='first_name'
                       handleInputChange={update}
                     />
                     <TextInput
                       label='Last name'
                       value={formData.last_name}
+                      required
                       name='last_name'
                       handleInputChange={update}
                     />
@@ -147,6 +189,7 @@ export const CheckoutPage = () => {
                     <SelectElement
                       placeholder='Select Country'
                       label='Country / Region'
+                      required
                       value={formData.country}
                       name='country'
                       options={Countries}
@@ -156,6 +199,7 @@ export const CheckoutPage = () => {
                       placeholder='Select State'
                       label='State'
                       value={formData.state}
+                      required
                       name='state'
                       options={States}
                       onChange={update}
@@ -164,6 +208,7 @@ export const CheckoutPage = () => {
                   <TextInput
                     label='Address line 1'
                     value={formData.address1}
+                    required
                     name='address1'
                     placeholder='House number & street name'
                     handleInputChange={update}
@@ -179,11 +224,13 @@ export const CheckoutPage = () => {
                     <TextInput
                       label='Postcode/ZIP'
                       value={formData.post_code}
+                      required
                       name='post_code'
                       handleInputChange={update}
                     />
                     <SelectElement
                       placeholder='Select City'
+                      required
                       label='City'
                       value={formData.city}
                       name='city'
@@ -232,7 +279,8 @@ export const CheckoutPage = () => {
 
               <div className='flex items-center justify-center bg-[#ECECEC] p-5 rounded-b-xl'>
                 <button
-                  onClick={handleCheckout}
+                  type='submit'
+                  disabled={isPending}
                   className='w-full bg-[#EABEAF] text-white font-bold py-[10px] leading-[28px] rounded-lg flex justify-center'
                 >
                   {isPending ? <Loader bgColor='#fff' /> : 'Place Order'}
@@ -242,7 +290,7 @@ export const CheckoutPage = () => {
           </Group>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

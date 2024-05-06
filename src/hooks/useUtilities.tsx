@@ -84,6 +84,10 @@ export function useForm<T>({
     }));
   };
 
+  const setData = (data: T) => {
+    setFormData(data);
+  };
+
   const errorCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value: formValue }: { name: string; value: any } = e.target;
 
@@ -116,6 +120,7 @@ export function useForm<T>({
 
   return {
     formData,
+    setData,
     clear,
     check: errorCheck,
     update: updateFormData,

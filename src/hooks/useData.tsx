@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { getCities, getCountries, getStates } from '../queries/profileQueries';
@@ -6,10 +7,18 @@ export const useStates = (country: string | undefined = 'Nigeria') => {
   const list: Array<{ value: number; label: string }> = [];
   const { data, isLoading, isError } = useQuery({
     queryKey: ['states', country],
-    queryFn: () => getStates(country),
-    ...{
-      throwOnError(error) {
+    queryFn: async () => {
+      try {
+        const data = await getStates(country);
+        return data;
+      } catch (error: any) {
         toast.error(error?.message);
+      }
+    },
+    ...{
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      throwOnError() {
         return false;
       },
     },
@@ -36,10 +45,18 @@ export const useCities = (
   const list: Array<{ value: number; label: string }> = [];
   const { data, isLoading, isError } = useQuery({
     queryKey: ['cities', country, state],
-    queryFn: () => getCities(country, state),
-    ...{
-      throwOnError(error) {
+    queryFn: async () => {
+      try {
+        const data = await getCities(country, state);
+        return data;
+      } catch (error: any) {
         toast.error(error?.message);
+      }
+    },
+    ...{
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      throwOnError() {
         return false;
       },
     },
@@ -64,10 +81,18 @@ export const useCountries = () => {
   const list: Array<{ value: string; label: string }> = [];
   const { data, isLoading, isError } = useQuery({
     queryKey: ['countries'],
-    queryFn: () => getCountries(),
-    ...{
-      throwOnError(error) {
+    queryFn: async () => {
+      try {
+        const data = await getCountries();
+        return data;
+      } catch (error: any) {
         toast.error(error?.message);
+      }
+    },
+    ...{
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      throwOnError() {
         return false;
       },
     },
