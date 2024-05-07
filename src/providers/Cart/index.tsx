@@ -34,20 +34,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     enabled: isAuthenticated,
     queryKey: ['cart'],
     queryFn: async () => {
-      const data = await getCart();
-      setCart(data.cart ?? { items: [], bill: 0 });
-      return data;
-    },
-    ...{
-      throwOnError(error: any) {
-        if (error.status == 401) {
+      try {
+        const data = await getCart();
+        setCart(data.cart ?? { items: [], bill: 0 });
+        return data;
+      } catch (error: any) {
+        if (error?.status == 401) {
           clearAuth();
         } else {
           toast.error(error.data.message);
         }
-        return false;
-      },
+      }
     },
+    ...{ refetchOnMount: false, refetchOnWindowFocus: false },
   });
   const { mutate: removeItemFromCart, isPending: removing } = useMutation<
     any,
@@ -60,10 +59,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       onSuccess() {
         refetch();
       },
-      throwOnError() {
-        toast.error('problem with removing');
-
-        return false;
+      onError(err) {
+        toast.error(err?.message);
       },
     },
   });
@@ -96,8 +93,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       onSuccess() {
         refetch();
       },
-      throwOnError(err) {
-        toast.error(err.message);
+      onError(err) {
+        toast.error(err?.message);
         return false;
       },
     },
@@ -139,11 +136,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const resetCart = () => {
     setCart({ ...storedCart });
-    refetch();
   };
   const clearCart = () => {
     localStorage.removeItem('cowas_cart');
-    resetCart();
+    const c: any = { items: [], bill: 0 };
+    setCart(c);
   };
 
   // Function to increase quantity of an item in cart
@@ -201,8 +198,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   // Provide the cart state and functions through the context
   const cartContextValue = {
     cart,
-    resetCart,
     refetch,
+    resetCart,
     clearCart,
     removeItemFromCart: {
       remove,

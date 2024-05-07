@@ -18,13 +18,13 @@ export const Reviews = () => {
   const { id } = useParams();
   const { data: reviews, isLoading } = useQuery<any>({
     queryKey: ['reviews', id],
-    queryFn: async () => getProductReviews(id!),
-
-    ...{
-      throwOnError() {
-        toast.error('problem with shop');
-        return false;
-      },
+    queryFn: async () => {
+      try {
+        const data = await getProductReviews(id!);
+        return data;
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
     },
   });
   const { mutate, isPending } = useMutation<any, any, any, any>({
@@ -36,10 +36,8 @@ export const Reviews = () => {
         setRating(0);
         clear('reviews');
       },
-      throwOnError() {
-        toast.error('problem with removing');
-
-        return false;
+      onError(err) {
+        toast.error(err?.message);
       },
     },
   });

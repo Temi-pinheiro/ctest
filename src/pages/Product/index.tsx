@@ -21,13 +21,14 @@ export const ProductPage = () => {
   const { show, handlePaneSwitch } = usePanes('details');
   const { data: product, isLoading } = useQuery<{ product: Product }>({
     queryKey: ['products', id],
-    queryFn: async () => getProduct(id),
-
-    ...{
-      throwOnError() {
-        toast.error('problem with producr');
-        return false;
-      },
+    queryFn: async () => {
+      try {
+        const data = await getProduct(id);
+        return data;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
     },
   });
 
@@ -62,7 +63,7 @@ export const ProductPage = () => {
         qc.invalidateQueries({ queryKey: ['wishlist'] });
       },
       onError(err) {
-        toast.error(err.message);
+        toast.error(err?.message);
 
         return false;
       },

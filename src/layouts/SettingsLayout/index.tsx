@@ -17,7 +17,7 @@ export const SettingsLayout = () => {
   }, [isAuthenticated, navigate]);
   return (
     <div className='w-full flex min-h-[70vh] flex-col pt-20'>
-      <div className='mt-12 flex items-start gap-x-[100px] max-w-[836px] w-full mx-auto'>
+      <div className='mt-12 flex items-start gap-x-[100px] max-w-[1050px] w-full mx-auto'>
         {' '}
         <Group key='left'>
           <div className='w-[174px] flex flex-col gap-y-[10px] shrink-0'>

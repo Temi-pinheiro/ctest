@@ -8,13 +8,14 @@ export const AccountPage = () => {
   const { user } = useAuth();
   const { data, isLoading } = useQuery<{ address: Address }>({
     queryKey: ['address'],
-    queryFn: async () => getAddress(),
-
-    ...{
-      throwOnError() {
-        toast.error('problem with shop');
-        return false;
-      },
+    queryFn: async () => {
+      try {
+        const data = await getAddress();
+        return data;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
     },
   });
   return (

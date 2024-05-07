@@ -34,7 +34,7 @@ export const ExploreCard = ({ data }: { data: Product }) => {
         qc.invalidateQueries({ queryKey: ['wishlist'] });
       },
       onError(err) {
-        toast.error(err.message);
+        toast.error(err?.message);
 
         return false;
       },

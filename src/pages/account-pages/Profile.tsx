@@ -20,12 +20,6 @@ export const ProfilePage = () => {
         toast.error(error?.message);
       }
     },
-
-    ...{
-      throwOnError() {
-        return false;
-      },
-    },
   });
   return (
     <div className='w-full flex flex-col text-[#2C2844]'>

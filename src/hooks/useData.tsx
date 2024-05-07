@@ -18,9 +18,6 @@ export const useStates = (country: string | undefined = 'Nigeria') => {
     ...{
       refetchOnMount: false,
       refetchOnWindowFocus: false,
-      throwOnError() {
-        return false;
-      },
     },
   });
   if (isError) {
@@ -56,9 +53,6 @@ export const useCities = (
     ...{
       refetchOnMount: false,
       refetchOnWindowFocus: false,
-      throwOnError() {
-        return false;
-      },
     },
   });
   if (isError) {
@@ -92,9 +86,6 @@ export const useCountries = () => {
     ...{
       refetchOnMount: false,
       refetchOnWindowFocus: false,
-      throwOnError() {
-        return false;
-      },
     },
   });
   if (isError) {

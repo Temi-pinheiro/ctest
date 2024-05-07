@@ -3,22 +3,26 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { verifyPayment } from '../mutations/cartMutations';
 import Loader from '../components/Loader';
 import { useAuth, useCart } from '../providers';
+import toast from 'react-hot-toast';
 
 export const VerifyPaymentPage = () => {
   const searchParams = useSearchParams()[0];
   const { isAuthenticated } = useAuth();
-  const { resetCart, clearCart } = useCart();
+  const { clearCart } = useCart();
   const ref = searchParams.get('trxref');
   const { isLoading } = useQuery({
     queryKey: ['verify payment', ref],
     queryFn: async () => {
-      const data = await verifyPayment(ref!);
-      if (isAuthenticated) {
-        resetCart();
-      } else {
-        clearCart();
+      try {
+        const data = await verifyPayment(ref!);
+        if (!isAuthenticated) {
+          clearCart();
+        }
+        return data;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        toast.error(error?.message);
       }
-      return data;
     },
   });
   return isLoading ? (

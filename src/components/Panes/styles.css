@@ -11,11 +11,11 @@
 }
 
 .pane-label {
-  @apply smooth text-2xl text-[#1D1D1D];
+  @apply smooth text-xl text-[#1D1D1D];
 }
 
 .pane-value {
-  @apply text-xs font-bold rounded-xl px-2 py-[2px] smooth;
+  @apply text-xs font-semibold rounded-xl px-2 py-[2px] smooth;
 }
 
 .pane-value--active {
@@ -27,5 +27,5 @@
 }
 
 .pane-underline {
-  @apply bg-[#F7A2A1] h-[4px] mx-auto relative -bottom-[7px] z-10;
+  @apply bg-[#F7A2A1] h-[4px] mx-auto relative -bottom-[9px] z-10;
 }

@@ -25,10 +25,8 @@ export const SignupModal = ({ close }: { close?: () => void }) => {
         popup({ component: <AuthModal /> });
         close?.();
       },
-      throwOnError(err) {
-        console.log(err);
-        toast.error('problem with auth');
-        return false;
+      onError(err) {
+        toast.error(err?.message);
       },
     },
   });

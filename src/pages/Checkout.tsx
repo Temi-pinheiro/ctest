@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Group, SelectElement, TextInput } from '../components';
 import { openModal, useAuth, useCart } from '../providers';
 import { getFullMoney } from '../utils/FormatAmount';
@@ -55,12 +55,6 @@ export const CheckoutPage = () => {
         toast.error(error?.message);
       }
     },
-
-    ...{
-      throwOnError() {
-        return false;
-      },
-    },
   });
 
   const { list: Countries } = useCountries();
@@ -73,9 +67,8 @@ export const CheckoutPage = () => {
       onSuccess(data: any) {
         window.open(data.authorization_url, 'self');
       },
-      throwOnError() {
-        toast.error('problem with payment');
-        return false;
+      onError(err) {
+        toast.error(err?.message);
       },
     },
   });
@@ -90,7 +83,7 @@ export const CheckoutPage = () => {
     <div className='h-screen flex items-center'>
       <Loader big />
     </div>
-  ) : (
+  ) : cart.items?.length > 0 ? (
     <form
       onSubmit={handleCheckout}
       className='flex md:min-h-screen flex-col pt-20'
@@ -291,6 +284,25 @@ export const CheckoutPage = () => {
         </div>
       </div>
     </form>
+  ) : (
+    <Group key='empty wishlist'>
+      <div className='w-full flex flex-col items-center justify-center max-md:pb-[96px] pt-[96px]'>
+        <img src='/emptycart.svg' alt='empty wishlist' />
+        <div className='mt-10 md:mt-[72px] flex flex-col items-center gap-y-5 text-center'>
+          <h2 className='text-xl'>Your bag is empty</h2>
+          <span className='text-black/70'>
+            Items remain in your bag for 60 minutes, and then they are moved to
+            your wishlist. Sign in to keep items in your bag for longer periods.
+          </span>
+        </div>
+        <Link
+          to='/shop'
+          className='text-white font-semibold bg-[#EABEAF] rounded block mt-8 px-6 py-3 md:mt-[60px]'
+        >
+          Go shopping
+        </Link>
+      </div>
+    </Group>
   );
 };
 

@@ -23,7 +23,7 @@ export const WishlistItem = ({
         qc.invalidateQueries({ queryKey: ['wishlist'] });
       },
       onError(err) {
-        toast.error(err.message);
+        toast.error(err?.message);
 
         return false;
       },
@@ -38,7 +38,7 @@ export const WishlistItem = ({
         refetch();
       },
       onError(err) {
-        toast.error(err.message);
+        toast.error(err?.message);
 
         return false;
       },

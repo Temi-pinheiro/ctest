@@ -63,7 +63,7 @@ export const AppRoutes = [
         errorElement: <ErrorPage />,
       },
       {
-        path: '/verify-booking',
+        path: '/verify-order',
         element: <VerifyPaymentPage />,
         errorElement: <ErrorPage />,
       },

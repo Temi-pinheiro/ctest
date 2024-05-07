@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { ExploreCard, Group } from '../components';
 import { getProducts } from '../queries/productQueries';
@@ -9,18 +10,20 @@ import { FormEvent, useState } from 'react';
 import { postSubscribe } from '../mutations/userMutations';
 import Loader from '../components/Loader';
 import { Reviews } from './components';
+import { Link } from 'react-router-dom';
 
 export const HomePage = () => {
   const { data: products, isLoading } = useQuery<{ products: Product[] }>({
     queryKey: ['products'],
-    queryFn: async () => getProducts(),
-
-    ...{
-      throwOnError() {
-        toast.error('problem with shop');
-        return false;
-      },
+    queryFn: async () => {
+      try {
+        const data = await getProducts();
+        return data;
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
     },
+    ...{ refetchOnWindowFocus: false },
   });
   const [agreed, setAgreed] = useState(false);
   const { formData, update, clear } = useForm({
@@ -42,7 +45,7 @@ export const HomePage = () => {
         setAgreed(false);
       },
       onError(err) {
-        toast.error(err.message);
+        toast.error(err?.message);
 
         return false;
       },
@@ -70,12 +73,12 @@ export const HomePage = () => {
               maintain your secret garden with advanced scientific formulas.
               Giving you a touch of fresh and confident feeling
             </p>
-            <a
-              href='/shop'
+            <Link
+              to='/shop'
               className='mt-9 block border border-white py-3 rounded-lg px-6 w-fit font-medium text-white'
             >
               Shop Now
-            </a>
+            </Link>
           </div>
           <div className='mt-auto  flex items-center gap-x-10'>
             <span className='w-3 md:w-[90px] h-3 border border-white bg-white rounded-full'></span>

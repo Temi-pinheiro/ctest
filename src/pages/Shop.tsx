@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from '@tanstack/react-query';
 import { ExploreCard } from '../components';
 import { getProducts } from '../queries/productQueries';
@@ -7,13 +8,13 @@ import Loader from '../components/Loader';
 export const ShopPage = () => {
   const { data: products, isLoading } = useQuery<{ products: Product[] }>({
     queryKey: ['products'],
-    queryFn: () => getProducts(),
-
-    ...{
-      throwOnError(err) {
-        toast.error(err.message);
-        return false;
-      },
+    queryFn: async () => {
+      try {
+        const data = await getProducts();
+        return data;
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
     },
   });
   console.log(products);

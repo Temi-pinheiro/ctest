@@ -16,7 +16,7 @@ export const Panes = ({ panes, active, handleChange }: PanesProps) => {
   //todo make sure that the setactive prop is passed down as a prop
 
   return (
-    <motion.div key={panes.toString()}>
+    <motion.div key={panes.toString()} className='w-full'>
       <ul className='pane-conatiner'>
         {panes
           .filter((pane) => pane.show)
