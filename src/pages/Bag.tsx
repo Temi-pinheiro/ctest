@@ -79,7 +79,10 @@ export const BagPage = () => {
                       >
                         <button
                           onClick={() =>
-                            removeItemFromCart.remove(it.itemId, it.price)
+                            removeItemFromCart.remove(
+                              it.itemId,
+                              it.price * it.quantity
+                            )
                           }
                         >
                           <svg

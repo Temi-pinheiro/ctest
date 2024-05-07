@@ -113,16 +113,18 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       try {
         setCart((prev) => ({
           ...prev,
-          items: [...prev.items, { ...data }],
-          bill: (Number(data.price) + Number(prev.bill)).toString(),
+          items: [...prev.items, { ...data, price: data.price }],
+          bill: (
+            Number(data.price * data.quantity) + Number(prev.bill)
+          ).toString(),
         }));
       } catch (e) {
         console.log(e);
       }
       // setTimeout(() => {
       updateStore({
-        items: [...cart.items, { ...data }],
-        bill: Number(data.price) + Number(cart.bill),
+        items: [...cart.items, { ...data, price: data.price }],
+        bill: Number(data.price * data.quantity) + Number(cart.bill),
       });
       // }, 1000);
     }
