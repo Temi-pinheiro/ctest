@@ -5,22 +5,25 @@ import { openModal, useAuth, useCart } from '../providers';
 import { getFullMoney } from '../utils/FormatAmount';
 import { AuthModal } from '../actions';
 import { useForm } from '../hooks';
-import { makePayment } from '../mutations/cartMutations';
+import { makeGuestPayment, makePayment } from '../mutations/cartMutations';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import Loader from '../components/Loader';
 import { useCities, useCountries, useStates } from '../hooks/useData';
 import { getAddress } from '../queries/profileQueries';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export const CheckoutPage = () => {
   const navigate = useNavigate();
   const { cart } = useCart();
+  const [agreed, setAgreed] = useState(false);
+
+  const [email, setEmail] = useState('');
   const { isAuthenticated, user } = useAuth();
   const popup = openModal();
   const { formData, update, setData } = useForm({
     initial: {
-      phone_number: user?.phone_number,
+      phone_number: '',
       first_name: '',
       last_name: '',
       save_future: 'true',
@@ -60,6 +63,32 @@ export const CheckoutPage = () => {
   const { list: Countries } = useCountries();
   const { list: States } = useStates(formData.country);
   const { list: Cities } = useCities(formData.country, formData.state);
+  const { mutate: guestCheckout, isPending: checking } = useMutation({
+    mutationFn: () =>
+      makeGuestPayment({
+        phone_number: formData?.phone_number,
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        country: formData.country,
+        state: formData.state,
+        city: formData.city,
+        address1: formData.address1,
+        address2: formData.address2,
+        post_code: formData.post_code,
+        newsletter_sub: agreed,
+        email,
+        items: [...cart.items],
+        amount: cart.bill,
+      }),
+    ...{
+      onSuccess(data: any) {
+        window.open(data.authorization_url, 'self');
+      },
+      onError(err) {
+        toast.error(err?.message);
+      },
+    },
+  });
   const { mutate, isPending } = useMutation({
     mutationFn: () =>
       makePayment({ ...formData, items: [...cart.items], amount: cart.bill }),
@@ -75,7 +104,7 @@ export const CheckoutPage = () => {
 
   const handleCheckout = (e: any) => {
     e.preventDefault();
-    mutate();
+    isAuthenticated ? mutate() : guestCheckout();
   };
 
   useEffect(() => {}, [data]);
@@ -143,19 +172,30 @@ export const CheckoutPage = () => {
                     <span>{user.phone_number}</span>
                   </div>
                 ) : (
-                  <div className='flex flex-col mt-5 max-w-[510px]'>
-                    {/* <TextInput
-                    label='Email'
-                    value={formData.email}
-                    name='email'
-                    handleInputChange={update}
-                  /> */}
+                  <div className='flex flex-col gap-y-5 mt-5 max-w-[510px]'>
+                    <TextInput
+                      label='Email'
+                      value={email}
+                      name='email'
+                      handleInputChange={(e) => setEmail(e.target.value)}
+                    />
                     <TextInput
                       label='Phone Number'
                       value={formData.phone_number}
                       name='phone_number'
                       handleInputChange={update}
                     />
+                    <div className='flex items-center gap-x-2 w-full mt-6'>
+                      <input
+                        type='checkbox'
+                        onChange={(e) => setAgreed(e.target.checked)}
+                        className='h-4 w-4 bg-white/10 block accent-white/10'
+                      />
+                      <label className='text-sm'>
+                        By ticking this, you agree to receive our newsletter as
+                        emails.
+                      </label>
+                    </div>
                   </div>
                 )}
               </div>
@@ -273,10 +313,14 @@ export const CheckoutPage = () => {
               <div className='flex items-center justify-center bg-[#ECECEC] p-5 rounded-b-xl'>
                 <button
                   type='submit'
-                  disabled={isPending}
+                  disabled={isPending || checking}
                   className='w-full bg-[#EABEAF] text-white font-bold py-[10px] leading-[28px] rounded-lg flex justify-center'
                 >
-                  {isPending ? <Loader bgColor='#fff' /> : 'Place Order'}
+                  {isPending || checking ? (
+                    <Loader bgColor='#fff' />
+                  ) : (
+                    'Place Order'
+                  )}
                 </button>
               </div>
             </div>

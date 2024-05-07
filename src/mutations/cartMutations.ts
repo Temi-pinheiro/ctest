@@ -59,6 +59,23 @@ export const makePayment = async (data: any) => {
     throw err.response;
   }
 };
+export const makeGuestPayment = async (data: any) => {
+  const config = {
+    method: 'POST',
+    url: `${baseUrl}/cart/guest-checkout`,
+    headers,
+    data,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};
 export const verifyPayment = async (reference: string) => {
   const config = {
     method: 'POST',
