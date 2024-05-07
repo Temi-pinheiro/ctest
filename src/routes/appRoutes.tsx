@@ -64,6 +64,7 @@ export const AppRoutes = [
       },
       {
         path: '/verify-order',
+        exact: true,
         element: <VerifyPaymentPage />,
         errorElement: <ErrorPage />,
       },

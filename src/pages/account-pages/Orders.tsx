@@ -11,7 +11,7 @@ import { OrderAccordion } from './components';
 
 export const OrdersPage = () => {
   const searchParams = useSearchParams()[0];
-  const active = searchParams.get('show') || '';
+  const active = searchParams.get('show') || 'all';
   const [activeOrder, setActiveOrder] = useState('');
   const { show, handlePaneSwitch } = usePanes(active);
   const { data: orders, isLoading } = useQuery<{ orders: Order[] }>({
