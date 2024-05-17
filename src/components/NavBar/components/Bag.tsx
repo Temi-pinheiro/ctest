@@ -48,9 +48,9 @@ export const Bag = () => {
             strokeLinecap='round'
           />
         </svg>
-        {cart.items?.length > 0 && (
+        {cart?.items?.length > 0 && (
           <span className='absolute -top-1 -right-2 flex w-[18px] h-[18px] rounded-full bg-[#EABEAF] items-center justify-center text-xs text-white font-medium'>
-            {cart.items.length}
+            {cart?.items.length}
           </span>
         )}
       </button>
@@ -86,7 +86,7 @@ export const Bag = () => {
               </header>
             </Group>
 
-            {cart.items.length < 1 ? (
+            {cart?.items?.length < 1 ? (
               <Group key='empty'>
                 <div className='w-full h-[500px] flex flex-col px-10 items-center justify-center'>
                   <img
@@ -117,7 +117,7 @@ export const Bag = () => {
               <Group key='not empty'>
                 <div className='flex flex-col w-full h-full px-[46px] pb-10'>
                   <div className='flex flex-col w-full gap-y-10 overflow-y-scroll h-full pb-3 '>
-                    {cart.items.map((item) => (
+                    {cart?.items?.map((item) => (
                       <BagItem key={item.itemId} item={item} />
                     ))}
                   </div>

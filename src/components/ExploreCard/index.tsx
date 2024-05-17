@@ -44,7 +44,7 @@ export const ExploreCard = ({ data }: { data: Product }) => {
     <div
       onMouseEnter={() => setShowAdd(true)}
       onMouseLeave={() => setShowAdd(false)}
-      className='flex flex-col w-full pb-2 rounded-lg '
+      className='flex flex-col w-full pb-2 rounded-lg max-w-[413px]'
     >
       <Group key='image'>
         <div className='relative rounded-lg h-[300px] overflow-clip shrink-0'>

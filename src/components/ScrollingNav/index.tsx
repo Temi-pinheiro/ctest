@@ -6,7 +6,7 @@ import { useBoundedScroll } from '../../hooks/useBoundedScroll';
 import { CurrencySelector } from '../NavBar/components/CurrencySelector';
 import { openModal, useAuth } from '../../providers';
 import { Bag } from './components/Bag';
-import { AuthModal, SignupModal } from '../../actions';
+import { AuthModal, HealthClaims, SignupModal } from '../../actions';
 import { ProfileDropdown } from '../NavBar/components/ProfileDropdown';
 
 export const ScrollingNav = () => {
@@ -46,6 +46,9 @@ export const ScrollingNav = () => {
               <li>
                 <Link to='/about-us'>About Us</Link>
               </li>
+              <button onClick={() => popup({ component: <HealthClaims /> })}>
+                Health Notice
+              </button>
             </ul>
           </Group>
           <Group key='right'>

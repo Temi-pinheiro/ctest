@@ -5,7 +5,7 @@ import { CurrencySelector } from './components/CurrencySelector';
 import { openModal, useAuth } from '../../providers';
 import { AuthModal } from '../../actions/auth/Auth';
 import { Bag } from './components/Bag';
-import { SignupModal } from '../../actions';
+import { HealthClaims, SignupModal } from '../../actions';
 import { ProfileDropdown } from './components/ProfileDropdown';
 
 export const NavBar = () => {
@@ -20,7 +20,7 @@ export const NavBar = () => {
         </Link>
       </Group>
       <Group key='center'>
-        <ul className='flex gap-x-8 items-center font-medium text-black'>
+        <ul className='flex gap-x-8 items-center font-medium text-black px-10'>
           <Link className='' to='/shop'>
             Shop
           </Link>
@@ -28,6 +28,9 @@ export const NavBar = () => {
           <li>
             <Link to='/about-us'>About Us</Link>
           </li>
+          <button onClick={() => popup({ component: <HealthClaims /> })}>
+            Health Notice
+          </button>
         </ul>
       </Group>
       <Group key='right'>
