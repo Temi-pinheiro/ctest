@@ -64,10 +64,42 @@ export const removeFromWishlist = async (id: any) => {
     throw err.response;
   }
 };
+export const removeAllFromWishlist = async () => {
+  const config = {
+    method: 'POST',
+    url: `${baseUrl}/wishlist/remove/all`,
+    headers,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};
 export const addWishlistItemToBag = async (id: any) => {
   const config = {
     method: 'POST',
     url: `${baseUrl}/wishlist/add-to-bag/${id}`,
+    headers,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};
+export const addAllWishlistItemsToBag = async () => {
+  const config = {
+    method: 'POST',
+    url: `${baseUrl}/wishlist/add/all`,
     headers,
   };
   try {

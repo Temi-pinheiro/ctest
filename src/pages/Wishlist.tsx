@@ -4,13 +4,23 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Group } from '../components';
 import { getWishlist } from '../queries/productQueries';
 import toast from 'react-hot-toast';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import Loader from '../components/Loader';
 import { WishlistItem } from './components';
+import {
+  addAllWishlistItemsToBag,
+  removeAllFromWishlist,
+} from '../mutations/productMutations';
+import { useCart } from '../providers';
 
 export const WishlistPage = () => {
+  const { refetch: reloadCart } = useCart();
   const navigate = useNavigate();
-  const { data: wishlist, isLoading } = useQuery<{
+  const {
+    data: wishlist,
+    isLoading,
+    refetch,
+  } = useQuery<{
     items: { id: number; product: Product }[];
   }>({
     queryKey: ['wishlist'],
@@ -22,6 +32,32 @@ export const WishlistPage = () => {
         toast.error(err?.message);
         throw err;
       }
+    },
+  });
+
+  const { mutate: addAll, isPending: addingAll } = useMutation({
+    mutationFn: () => addAllWishlistItemsToBag(),
+    ...{
+      onSuccess() {
+        toast.success('Items added to wishlist');
+        refetch();
+        reloadCart();
+      },
+      onError(err) {
+        toast.error(err?.message);
+      },
+    },
+  });
+  const { mutate: removeAll, isPending: removingAll } = useMutation({
+    mutationFn: () => removeAllFromWishlist(),
+    ...{
+      onSuccess() {
+        toast.success('Items removed successfully');
+        refetch();
+      },
+      onError(err) {
+        toast.error(err?.message);
+      },
     },
   });
 
@@ -86,11 +122,17 @@ export const WishlistPage = () => {
                   </tbody>
                 </table>
                 <div className='w-full mt-[120px] flex items-center justify-center gap-x-10'>
-                  <button className='rounded border bg-[] px-[30px] py-[15px] text-xl font-medium text-[#2C2844] border-[#2C2844]'>
-                    Remove All
+                  <button
+                    onClick={() => removeAll()}
+                    className='rounded border bg-[] px-[30px] py-[15px] text-xl font-medium text-[#2C2844] border-[#2C2844]'
+                  >
+                    {removingAll ? <Loader bgColor='#2C2844' /> : 'Remove All'}
                   </button>
-                  <button className='rounded border bg-[#EABEAF] px-[30px] py-[15px] text-xl font-medium text-[#fff] border-transparent'>
-                    Add All to Bag
+                  <button
+                    onClick={() => addAll()}
+                    className='rounded border bg-[#EABEAF] px-[30px] py-[15px] text-xl font-medium text-[#fff] border-transparent'
+                  >
+                    {addingAll ? <Loader bgColor='#fff' /> : 'Add All to Bag'}
                   </button>
                 </div>
               </section>
