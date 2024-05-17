@@ -20,7 +20,7 @@ export const SettingsLayout = () => {
       <div className='mt-12 flex items-start gap-x-[100px] max-w-[1050px] w-full mx-auto'>
         {' '}
         <Group key='left'>
-          <div className='w-[174px] flex flex-col gap-y-[10px] shrink-0'>
+          <div className='w-[174px] flex flex-col gap-y-[10px] shrink-0 max-md:hidden'>
             <NavLink
               end
               style={({ isActive }) => ({
@@ -55,17 +55,7 @@ export const SettingsLayout = () => {
             >
               <span>Orders</span>
             </NavLink>
-            <NavLink
-              style={({ isActive }) => ({
-                color: isActive ? '#000000' : undefined,
-                background: isActive ? '#F9ECE7' : undefined,
-                fontWeight: isActive ? 600 : 400,
-              })}
-              className='flex items-center gap-x-[10px] py-[10px] px-5 rounded-xl text-black/70'
-              to='/my-account/returns'
-            >
-              <span>Returns</span>
-            </NavLink>
+
             <NavLink
               style={({ isActive }) => ({
                 color: isActive ? '#000000' : undefined,
@@ -85,7 +75,7 @@ export const SettingsLayout = () => {
           initial='initial'
           key={pathname}
           exit='exit'
-          className='w-full h-full'
+          className='w-full h-full max-md:px-6'
         >
           <Outlet />
         </motion.div>

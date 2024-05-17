@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Group } from '../../../components';
+import { Button, Group } from '../../../components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { accordionVariants } from '../../../constants/framer';
 import { getFullMoney } from '../../../utils/FormatAmount';
@@ -16,22 +16,27 @@ export const OrderAccordion = ({
     <div className=' flex flex-col text-xl text-[#2C2844] h-full w-full border rounded-lg px-10 py-[30px]'>
       <Group key='title'>
         <div
-          className='hover:cursor-pointer flex gap-x-3 justify-between items-center w-full'
+          className='hover:cursor-pointer flex max-md:flex-col gap-y-3 gap-x-3 md:justify-between md:items-center w-full'
           onClick={() => setIsOpen(!isOpen ? order.id : null)}
         >
-          <div className='flex flex-col gap-y-1'>
-            <span className='text-xs font-medium'>Total</span>
+          <div className='flex md:flex-col max-md:w-full max-md:justify-between max-md:items-center gap-y-1'>
+            <span className='text-sm md:text-xs font-semibold'>Total</span>
             <span className='text-sm '>{getFullMoney(order.amount)}</span>
           </div>
-          <div className='flex flex-col gap-y-1'>
-            <span className='text-xs font-medium'>Order Number</span>
+          <div className='flex md:flex-col max-md:w-full max-md:justify-between max-md:items-center gap-y-1'>
+            <span className='text-sm md:text-xs font-semibold'>
+              Order Number
+            </span>
             <span className='text-sm '>#{order.order_id}</span>
           </div>
-          <div className='flex flex-col gap-y-1'>
-            <span className='text-xs font-medium'>Status</span>
+          <div className='flex md:flex-col max-md:w-full max-md:justify-between max-md:items-center gap-y-1'>
+            <span className='text-sm md:text-xs font-semibold'>Status</span>
             <span className='text-sm uppercase'> {order.status}</span>
           </div>
-          <span className='w-9 h-9 rounded-full bg-[#EABEAF] flex items-center justify-center'>
+          <div className='md:hidden mt-10 flex flex-col'>
+            <Button label={isOpen ? 'Close' : 'Expand'} />
+          </div>
+          <span className='w-9 h-9 max-md:hidden rounded-full bg-[#EABEAF] flex items-center justify-center'>
             <motion.svg
               width='12'
               height='8'

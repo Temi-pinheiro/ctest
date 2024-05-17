@@ -51,6 +51,7 @@ export const AccountPage = () => {
             ) : (
               <span>
                 {user.firstname} {user.lastname}
+                <br />
                 {data?.address.address}
                 <br /> {data?.address.city}
                 <br /> {data?.address.state}

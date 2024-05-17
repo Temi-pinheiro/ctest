@@ -1,9 +1,9 @@
 .pane-conatiner {
-  @apply flex border-b-2 w-full justify-between items-center h-[40px] px-[10px];
+  @apply flex border-b-2 w-full justify-between  max-md:overflow-x-scroll items-center h-[40px] px-[10px] max-md:gap-x-10;
 }
 
 .pane {
-  @apply relative pt-[2px] pb-3;
+  @apply relative pt-[2px] pb-3 max-md:min-w-fit;
 }
 
 .smooth {
@@ -11,7 +11,7 @@
 }
 
 .pane-label {
-  @apply smooth text-xl text-[#1D1D1D];
+  @apply smooth max-md:min-w-fit text-xl text-[#1D1D1D];
 }
 
 .pane-value {

@@ -6,9 +6,12 @@ import { Group } from '..';
 import { Link, useLocation } from 'react-router-dom';
 import { openModal, useAuth, useCart } from '../../providers';
 import { AuthModal, HealthClaims, SignupModal } from '../../actions';
+import { MobileNavLink } from '../MobileNavLink';
 export const MobileNav = () => {
   const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('');
+
   const popup = openModal();
   const { isAuthenticated, setIsAuthenticated, setUser } = useAuth();
   const { cart } = useCart();
@@ -100,15 +103,17 @@ export const MobileNav = () => {
                   >
                     Shop
                   </Link>
-                  <Link
-                    to='/wishlist'
-                    className='py-4 text-2xl px-4 flex relative'
-                    style={{
-                      fontWeight: pathname == '/wishlist' ? 'bold' : 'normal',
-                    }}
-                  >
-                    Wishlist
-                  </Link>
+                  {isAuthenticated && (
+                    <Link
+                      to='/wishlist'
+                      className='py-4 text-2xl px-4 flex relative'
+                      style={{
+                        fontWeight: pathname == '/wishlist' ? 'bold' : 'normal',
+                      }}
+                    >
+                      Wishlist
+                    </Link>
+                  )}
                   <Link
                     to='/bag'
                     className='py-4 text-2xl px-4 flex relative items-center gap-x-3'
@@ -121,6 +126,35 @@ export const MobileNav = () => {
                       {cart.items.length}
                     </span>
                   </Link>
+                  {isAuthenticated && (
+                    <>
+                      {' '}
+                      <MobileNavLink
+                        isOpen={activeTab == 'Account'}
+                        setIsOpen={setActiveTab}
+                        title='Account'
+                        key={'account'}
+                        paths={[
+                          {
+                            label: 'My account',
+                            to: '/my-account',
+                          },
+                          {
+                            label: 'Profile',
+                            to: '/my-account/profile',
+                          },
+                          {
+                            label: 'Orders',
+                            to: '/my-account/orders',
+                          },
+                          {
+                            label: 'Wallet',
+                            to: '/my-account/wallet',
+                          },
+                        ]}
+                      />
+                    </>
+                  )}
                   <button
                     className='py-4 text-2xl px-4 flex relative items-center gap-x-3'
                     onClick={() => popup({ component: <HealthClaims /> })}
