@@ -173,7 +173,7 @@ export const HomePage = () => {
           </Group>
           <Group key='why use'>
             <section>
-              <div className='max-w-[1040px] w-full mx-auto flex max-md:flex-col gap-y-10 items-center justify-between py-20 md:py-[140px]'>
+              <div className='max-w-[1040px] w-full mx-auto flex max-md:flex-col gap-y-10 items-center justify-between pt-20 md:py-[140px]'>
                 <div>
                   <h3 className='text-2xl font-semibold'>
                     Why Use Vaginne Allure?
@@ -187,7 +187,7 @@ export const HomePage = () => {
                     <li>Reduces vaginal discharge</li>
                   </ul>
                 </div>
-                <div className='w-full md:w-[598px] h-[458px] rounded-lg overflow-clip'>
+                <div className='w-full md:w-[598px] h-[458px] md:drounded-lg overflow-clip'>
                   <img
                     src='https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=2550&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
                     className='w-full h-full object-cover '
