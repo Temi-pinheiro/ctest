@@ -103,10 +103,10 @@ export const Footer = () => {
                     <h4>Resources</h4>
                     <ul>
                       <li>
-                        <Link to='/blog'>Blog</Link>
+                        <Link to='#'>Blog</Link>
                       </li>
                       <li>
-                        <Link to='/about-us'>FAQ</Link>
+                        <Link to='/faqs'>FAQ</Link>
                       </li>
 
                       <li>

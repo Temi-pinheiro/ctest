@@ -4,6 +4,7 @@ import {
   BagPage,
   CheckoutPage,
   ErrorPage,
+  FaqsPage,
   PrivacyPolicyPage,
   ProductPage,
   ReturnsPolicyPage,
@@ -46,6 +47,11 @@ export const AppRoutes = [
         errorElement: <ErrorPage />,
       },
       { path: '/terms', element: <TermsPage />, errorElement: <ErrorPage /> },
+      {
+        path: '/faqs',
+        element: <FaqsPage />,
+        errorElement: <ErrorPage />,
+      },
       {
         path: '/privacy-policy',
         element: <PrivacyPolicyPage />,

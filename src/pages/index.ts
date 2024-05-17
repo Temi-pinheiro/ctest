@@ -10,3 +10,4 @@ export * from './Wishlist';
 export * from './Error';
 export * from './Checkout';
 export * from './VerifyPayment';
+export * from './Faqs';

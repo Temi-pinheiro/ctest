@@ -155,14 +155,14 @@ export const MobileFooter = () => {
             </Group>
           </div>
           <Group key='Resources'>
-            <div className='flex flex-col gap-y-4'>
+            <div className='flex flex-col gap-y-4 mt-7'>
               <h5 className='text-sm font-bold text-[#2C2844]'>Resources</h5>
               <ul className='flex flex-col gap-y-2 text-black/70'>
                 <li>
                   <Link to='#'>Blog</Link>
                 </li>
                 <li>
-                  <Link to='#'>FAQ</Link>
+                  <Link to='/faqs'>FAQ</Link>
                 </li>
               </ul>
             </div>
