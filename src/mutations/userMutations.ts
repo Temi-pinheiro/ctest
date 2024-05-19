@@ -76,3 +76,45 @@ export const updateAddress = async (data: any) => {
     throw err.response;
   }
 };
+
+export const verifyAccount = async (
+  account_number?: string,
+  bank_code?: string
+) => {
+  const config = {
+    method: 'POST',
+    url: `${baseUrl}/wallet/verify-account?account_number=${account_number}&bank_code=${bank_code}`,
+    headers,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};
+export const withdrawalRequest = async (data?: {
+  account_name: string;
+  account_number: string;
+  bank_name: string;
+  requested_amount: number;
+}) => {
+  const config = {
+    method: 'POST',
+    url: `${baseUrl}/wallet/submit-request`,
+    headers,
+    data,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};

@@ -41,6 +41,22 @@ export const getCountries = async () => {
     throw err.response;
   }
 };
+export const getBanks = async () => {
+  const config = {
+    method: 'GET',
+    url: `${baseUrl}/wallet/get-bank`,
+    headers,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};
 export const getStates = async (country: string) => {
   const config = {
     method: 'GET',

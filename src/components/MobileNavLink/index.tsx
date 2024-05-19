@@ -14,6 +14,7 @@ export const MobileNavLink = ({
   paths: {
     label: string;
     to: string;
+    show: boolean;
   }[];
   title: string;
   isOpen: boolean;
@@ -68,18 +69,20 @@ export const MobileNavLink = ({
             // className='flex flex-col mt-6'
           >
             <div className=' text-lg flex flex-col gap-y-6 pt-[30px]'>
-              {paths.map((path, index) => (
-                <Link
-                  to={path.to}
-                  className='flex items-center w-full justify-between relative px-5'
-                  style={{
-                    fontWeight: pathname == path.to ? 'bold' : 'normal',
-                  }}
-                  key={index}
-                >
-                  {path.label}
-                </Link>
-              ))}
+              {paths
+                .filter((p) => p.show)
+                .map((path, index) => (
+                  <Link
+                    to={path.to}
+                    className='flex items-center w-full justify-between relative px-5'
+                    style={{
+                      fontWeight: pathname == path.to ? 'bold' : 'normal',
+                    }}
+                    key={index}
+                  >
+                    {path.label}
+                  </Link>
+                ))}
             </div>
           </motion.section>
         )}

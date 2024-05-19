@@ -13,7 +13,7 @@ export const MobileNav = () => {
   const [activeTab, setActiveTab] = useState('');
 
   const popup = openModal();
-  const { isAuthenticated, setIsAuthenticated, setUser } = useAuth();
+  const { isAuthenticated, setIsAuthenticated, setUser, user } = useAuth();
   const { cart } = useCart();
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -138,18 +138,22 @@ export const MobileNav = () => {
                           {
                             label: 'My account',
                             to: '/my-account',
+                            show: true,
                           },
                           {
                             label: 'Profile',
                             to: '/my-account/profile',
+                            show: true,
                           },
                           {
                             label: 'Orders',
                             to: '/my-account/orders',
+                            show: true,
                           },
                           {
                             label: 'Wallet',
                             to: '/my-account/wallet',
+                            show: user?.role?.title !== 'Retailer',
                           },
                         ]}
                       />

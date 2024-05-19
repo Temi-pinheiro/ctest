@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 import { useAuth, useCart } from '../../../providers';
 import { useOutsideClick } from '../../../hooks';
@@ -9,6 +10,7 @@ import { dropdown } from '../../../constants/framer';
 
 export const ProfileDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { pathname } = useLocation();
   const { clearAuth } = useAuth();
   const { resetCart } = useCart();
   const handleLogout = () => {
@@ -62,6 +64,10 @@ export const ProfileDropdown = () => {
       path: '/my-account/wallet',
     },
   ];
+
+  useEffect(() => {
+    isOpen && setIsOpen(false);
+  }, [pathname]);
 
   return (
     <div className='relative w-max'>

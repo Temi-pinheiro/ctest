@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { getCities, getCountries, getStates } from '../queries/profileQueries';
+import {
+  getBanks,
+  getCities,
+  getCountries,
+  getStates,
+} from '../queries/profileQueries';
 
 export const useStates = (country: string | undefined = 'Nigeria') => {
   const list: Array<{ value: number; label: string }> = [];
@@ -95,6 +100,39 @@ export const useCountries = () => {
       const list: Array<{ value: string; label: string }> = [];
       if (data?.length == 0) return [];
       data?.map((item) => list.push({ value: item.name, label: item.name }));
+      return list;
+    };
+
+    return {
+      list: isLoading ? [] : getSelectData(data?.countries),
+      data: data?.countries,
+    };
+  }
+};
+export const useBanks = () => {
+  const list: Array<{ value: string; label: string }> = [];
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['countries'],
+    queryFn: async () => {
+      try {
+        const data = await getBanks();
+        return data;
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
+    },
+    ...{
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    },
+  });
+  if (isError) {
+    return { list };
+  } else {
+    const getSelectData = (data: Array<{ code: string; name: string }>) => {
+      const list: Array<{ value: string; label: string }> = [];
+      if (data?.length == 0) return [];
+      data?.map((item) => list.push({ value: item.code, label: item.name }));
       return list;
     };
 

@@ -26,13 +26,13 @@ export const AccountPage = () => {
           <h4 className='text-xl font-medium'>Account Details</h4>
           <div className=' flex flex-col mt-5 gap-y-[10px]'>
             <span>
-              {user.firstname} {user.lastname} ({user.email})
+              {user?.firstname} {user?.lastname} ({user?.email})
             </span>
-            <span>{user.role.title}</span>
-            <span>{user.phone_number}</span>
+            <span>{user?.role.title}</span>
+            <span>{user?.phone_number}</span>
           </div>
         </div>
-        {user.role.title !== 'Retailer' && (
+        {user?.role.title !== 'Retailer' && (
           <div className='border-t pt-10'>
             <h4 className='text-xl font-medium'>Wallet Credit</h4>
             <div className=' flex flex-col mt-5 gap-y-[10px]'>
