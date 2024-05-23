@@ -52,7 +52,7 @@ export const WalletPage = () => {
             </div>
           )}
         </div>
-        <div className='border-t pt-10'>
+        {/* <div className='border-t pt-10'>
           <div className='flex items-center justify-between w-full'>
             <h4 className='text-xl font-medium'>Bank Details</h4>
           </div>
@@ -61,7 +61,7 @@ export const WalletPage = () => {
               <Button disabled label='Add Account' />
             </span>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
