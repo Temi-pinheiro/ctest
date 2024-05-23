@@ -45,7 +45,7 @@ export const WalletPage = () => {
               <span>
                 <Button
                   label='Withdraw'
-                  disabled={Boolean(wallet)}
+                  disabled={Boolean(!wallet)}
                   effect={() => popup({ component: <Withdraw /> })}
                 />
               </span>
