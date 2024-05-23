@@ -1,7 +1,7 @@
 'use client';
 import { Link } from 'react-router-dom';
 import { Group } from '../Group';
-import { CurrencySelector } from './components/CurrencySelector';
+// import { CurrencySelector } from './components/CurrencySelector';
 import { openModal, useAuth } from '../../providers';
 import { AuthModal } from '../../actions/auth/Auth';
 import { Bag } from './components/Bag';
@@ -35,7 +35,7 @@ export const NavBar = () => {
       </Group>
       <Group key='right'>
         <div className=' flex items-center gap-x-6 text-sm'>
-          <CurrencySelector />
+          {/* <CurrencySelector /> */}
           {/* <button>
             <svg
               width='24'

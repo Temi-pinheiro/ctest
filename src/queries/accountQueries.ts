@@ -40,3 +40,19 @@ export const getOrder = async (id: any) => {
     throw err.response;
   }
 };
+export const getWallet = async () => {
+  const config = {
+    method: 'GET',
+    url: `${baseUrl}/wallet`,
+    headers,
+  };
+  try {
+    const response = await axios(config);
+    return response.data.data;
+  } catch (err: any) {
+    if (!err.response) {
+      throw err;
+    }
+    throw err.response;
+  }
+};

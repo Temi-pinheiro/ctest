@@ -3,7 +3,7 @@ import { Group } from '../Group';
 import { AnimatePresence, motion, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useBoundedScroll } from '../../hooks/useBoundedScroll';
-import { CurrencySelector } from '../NavBar/components/CurrencySelector';
+// import { CurrencySelector } from '../NavBar/components/CurrencySelector';
 import { openModal, useAuth } from '../../providers';
 import { Bag } from './components/Bag';
 import { AuthModal, HealthClaims, SignupModal } from '../../actions';
@@ -53,7 +53,7 @@ export const ScrollingNav = () => {
           </Group>
           <Group key='right'>
             <div className=' flex items-center gap-x-6 text-sm'>
-              <CurrencySelector />
+              {/* <CurrencySelector /> */}
               {/* <button>
                 <svg
                   width='24'
