@@ -137,8 +137,8 @@ export const useBanks = () => {
     };
 
     return {
-      list: isLoading ? [] : getSelectData(data?.countries),
-      data: data?.countries,
+      list: isLoading ? [] : getSelectData(data?.banks),
+      data: data?.banks,
     };
   }
 };

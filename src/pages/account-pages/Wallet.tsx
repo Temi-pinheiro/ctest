@@ -1,4 +1,4 @@
-import { AddAccount } from '../../actions';
+import { Withdraw } from '../../actions';
 import { Button } from '../../components';
 import { openModal } from '../../providers';
 
@@ -23,7 +23,10 @@ export const WalletPage = () => {
           <div className=' flex flex-col mt-5 gap-y-[10px]'>
             <span>0.00</span>
             <span>
-              <Button disabled label='Withdraw' />
+              <Button
+                label='Withdraw'
+                effect={() => popup({ component: <Withdraw /> })}
+              />
             </span>
           </div>
         </div>
@@ -33,10 +36,7 @@ export const WalletPage = () => {
           </div>
           <div className=' flex flex-col mt-5 gap-y-[10px]'>
             <span>
-              <Button
-                label='Add Account'
-                effect={() => popup({ component: <AddAccount /> })}
-              />
+              <Button disabled label='Add Account' />
             </span>
           </div>
         </div>

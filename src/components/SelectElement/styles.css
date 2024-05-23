@@ -11,7 +11,7 @@
 }
 
 .select {
-  @apply outline-none bg-transparent w-full cursor-pointer;
+  @apply outline-none bg-transparent w-full cursor-pointer disabled:bg-[#F6F8FA]   disabled:text-[#525866] disabled:focus:text-[#525866];
 }
 
 /* .option--present {

@@ -3,14 +3,14 @@ import { Button, SelectElement, TextInput } from '../components';
 import { useForm } from '../hooks';
 import { useBanks } from '../hooks/useData';
 import { useMutation } from '@tanstack/react-query';
-import { verifyAccount } from '../mutations/userMutations';
+import { verifyAccount, withdrawalRequest } from '../mutations/userMutations';
 import toast from 'react-hot-toast';
-
-export const AddAccount = () => {
+export const Withdraw = ({ close }: { close?: () => void }) => {
   const { formData, update } = useForm({
     initial: {
       account_number: '',
       bank_code: '',
+      requested_amount: '',
     },
   });
   const { list: Banks } = useBanks();
@@ -21,8 +21,8 @@ export const AddAccount = () => {
       verifyAccount(formData.account_number, formData.bank_code),
     onSuccess(data) {
       console.log(data);
-      setName(data?.data?.account?.account_name);
-      toast.success('Address updated successfully');
+      setName(data?.account?.account_name);
+      toast.success('Account verified successfully');
       close?.();
     },
     onError(error) {
@@ -30,15 +30,36 @@ export const AddAccount = () => {
       return false;
     },
   });
-  console.log(Banks);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const getBankName = (id: any) => {
+    const [bank] = Banks.filter((b) => b.value == id);
+    return bank.label;
+  };
+  const { mutate: withdraw, isPending: withdrawing } = useMutation({
+    mutationFn: () =>
+      withdrawalRequest({
+        account_name: name,
+        requested_amount: formData.requested_amount,
+        account_number: formData.account_number,
+        bank_name: getBankName(formData.bank_code),
+      }),
+    onSuccess() {
+      toast.success('Withdrawal Succesfull');
+      close?.();
+    },
+    onError(error) {
+      toast.error(error?.message);
+      return false;
+    },
+  });
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    mutate();
+    name ? withdraw() : mutate();
   };
   return (
     <div className='p-8 flex flex-col items-center gap-y-8 '>
       <header className='w-full flex items-center justify-between'>
-        <h3 className='text-lg font-medium'>Add Account</h3>
+        <h3 className='text-lg font-medium'>Withdraw</h3>
         <button onClick={() => close?.()}>
           <svg
             width='24'
@@ -59,6 +80,7 @@ export const AddAccount = () => {
         <SelectElement
           placeholder='Select Bank'
           label='Bank'
+          readOnly={Boolean(name)}
           value={formData.bank_code}
           name='bank_code'
           options={Banks}
@@ -66,13 +88,28 @@ export const AddAccount = () => {
         />
         <TextInput
           label='Account Number'
+          readOnly={Boolean(name)}
           value={formData.account_number}
           name='account_number'
           handleInputChange={update}
         />
         <TextInput label='Account Name' readOnly value={name} name='name' />
+        {name && (
+          <TextInput
+            type='number'
+            label='Amount'
+            value={formData.requested_amount}
+            name='requested_amount'
+            handleInputChange={update}
+          />
+        )}
 
-        <Button type='submit' label='Verify Account' loading={isPending} />
+        <Button
+          type='submit'
+          disabled={!formData.account_number || !formData.bank_code}
+          label={name ? 'Withdraw' : 'Verify Account'}
+          loading={isPending || withdrawing}
+        />
       </form>
     </div>
   );

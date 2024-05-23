@@ -14,6 +14,7 @@ interface SelectElementProps {
   placeholder?: string;
   name: string;
   required?: boolean;
+  readOnly?: boolean;
 
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
@@ -24,6 +25,7 @@ export const SelectElement = ({
   name,
   value,
   onChange,
+  readOnly,
   placeholder,
   required = false,
   hint,
@@ -43,6 +45,7 @@ export const SelectElement = ({
           className='select'
           name={name}
           id={name}
+          disabled={readOnly}
           required={required}
         >
           {placeholder && <option value=''>{placeholder}</option>}

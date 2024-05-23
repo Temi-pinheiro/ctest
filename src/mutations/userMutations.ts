@@ -97,10 +97,10 @@ export const verifyAccount = async (
   }
 };
 export const withdrawalRequest = async (data?: {
-  account_name: string;
-  account_number: string;
-  bank_name: string;
-  requested_amount: number;
+  account_name?: string;
+  account_number?: string;
+  bank_name?: string;
+  requested_amount?: any;
 }) => {
   const config = {
     method: 'POST',
