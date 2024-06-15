@@ -49,7 +49,7 @@ export const FaqsPage = () => {
   return (
     <div className='flex md:min-h-screen flex-col pt-20'>
       <div className='max-w-[1040px] mx-auto w-full px-6 flex flex-col md:mt-20 gap-y-6 max-md:pb-10'>
-        <h1 className='text-3xl max-md:pt-4 md:text-[40px] font-semibold '>
+        <h1 className='text-3xl max-md:pt-4 md:text-[64px] font-semibold '>
           Frequently Asked Questions
         </h1>
         <div className='mt-6 md:mt-10 flex flex-col gap-y-7 '>

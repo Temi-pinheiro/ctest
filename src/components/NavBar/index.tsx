@@ -5,7 +5,7 @@ import { Group } from '../Group';
 import { openModal, useAuth } from '../../providers';
 import { AuthModal } from '../../actions/auth/Auth';
 import { Bag } from './components/Bag';
-import { HealthClaims, SignupModal } from '../../actions';
+import { SignupModal } from '../../actions';
 import { ProfileDropdown } from './components/ProfileDropdown';
 
 export const NavBar = () => {
@@ -28,9 +28,6 @@ export const NavBar = () => {
           <li>
             <Link to='/about-us'>About Us</Link>
           </li>
-          <button onClick={() => popup({ component: <HealthClaims /> })}>
-            Health Notice
-          </button>
         </ul>
       </Group>
       <Group key='right'>

@@ -59,10 +59,7 @@ export const HomePage = () => {
   return (
     <div className='flex md:min-h-screen flex-col pt-20'>
       <section className='h-screen w-full relative'>
-        <img
-          src='https://images.unsplash.com/photo-1618553577337-f5006b34f420?q=80&w=2573&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-          className='w-full h-full object-cover'
-        />
+        <img src='/1.jpg' className='w-full h-full object-cover' />
         <div className='w-full h-full absolute inset-0 backdrop-brightness-50 flex flex-col items-center py-8'>
           <div className='flex flex-col items-center h-full justify-center'>
             <h1 className='text-[#fff] text-[34px] md:text-[62px] font-semibold cookie-regular'>
@@ -80,12 +77,12 @@ export const HomePage = () => {
               Shop Now
             </Link>
           </div>
-          <div className='mt-auto  flex items-center gap-x-10'>
+          {/* <div className='mt-auto  flex items-center gap-x-10'>
             <span className='w-3 md:w-[90px] h-3 border border-white bg-white rounded-full'></span>
             <span className='w-3 md:w-[90px] h-3 border border-white  rounded-full'></span>
             <span className='w-3 md:w-[90px] h-3 border border-white  rounded-full'></span>
             <span className='w-3 md:w-[90px] h-3 border border-white  rounded-full'></span>
-          </div>
+          </div> */}
         </div>
       </section>
       {isLoading ? null : (
@@ -100,10 +97,7 @@ export const HomePage = () => {
             <section className='w-full'>
               <div className='max-w-[1040px] w-full mx-auto flex max-md:flex-col gap-y-8 items-center justify-between py-[120px]'>
                 <div className='w-full md:w-[450px] h-[420px] md:rounded-lg overflow-clip'>
-                  <img
-                    src='https://plus.unsplash.com/premium_photo-1661597206779-b6643eac8213?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                    className='w-full h-full object-cover'
-                  />
+                  <img src='/3.jpg' className='w-full h-full object-cover' />
                 </div>
                 <div className='flex flex-col max-w-[500px] gap-y-10 max-md:px-6'>
                   <h2 className='text-2xl font-medium'>
@@ -187,10 +181,10 @@ export const HomePage = () => {
                     <li>Reduces vaginal discharge</li>
                   </ul>
                 </div>
-                <div className='w-full md:w-[598px] h-[458px] md:drounded-lg overflow-clip'>
+                <div className='w-full md:w-[598px] h-[458px] md:rounded-lg overflow-clip'>
                   <img
-                    src='https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=2550&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                    className='w-full h-full object-cover '
+                    src='/4.jpg'
+                    className='w-full h-full object-left-bottom object-cover  '
                   />
                 </div>
               </div>
@@ -200,7 +194,7 @@ export const HomePage = () => {
           <Group key='contact form'>
             <section className='w-full h-[700px] relative '>
               <img
-                src='https://images.unsplash.com/photo-1530137176569-e65de21f1ec3?q=80&w=3732&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                src='/8.jpg'
                 alt='pond image'
                 className='w-full h-full object-cover'
               />

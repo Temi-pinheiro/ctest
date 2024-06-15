@@ -40,7 +40,7 @@ export const BagPage = () => {
                 fill='#2C2844'
               />
             </svg>
-            <span className='text-2xl md:text-[40px] font-semibold text-[#2C2844]'>
+            <span className='text-2xl md:text-[64px] font-semibold text-[#2C2844]'>
               Bag
             </span>
           </button>

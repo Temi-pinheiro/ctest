@@ -2,7 +2,7 @@ export const ReturnsPolicyPage = () => {
   return (
     <div className='flex md:min-h-screen flex-col pt-20'>
       <div className='max-w-[1040px] mx-auto w-full max-md:px-6 flex flex-col md:mt-20 gap-y-6 max-md:pb-10'>
-        <h1 className='text-2xl md:text-[40px] font-semibold '>
+        <h1 className='text-2xl md:text-[64px] font-semibold '>
           Return Policy
         </h1>
         <p className='text-black/70 max-md:text-sm'>

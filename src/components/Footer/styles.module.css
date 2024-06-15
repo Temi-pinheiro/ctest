@@ -7,7 +7,7 @@
 }
 
 .bottom {
-  @apply flex w-full justify-between border-t pt-10 mt-[200px] text-xs text-[#8aa0f2] border-[#0c38e4];
+  @apply flex w-full justify-between border-t pt-10 mt-[200px] text-xl text-[#8aa0f2] border-[#0c38e4];
 }
 
 .input_container {
@@ -27,7 +27,7 @@
 }
 
 .links h4 {
-  @apply text-sm font-bold;
+  @apply text-xl font-bold;
 }
 
 .links div {
@@ -39,5 +39,5 @@
 }
 
 .links div ul li {
-  @apply text-black/50 transition-colors duration-200 ease-in-out;
+  @apply text-black/50 transition-colors duration-200 ease-in-out text-lg;
 }
