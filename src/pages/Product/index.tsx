@@ -166,7 +166,7 @@ export const ProductPage = () => {
                     </button>
                     <div className='mt-12 flex items-center w-full justify-between'>
                       <Group key='quantity'>
-                        <div className='flex items-center justify-between w-[35%] rounded-lg h-[50px] border border-[#1D1D1D]/30 '>
+                        <div className='flex items-center justify-between w-full md:w-[35%] rounded-lg h-[50px] border border-[#1D1D1D]/30 '>
                           <button
                             disabled={quantity <= 1}
                             onClick={handleDecrease}

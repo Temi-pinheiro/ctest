@@ -112,12 +112,12 @@ export const ExploreCard = ({ data }: { data: Product }) => {
       <div className='flex flex-col justify-between w-full mt-5'>
         <span className='flex items-center w-full justify-between'>
           <Link
-            className='hover:underline md:text-xl'
+            className='hover:underline text-lg md:text-xl'
             to={`/shop/${data.id.toString()}`}
           >
             {data.name}
           </Link>
-          <span className='text-black/50 text-xs md:text-lg'>0 reviews</span>
+          <span className='text-black/50 text-sm md:text-lg'>0 reviews</span>
         </span>
         <span className='text-black/70 md:text-lg'>
           {getFullMoney(data.amount)}

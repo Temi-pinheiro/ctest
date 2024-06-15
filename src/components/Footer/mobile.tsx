@@ -164,6 +164,15 @@ export const MobileFooter = () => {
                 <li>
                   <Link to='/faqs'>FAQ</Link>
                 </li>
+                <li>
+                  <Link to='/terms'>Terms of Use</Link>
+                </li>
+                <li>
+                  <Link to='/returns'>Returns Policy</Link>
+                </li>
+                <li>
+                  <Link to='/privacy-policy'>Privacy Policy</Link>
+                </li>
               </ul>
             </div>
           </Group>

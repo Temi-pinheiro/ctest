@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Group } from '..';
 import { Link, useLocation } from 'react-router-dom';
 import { openModal, useAuth, useCart } from '../../providers';
-import { AuthModal, HealthClaims, SignupModal } from '../../actions';
+import { AuthModal, SignupModal } from '../../actions';
 import { MobileNavLink } from '../MobileNavLink';
 export const MobileNav = () => {
   const { pathname } = useLocation();
@@ -159,12 +159,12 @@ export const MobileNav = () => {
                       />
                     </>
                   )}
-                  <button
+                  {/* <button
                     className='py-4 text-2xl px-4 flex relative items-center gap-x-3'
                     onClick={() => popup({ component: <HealthClaims /> })}
                   >
                     Health Notice
-                  </button>
+                  </button> */}
                 </ul>
               </Group>
               {!isAuthenticated ? (

@@ -2,7 +2,7 @@ import { Group } from '../components';
 
 export const AboutUsPage = () => {
   return (
-    <div className='flex min-h-screen flex-col pt-20'>
+    <div className='flex min-h-screen flex-col md:pt-20'>
       <section className=' w-full relative'>
         <div className='max-w-[1040px] w-full md:rounded-[24px] mt-14 mx-auto overflow-clip'>
           <video
@@ -19,10 +19,10 @@ export const AboutUsPage = () => {
       <Group key='story'>
         <section className='w-full'>
           <div className='max-w-[1040px] w-full mx-auto flex flex-col gap-y-6 py-10 md:py-20 max-md:px-6'>
-            <h2 className='text-2xl md:text-[64px] font-medium text-[#2C2844]'>
+            <h2 className='text-3xl md:text-[64px] font-medium text-[#2C2844]'>
               Our Story
             </h2>
-            <p className='text-black/70 text-2xl max-md:text-sm'>
+            <p className='text-black/70 text-2xl max-md:text-lg'>
               Lorem ipsum dolor sit amet consectetur. Faucibus vivamus a non
               nunc sapien. Ridiculus odio quam sit odio tortor mauris viverra.
               Eros in auctor neque ut. Ut pharetra amet tempor adipiscing quam
@@ -43,10 +43,10 @@ export const AboutUsPage = () => {
       <Group key='mission'>
         <section className='w-full'>
           <div className='max-w-[1040px] w-full mx-auto gap-y-6 flex flex-col py-10 md:py-20 max-md:px-6'>
-            <h2 className='text-2xl md:text-[64px] font-medium text-[#2C2844]'>
+            <h2 className='text-3xl md:text-[64px] font-medium text-[#2C2844]'>
               Our Mission
             </h2>
-            <p className='max-md:text-sm text-2xl text-black/70'>
+            <p className='max-md:text-lg text-2xl text-black/70'>
               Lorem ipsum dolor sit amet consectetur. Faucibus vivamus a non
               nunc sapien. Ridiculus odio quam sit odio tortor mauris viverra.
               Eros in auctor neque ut. Ut pharetra amet tempor adipiscing quam
@@ -60,19 +60,27 @@ export const AboutUsPage = () => {
         <section className='bg-[#F9F9F9] w-full'>
           <div className='py-9 max-w-[895px] w-full mx-auto grid grid-cols-2 gap-y-10 md:grid-cols-4 jusify-between'>
             <div className='flex flex-col items-center gap-y-8'>
-              <h3 className='text-[60px] font-medium text-[#2C2844]'>26K+</h3>
+              <h3 className='text-[40px] md:text-[60px] font-medium text-[#2C2844]'>
+                26K+
+              </h3>
               <span className='text-2xl text-black/70'>Customers</span>
             </div>
             <div className='flex flex-col items-center gap-y-8'>
-              <h3 className='text-[60px] font-medium text-[#2C2844]'>12</h3>
+              <h3 className='text-[40px] md:text-[60px] font-medium text-[#2C2844]'>
+                12
+              </h3>
               <span className='text-2xl text-black/70'>Countries</span>
             </div>
             <div className='flex flex-col items-center gap-y-8'>
-              <h3 className='text-[60px] font-medium text-[#2C2844]'>400+</h3>
+              <h3 className='text-[40px] md:text-[60px] font-medium text-[#2C2844]'>
+                400+
+              </h3>
               <span className='text-2xl text-black/70'>Distributors</span>
             </div>
             <div className='flex flex-col items-center gap-y-8'>
-              <h3 className='text-[60px] font-medium text-[#2C2844]'>10</h3>
+              <h3 className='text-[40px] md:text-[60px] font-medium text-[#2C2844]'>
+                10
+              </h3>
               <span className='text-2xl text-black/70'>Labs</span>
             </div>
           </div>
@@ -85,11 +93,11 @@ export const AboutUsPage = () => {
               <img src='/5.jpg' className='w-full h-full object-cover' />
             </div>
             <div className='flex flex-col max-w-[440px] gap-y-10 max-md:px-6 max-md:mt-10'>
-              <h2 className='text-5xl font-medium'>
+              <h2 className='text-3xl md:text-5xl font-medium'>
                 All Our Products Have{' '}
                 <span className='text-[#CDA091]'>Patented</span> Technology
               </h2>
-              <p className='text-black/70 md:text-xl'>
+              <p className='text-black/70 text-lg md:text-xl'>
                 Our Flagship Product Vaginne® maintains and improves the health
                 of a woman’s vagina. It balances “good” bacteria (lactobacilli)
                 and “bad” bacteria (anaerobes). In addition, Vaginne® helps the

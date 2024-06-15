@@ -66,7 +66,7 @@ export const Reviews = () => {
       <section className='bg-[#F9F9F9]'>
         <div className='max-w-[956px] w-full flex max-md:flex-col items-center py-[110px] mx-auto justify-between'>
           <div className='flex flex-col max-w-[376px] items-center w-full max-md:px-6'>
-            <h3 className='text-[30px]'>Customer Reviews</h3>
+            <h3 className='text-[30px] md:text-[40px]'>Customer Reviews</h3>
             <motion.div
               variants={fadeIn}
               animate='animate'
@@ -74,11 +74,11 @@ export const Reviews = () => {
               key={pane_index}
               className='flex flex-col items-center'
             >
-              <span className='italic text-2xl font-semibold mt-6'>
+              <span className='italic text-2xl md:text-3xl font-semibold mt-6'>
                 "{testimonials[pane_index].short}"
               </span>
 
-              <p className='text-center italic text-black/70 mt-4'>
+              <p className='text-center italic text-black/70 mt-4 md:text-lg'>
                 “{testimonials[pane_index].testimony}”
               </p>
               <div className='flex items-center flex-col mt-9'>
