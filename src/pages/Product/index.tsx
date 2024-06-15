@@ -80,11 +80,12 @@ export const ProductPage = () => {
   const panes = [
     { id: 'details', label: 'Product Details', show: true },
     { id: 'reviews', label: 'Reviews', show: true },
-    { id: 'returns', label: 'Delivery & Returns', show: true },
+    { id: 'returns', label: ' ', show: true },
+    // { id: 'returns', label: 'Delivery & Returns', show: true },
   ];
   return (
     <div className='flex min-h-screen flex-col pt-20'>
-      <div className='max-w-[1040px] mx-auto w-full flex flex-col items-center'>
+      <div className='max-w-[1140px] mx-auto w-full flex flex-col items-center'>
         {isLoading ? (
           <div className='h-screen'>
             <Loader big />
@@ -95,13 +96,13 @@ export const ProductPage = () => {
             <Group key='product'>
               <div className='flex max-md:flex-col items-center w-full md:gap-x-16 mt-[60px] max-md:px-6'>
                 <Group key='carousel'>
-                  <div className='flex max-md:flex-col-reverse items-center gap-x-5 max-w-[520px] w-full'>
+                  <div className='flex max-md:flex-col-reverse items-center gap-x-5 max-w-[620px] w-full'>
                     <div className='flex max-md:w-full max-md:justify-between max-md:mt-5 md:flex-col gap-y-10'>
                       {images.map((im) => (
                         <button
                           key={im}
                           onClick={() => setActiveImage(im)}
-                          className={`w-[74px] h-[70px] rounded-md overflow-clip hover:opacity-100 ${
+                          className={`w-[80px] h-[76px] rounded-md overflow-clip hover:opacity-100 ${
                             activeImage == im ? 'opacity-100' : 'opacity-50'
                           } transition-opacity duration-200`}
                         >
@@ -117,7 +118,7 @@ export const ProductPage = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       key={activeImage}
-                      className='max-w-[420px] w-full h-[420px] rounded-lg overflow-clip'
+                      className='max-w-[520px] w-full h-[440px] rounded-lg overflow-clip'
                     >
                       <img
                         src={activeImage}
@@ -129,11 +130,11 @@ export const ProductPage = () => {
                 </Group>
                 <Group key='cart'>
                   <div className='w-full flex flex-col max-md:mt-10'>
-                    <h1 className='text-[32px] font-medium'>
+                    <h1 className='text-[32px] md:text-[40px] font-medium'>
                       {product?.product.name}
                     </h1>
                     <div className='flex items-center gap-x-5 mt-4 border-b pb-4'>
-                      <span className='text-xl text-black/70'>
+                      <span className='text-xl md:text-[22px] text-black/70'>
                         {product?.product.description}
                       </span>
                       <svg
@@ -145,17 +146,17 @@ export const ProductPage = () => {
                       >
                         <circle cx='4' cy='4.69434' r='4' fill='#EABEAF' />
                       </svg>
-                      <span className='text-xl font-medium'>
+                      <span className='text-xl md:text-[22px] font-medium'>
                         {getFullMoney(product!.product.amount)}
                       </span>
                     </div>
-                    <p className='text-black/70 mt-3'>
+                    <p className='text-black/70 mt-3 md:text-xl'>
                       {product?.product.description}
                     </p>
                     <button
                       disabled={addItemtoCart.adding(product!.product.id)}
                       onClick={handleAdd}
-                      className='text-xl text-white bg-[#EABEAF] mt-12 py-3 rounded-md font-medium flex justify-center'
+                      className='text-2xl text-white bg-[#EABEAF] mt-12 py-3 rounded-md font-medium flex justify-center'
                     >
                       {addItemtoCart.adding(product!.product.id) ? (
                         <Loader bgColor='#fff' />
@@ -181,7 +182,7 @@ export const ProductPage = () => {
                               <rect width='16' height='2' rx='1' fill='#fff' />
                             </svg>
                           </button>
-                          <span className='text-[#263238] font-semibold'>
+                          <span className='text-[#263238] font-semibold text-xl'>
                             {quantity}
                           </span>
                           <button
@@ -259,7 +260,7 @@ export const ProductPage = () => {
                   handleChange={handlePaneSwitch}
                   key='attributes'
                 />
-                <div className='mt-5 text-sm text-[#263238]'>
+                <div className='mt-5 text-sm md:text-lg text-[#263238]'>
                   {show == 'details' && <Details />}
                   {show == 'reviews' && <Reviews />}
                   {show == 'returns' && <Returns />}

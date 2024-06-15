@@ -20,7 +20,7 @@ export const NavBar = () => {
         </Link>
       </Group>
       <Group key='center'>
-        <ul className='flex gap-x-8 items-center font-medium text-black px-10'>
+        <ul className='flex gap-x-8 items-center font-medium text-lg text-black px-10'>
           <Link className='' to='/shop'>
             Shop
           </Link>
@@ -31,7 +31,7 @@ export const NavBar = () => {
         </ul>
       </Group>
       <Group key='right'>
-        <div className=' flex items-center gap-x-6 text-sm'>
+        <div className=' flex items-center gap-x-6 text-sm md:text-lg'>
           {/* <CurrencySelector /> */}
           {/* <button>
             <svg
