@@ -5,7 +5,7 @@ export const TermsPage = () => {
         <h1 className='text-2xl md:text-[64px] font-semibold '>
           Terms and Conditions
         </h1>
-        <p className='text-black/70 max-md:text-sm'>
+        <p className='text-black/70 max-md:text-sm text-xl'>
           Lorem ipsum dolor sit amet consectetur. Faucibus vivamus a non nunc
           sapien. Ridiculus odio quam sit odio tortor mauris viverra. Eros in
           auctor neque ut. Ut pharetra amet tempor adipiscing quam consectetur
