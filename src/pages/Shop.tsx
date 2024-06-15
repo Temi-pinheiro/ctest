@@ -27,8 +27,8 @@ export const ShopPage = () => {
           </div>
         ) : (
           <>
-            <h1 className='text-[40px] font-medium mt-12'>All Products</h1>
-            <span className='block mt-12'>
+            <h1 className='text-[50px] font-medium mt-12'>All Products</h1>
+            <span className='block text-lg mt-12'>
               Showing all {products?.products.length} results
             </span>
             <div className='grid max-md:gap-y-10 md:grid-cols-3 w-full gap-x-10 gap-y-16 mt-12'>
