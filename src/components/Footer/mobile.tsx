@@ -162,9 +162,9 @@ export const MobileFooter = () => {
                 Resources
               </h5>
               <ul className='flex flex-col gap-y-2 text-black/70'>
-                <li>
+                {/* <li>
                   <Link to='#'>Blog</Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to='/faqs'>FAQ</Link>
                 </li>

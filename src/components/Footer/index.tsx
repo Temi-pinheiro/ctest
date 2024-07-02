@@ -89,10 +89,10 @@ export const Footer = () => {
                         <Link to='/bookkeeping'>About Us</Link>
                       </li>
                       <li>
-                        <Link to='/tax'>Career</Link>
+                        <Link to='/#'>Career</Link>
                       </li>
                       <li>
-                        <Link to='accountable-pisp'>Newsletter</Link>
+                        <Link to='/#'>Newsletter</Link>
                       </li>
                     </ul>
                   </div>
@@ -102,9 +102,9 @@ export const Footer = () => {
                   <div className='max-w-[111px]'>
                     <h4>Resources</h4>
                     <ul>
-                      <li>
+                      {/* <li>
                         <Link to='#'>Blog</Link>
-                      </li>
+                      </li> */}
                       <li>
                         <Link to='/faqs'>FAQ</Link>
                       </li>
