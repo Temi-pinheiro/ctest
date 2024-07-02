@@ -63,7 +63,7 @@ export const HomePage = () => {
         <div className='w-full h-full absolute inset-0 backdrop-brightness-50 flex flex-col items-center py-8'>
           <div className='flex flex-col items-center h-full justify-center'>
             <h1 className='text-[#fff] text-[34px] md:text-[92px] font-semibold cookie-regular'>
-              Vaginne Allure
+             Introducing Vaginne Allure
             </h1>
             <p className='mt-6 max-w-[1100px] text-base md:text-3xl text-white font-medium text-center max-md:px-6'>
               COWAScare offers a complete selection of intimate care products to
