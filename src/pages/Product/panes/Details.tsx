@@ -36,11 +36,11 @@ export const Details = () => {
           </h5>
           <p className='max-md:text-sm text-black/70 flex flex-col gap-y-5 items-start text-left w-full'>
             <span>
-              <span className='font-bold'>Weight:</span> 0.5kg{' '}
+              <span className='font-semibold'>Weight:</span> 0.5kg{' '}
             </span>
             <span>
               {' '}
-              <span className='font-bold'>Size:</span> 500ml/16.9oz
+              <span className='font-semibold'>Size:</span> 500ml/16.9oz
             </span>
           </p>
         </div>

@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type Cart = {
   bill: string;
+  final_bill?: string;
   createdAt: string;
   id: number;
   items: {
     itemId: number;
     name: string;
-    image: string[];
+    image: string[] | any;
     quantity: number;
     price: number;
   }[];

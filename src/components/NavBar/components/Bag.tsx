@@ -126,13 +126,23 @@ export const Bag = () => {
                       <span className='font-medium'>Subtotal</span>
                       <span>{getFullMoney(Number(cart.bill))}</span>
                     </div>
-                    <div className='flex items-center w-full justify-between'>
-                      <span className='font-medium'>Discount</span>
-                      <span>0</span>
-                    </div>
+                    {cart.final_bill && (
+                      <div className='flex text-[#FF0F0F] items-center w-full justify-between'>
+                        <span className='font-medium'>Discount</span>
+                        <span>
+                          {getFullMoney(
+                            Number(cart?.bill) - Number(cart?.final_bill || '0')
+                          )}
+                        </span>
+                      </div>
+                    )}
                     <div className='flex items-center w-full justify-between'>
                       <span className='font-medium'>Total</span>
-                      <span>{getFullMoney(Number(cart.bill))}</span>
+                      <span>
+                        {cart?.final_bill
+                          ? getFullMoney(Number(cart?.final_bill))
+                          : getFullMoney(Number(cart.bill))}
+                      </span>
                     </div>
                   </div>
                   <div className='flex flex-col gap-y-5 items-center mt-10'>

@@ -291,11 +291,18 @@ export const CheckoutPage = () => {
                     <span className='font-light text-sm'>Subtotal</span>
                     <span>{getFullMoney(Number(cart.bill))}</span>
                   </div>
+                  {cart.final_bill && (
+                    <div className='flex items-center text-[#FF0F0F]  w-full justify-between'>
+                      <span className='font-light text-sm'>Discount</span>
+                      <span>
+                        {' '}
+                        {getFullMoney(
+                          Number(cart?.bill) - Number(cart?.final_bill || '0')
+                        )}
+                      </span>
+                    </div>
+                  )}
                   {/* <div className='flex items-center w-full justify-between'>
-                    <span className='font-light text-sm'>Discount</span>
-                    <span>N/A</span>
-                  </div>
-                  <div className='flex items-center w-full justify-between'>
                     <span className='font-light text-sm'>Shipping</span>
                     <span>-</span>
                   </div> */}
@@ -304,7 +311,9 @@ export const CheckoutPage = () => {
                   <div className='flex items-center w-full justify-between'>
                     <span className='font-light text-sm'>Total</span>
                     <span className='font-medium'>
-                      {getFullMoney(Number(cart.bill))}
+                      {cart?.final_bill
+                        ? getFullMoney(Number(cart?.final_bill))
+                        : getFullMoney(Number(cart.bill))}
                     </span>
                   </div>
                 </div>
@@ -314,7 +323,7 @@ export const CheckoutPage = () => {
                 <button
                   type='submit'
                   disabled={isPending || checking}
-                  className='w-full bg-[#EABEAF] text-white font-bold py-[10px] leading-[28px] rounded-lg flex justify-center'
+                  className='w-full bg-[#EABEAF] text-white font-semibold py-[10px] leading-[28px] rounded-lg flex justify-center'
                 >
                   {isPending || checking ? (
                     <Loader bgColor='#fff' />
@@ -354,10 +363,7 @@ const Item = ({ item }: { item: Cart['items'][0] }) => {
   return (
     <div className=' pb-5 flex items-center gap-x-5 relative w-full'>
       <div className='w-[100px] rounded-lg h-[100px] overflow-clip'>
-        <img
-          src='https://plus.unsplash.com/premium_photo-1661597206779-b6643eac8213?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-          className='object-cover w-full'
-        />
+        <img src={item.image} className='object-cover w-full h-full' />
       </div>
       <div className='flex flex-col w-full'>
         <h3 className='text-sm text-[#2C2844] font-medium'>{item.name}</h3>

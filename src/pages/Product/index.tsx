@@ -19,11 +19,14 @@ export const ProductPage = () => {
   const { addItemtoCart } = useCart();
   const [active, setActive] = useState('');
   const { show, handlePaneSwitch } = usePanes('details');
+  const [activeImage, setActiveImage] = useState('');
+
   const { data: product, isLoading } = useQuery<{ product: Product }>({
     queryKey: ['products', id],
     queryFn: async () => {
       try {
         const data = await getProduct(id);
+        setActiveImage(data.product.image?.[0]);
         return data;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
@@ -32,12 +35,12 @@ export const ProductPage = () => {
     },
   });
 
-  const images = [
-    'https://images.unsplash.com/photo-1617825295690-28ae56c56135?q=80&w=3474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1532413992378-f169ac26fff0?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1594311431547-3ad8168cbd84?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://plus.unsplash.com/premium_photo-1661597206779-b6643eac8213?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  ];
+  // const images = [
+  //   'https://images.unsplash.com/photo-1617825295690-28ae56c56135?q=80&w=3474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //   'https://images.unsplash.com/photo-1532413992378-f169ac26fff0?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //   'https://images.unsplash.com/photo-1594311431547-3ad8168cbd84?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //   'https://plus.unsplash.com/premium_photo-1661597206779-b6643eac8213?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  // ];
 
   const handleAdd = () => {
     addItemtoCart.add(
@@ -70,7 +73,6 @@ export const ProductPage = () => {
     },
   });
 
-  const [activeImage, setActiveImage] = useState(images?.[0] || '');
   const handleIncrease = () => {
     setQuantity((prev) => ++prev);
   };
@@ -98,7 +100,7 @@ export const ProductPage = () => {
                 <Group key='carousel'>
                   <div className='flex max-md:flex-col-reverse items-center gap-x-5 max-w-[620px] w-full'>
                     <div className='flex max-md:w-full max-md:justify-between max-md:mt-5 md:flex-col gap-y-10'>
-                      {images.map((im) => (
+                      {product?.product.image.map((im: string) => (
                         <button
                           key={im}
                           onClick={() => setActiveImage(im)}
@@ -134,7 +136,7 @@ export const ProductPage = () => {
                       {product?.product.name}
                     </h1>
                     <div className='flex items-center gap-x-5 mt-4 border-b pb-4'>
-                      <span className='text-xl md:text-[22px] text-black/70'>
+                      <span className='text-lg md:text-[20px] text-black/70 line-clamp-2'>
                         {product?.product.description}
                       </span>
                       <svg

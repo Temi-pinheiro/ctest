@@ -23,7 +23,7 @@ export const Accordion = ({
           className='hover:cursor-pointer flex gap-x-3 justify-between items-center w-full'
           onClick={() => setIsOpen(!isOpen ? title : null)}
         >
-          <h1 className='font-bold text-xl'>{title}</h1>
+          <h1 className='font-semibold text-xl'>{title}</h1>
           <motion.svg
             width='12'
             height='8'

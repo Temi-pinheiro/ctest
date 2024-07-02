@@ -100,8 +100,8 @@ export const BagPage = () => {
                         </button>
                         <div className='w-[100px] rounded-lg h-[100px] overflow-clip ml-3'>
                           <img
-                            src='https://plus.unsplash.com/premium_photo-1661597206779-b6643eac8213?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                            className='object-cover w-full'
+                            src={it.image}
+                            className='object-cover w-full h-full'
                           />
                         </div>
                         <span className='ml-6'>{it.name}</span>
@@ -159,10 +159,16 @@ export const BagPage = () => {
                     <span>{getFullMoney(Number(cart.bill))}</span>
                   </div>
                   <div className='border-t border-b border-[#00000080] border-dashed mt-6 py-5 flex flex-col gap-y-5'>
-                    <div className='flex items-center w-full justify-between '>
-                      <span className=' text-sm '>Discount</span>
-                      <span> </span>
-                    </div>
+                    {cart.final_bill && (
+                      <div className='flex text-[#FF0F0F] items-center w-full justify-between '>
+                        <span className=' text-sm '>Discount</span>
+                        <span>
+                          {getFullMoney(
+                            Number(cart?.bill) - Number(cart?.final_bill || '0')
+                          )}
+                        </span>
+                      </div>
+                    )}
                     <div className='flex items-center w-full justify-between '>
                       <span className=' text-sm '>Promo Code</span>
                       <span> </span>
@@ -174,7 +180,11 @@ export const BagPage = () => {
                   </div>
                   <div className='flex items-center w-full justify-between mt-8'>
                     <span className=' text-lg '>Total</span>
-                    <span>{getFullMoney(Number(cart.bill))}</span>
+                    <span>
+                      {cart?.final_bill
+                        ? getFullMoney(Number(cart?.final_bill))
+                        : getFullMoney(Number(cart.bill))}
+                    </span>
                   </div>
                 </div>
               </Group>

@@ -27,7 +27,7 @@
 }
 
 .links h4 {
-  @apply text-xl font-bold;
+  @apply text-xl font-semibold;
 }
 
 .links div {

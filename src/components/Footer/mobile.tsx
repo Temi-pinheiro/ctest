@@ -71,7 +71,9 @@ export const MobileFooter = () => {
           <div className='flex items-start justify-between w-full'>
             <Group key='company'>
               <div className='flex flex-col gap-y-4'>
-                <h5 className='text-sm font-bold text-[#2C2844]'>Company</h5>
+                <h5 className='text-sm font-semibold text-[#2C2844]'>
+                  Company
+                </h5>
                 <ul className='flex flex-col gap-y-2 text-black/70'>
                   <li>
                     <Link to='/about-us'>Who we are</Link>
@@ -88,7 +90,7 @@ export const MobileFooter = () => {
             </Group>
             <Group key='contact'>
               <div className='flex flex-col gap-y-4'>
-                <h5 className='text-sm font-bold text-[#2C2844]'>
+                <h5 className='text-sm font-semibold text-[#2C2844]'>
                   Get in Touch
                 </h5>
                 <ul className='flex flex-col gap-y-2 text-black/70'>
@@ -156,7 +158,9 @@ export const MobileFooter = () => {
           </div>
           <Group key='Resources'>
             <div className='flex flex-col gap-y-4 mt-7'>
-              <h5 className='text-sm font-bold text-[#2C2844]'>Resources</h5>
+              <h5 className='text-sm font-semibold text-[#2C2844]'>
+                Resources
+              </h5>
               <ul className='flex flex-col gap-y-2 text-black/70'>
                 <li>
                   <Link to='#'>Blog</Link>

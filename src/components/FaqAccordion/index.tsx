@@ -20,7 +20,7 @@ export const FaqAccordion = ({
           className='hover:cursor-pointer flex gap-x-3 justify-between items-center w-full'
           onClick={() => setIsOpen(!isOpen ? title : null)}
         >
-          <h1 className='font-bold md:text-xl text-2xl'>{title}</h1>
+          <h1 className='font-semibold md:text-xl text-2xl'>{title}</h1>
           <span className='w-9 h-9 rounded-full bg-[#EABEAF] flex items-center justify-center'>
             <motion.svg
               width='12'

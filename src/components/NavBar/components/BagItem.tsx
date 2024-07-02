@@ -4,13 +4,11 @@ import Loader from '../../Loader';
 
 export const BagItem = ({ item }: { item: Cart['items'][0] }) => {
   const { removeItemFromCart } = useCart();
+  console.log(item);
   return (
     <div className='border-b pb-5 flex items-center gap-x-5 relative'>
       <div className='w-[134px] rounded-lg h-[140px] overflow-clip'>
-        <img
-          src='https://plus.unsplash.com/premium_photo-1661597206779-b6643eac8213?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-          className='object-cover w-full'
-        />
+        <img src={item?.image} className='object-cover w-full h-full' />
       </div>
       <div className='flex flex-col'>
         <h3 className='text-xl text-[#2C2844] font-medium'>{item.name}</h3>
