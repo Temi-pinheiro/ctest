@@ -37,7 +37,7 @@ export const ProfilePage = () => {
             <span>
               {user.firstname} {user.lastname} ({user.email})
             </span>
-            <span>{user.role.title}</span>
+            <span>{user.role.title.toUpperCase()} Member</span>
             <span>{user.phone_number}</span>
           </div>
         </div>
