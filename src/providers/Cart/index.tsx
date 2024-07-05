@@ -99,7 +99,40 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       },
     },
   });
+  const updateQuantity = (data: any) => {
+    const itemIndex = cart.items.findIndex((i) => i.itemId == data.itemId);
+    if (itemIndex !== -1) {
+      const updatedItems = [...cart.items];
+      const item = updatedItems[itemIndex];
+      const newBill = cart.items.reduce(
+        (acc, item) =>
+          acc +
+          (item.itemId === data.itemId
+            ? data.quantity * item.price
+            : item.quantity * item.price),
+        0
+      );
 
+      updatedItems[itemIndex] = { ...item, quantity: data.quantity };
+      try {
+        console.log('updating');
+        console.log({ updatedItems, newBill });
+        setCart((prev) => ({
+          ...prev,
+          items: updatedItems,
+          bill: newBill.toString(),
+        }));
+      } catch (e) {
+        console.log(e);
+      }
+      // setTimeout(() => {
+      updateStore({
+        items: updatedItems,
+        bill: newBill,
+      });
+      // }, 1000);
+    }
+  };
   const add = (data: any) => {
     if (isAuthenticated) {
       setAddingId(data.itemId);
@@ -109,7 +142,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       });
     } else {
       const [item] = cart.items.filter((i) => i.itemId == data.itemId);
-      if (item) return;
+      if (item) return updateQuantity(data);
       try {
         setCart((prev) => ({
           ...prev,
@@ -121,12 +154,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       } catch (e) {
         console.log(e);
       }
-      // setTimeout(() => {
       updateStore({
         items: [...cart.items, { ...data, price: data.price }],
         bill: Number(data.price * data.quantity) + Number(cart.bill),
       });
-      // }, 1000);
     }
   };
 

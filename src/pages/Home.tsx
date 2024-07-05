@@ -173,12 +173,14 @@ export const HomePage = () => {
                     Why Use Vaginne Allure?
                   </h3>
                   <ul className='flex flex-col gap-y-4 mt-12 md:text-xl'>
+                    <li>Eco-friendly </li>
+                    <li>No animal ingredients</li>
                     <li>No chemicals or synthetic disinfectants</li>
-                    <li>No alcohol </li>
-                    <li>Produces a tightening effect</li>
-                    <li>Effectively controls itching</li>
                     <li>No drugs or antibiotics</li>
-                    <li>Reduces vaginal discharge</li>
+                    <li>No chemical gel</li>
+                    <li>No heavy metals</li>
+                    <li>No alcohol</li>
+                    <li>No quaternary ammonia inhibitors </li>
                   </ul>
                 </div>
                 <div className='w-full md:w-[598px] h-[458px] md:rounded-lg overflow-clip'>

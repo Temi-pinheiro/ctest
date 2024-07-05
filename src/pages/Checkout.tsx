@@ -12,6 +12,7 @@ import Loader from '../components/Loader';
 import { useCities, useCountries, useStates } from '../hooks/useData';
 import { getAddress } from '../queries/profileQueries';
 import { useEffect, useState } from 'react';
+import { getGuestSummary, getSummary } from '../queries/cartQueries';
 
 export const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -33,6 +34,33 @@ export const CheckoutPage = () => {
       address1: '',
       address2: '',
       post_code: '',
+    },
+  });
+  const { data: summary, isLoading: asLoading } = useQuery({
+    enabled: isAuthenticated,
+    queryKey: ['authenticated order summary'],
+    queryFn: async () => {
+      try {
+        const data = await getSummary();
+        return data;
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
+    },
+  });
+  const { data: guestSummary, isLoading: gsLoading } = useQuery({
+    enabled: !isAuthenticated,
+    queryKey: ['unauthenticated order summary'],
+    queryFn: async () => {
+      try {
+        const data = await getGuestSummary({
+          amount: cart.bill,
+          quantity: cart.items.reduce((it, prev) => prev.quantity + it, 0),
+        });
+        return data;
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
     },
   });
   const { data, isLoading } = useQuery<{ address: Address }>({
@@ -78,7 +106,7 @@ export const CheckoutPage = () => {
         newsletter_sub: agreed,
         email,
         items: [...cart.items],
-        amount: cart.bill,
+        amount: guestSummary.total,
       }),
     ...{
       onSuccess(data: any) {
@@ -91,7 +119,11 @@ export const CheckoutPage = () => {
   });
   const { mutate, isPending } = useMutation({
     mutationFn: () =>
-      makePayment({ ...formData, items: [...cart.items], amount: cart.bill }),
+      makePayment({
+        ...formData,
+        items: [...cart.items],
+        amount: summary.total,
+      }),
     ...{
       onSuccess(data: any) {
         window.open(data.authorization_url, 'self');
@@ -275,65 +307,81 @@ export const CheckoutPage = () => {
               </div>
             </div>
           </Group>
-          <Group key='summary'>
-            <div className='rounded-xl flex flex-col md:max-w-[333px] w-full max-md:mt-10'>
-              <div className='flex flex-col bg-[#2C28440D] p-5 rounded-t-xl'>
-                <h3 className='text-xl font-semibold border-b pb-4'>
-                  Order summary
-                </h3>
-                <div className='flex flex-col w-full mt-5'>
-                  {cart.items.map((it) => (
-                    <Item key={it.itemId} item={it} />
-                  ))}
-                </div>
-                <div className='border-t border-b py-5 flex flex-col gap-y-5'>
-                  <div className='flex items-center w-full justify-between'>
-                    <span className='font-light text-sm'>Subtotal</span>
-                    <span>{getFullMoney(Number(cart.bill))}</span>
+          {asLoading || gsLoading ? (
+            <Loader big />
+          ) : (
+            <Group key='summary'>
+              <div className='rounded-xl flex flex-col md:max-w-[333px] w-full max-md:mt-10'>
+                <div className='flex flex-col bg-[#2C28440D] p-5 rounded-t-xl'>
+                  <h3 className='text-xl font-semibold border-b pb-4'>
+                    Order summary
+                  </h3>
+                  <div className='flex flex-col w-full mt-5'>
+                    {cart.items.map((it) => (
+                      <Item key={it.itemId} item={it} />
+                    ))}
                   </div>
-                  {cart.final_bill && (
-                    <div className='flex items-center text-[#FF0F0F]  w-full justify-between'>
-                      <span className='font-light text-sm'>Discount</span>
+                  <div className='border-t border-b py-5 flex flex-col gap-y-5'>
+                    <div className='flex items-center w-full justify-between'>
+                      <span className='font-light text-sm'>Subtotal</span>
+                      <span>{getFullMoney(Number(cart.bill))}</span>
+                    </div>
+                    {cart.final_bill && (
+                      <div className='flex items-center text-[#FF0F0F]  w-full justify-between'>
+                        <span className='font-light text-sm'>Discount</span>
+                        <span>
+                          {' '}
+                          {getFullMoney(
+                            Number(cart?.bill) - Number(cart?.final_bill || '0')
+                          )}
+                        </span>
+                      </div>
+                    )}
+                    <div className='flex items-center w-full justify-between'>
+                      <span className='font-light text-sm'>Shipping</span>
                       <span>
-                        {' '}
                         {getFullMoney(
-                          Number(cart?.bill) - Number(cart?.final_bill || '0')
+                          Number(
+                            isAuthenticated
+                              ? summary?.shipping
+                              : guestSummary?.shipping
+                          )
                         )}
                       </span>
                     </div>
-                  )}
-                  {/* <div className='flex items-center w-full justify-between'>
-                    <span className='font-light text-sm'>Shipping</span>
-                    <span>-</span>
-                  </div> */}
-                </div>
-                <div className='pt-5'>
-                  <div className='flex items-center w-full justify-between'>
-                    <span className='font-light text-sm'>Total</span>
-                    <span className='font-medium'>
-                      {cart?.final_bill
-                        ? getFullMoney(Number(cart?.final_bill))
-                        : getFullMoney(Number(cart.bill))}
-                    </span>
+                  </div>
+                  <div className='pt-5'>
+                    <div className='flex items-center w-full justify-between'>
+                      <span className='font-light text-sm'>Total</span>
+                      <span className='font-medium'>
+                        {getFullMoney(
+                          Number(
+                            isAuthenticated
+                              ? summary?.total
+                              : guestSummary?.total
+                          )
+                        )}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className='flex items-center justify-center bg-[#ECECEC] p-5 rounded-b-xl'>
-                <button
-                  type='submit'
-                  disabled={isPending || checking}
-                  className='w-full bg-[#EABEAF] text-white font-semibold py-[10px] leading-[28px] rounded-lg flex justify-center'
-                >
-                  {isPending || checking ? (
-                    <Loader bgColor='#fff' />
-                  ) : (
-                    'Place Order'
-                  )}
-                </button>
+                <div className='flex items-center justify-center bg-[#ECECEC] p-5 rounded-b-xl'>
+                  <button
+                    type='submit'
+                    disabled={isPending || checking}
+                    className='w-full bg-[#EABEAF] text-white font-semibold py-[10px] leading-[28px] rounded-lg flex justify-center'
+                  >
+                    {isPending || checking ? (
+                      <Loader bgColor='#fff' />
+                    ) : (
+                      'Place Order'
+                    )}
+                  </button>
+                </div>
               </div>
-            </div>
-          </Group>
+            </Group>
+          )}
         </div>
       </div>
     </form>

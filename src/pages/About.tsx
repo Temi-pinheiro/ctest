@@ -20,22 +20,23 @@ export const AboutUsPage = () => {
         <section className='w-full'>
           <div className='max-w-[1040px] w-full mx-auto flex flex-col gap-y-6 py-10 md:py-20 max-md:px-6'>
             <h2 className='text-3xl md:text-[64px] font-medium text-[#2C2844]'>
-              Our Story
+              VAGINNE® Allure
             </h2>
             <p className='text-black/70 text-2xl max-md:text-lg'>
-              Lorem ipsum dolor sit amet consectetur. Faucibus vivamus a non
-              nunc sapien. Ridiculus odio quam sit odio tortor mauris viverra.
-              Eros in auctor neque ut. Ut pharetra amet tempor adipiscing quam
-              consectetur urna mattis sodales. Auctor scelerisque feugiat morbi
-              vitae commodo euismod faucibus nam volutpat.
+              <span>Pamper yourself, Be a blissful woman!</span>
+              <br />
+              Vaginne® Allure Refreshing Intimate Gel enables every woman to
+              experience natural cleanliness and comfort in their most intimate
+              part. Vaginne® Allure and natural plant essential oil keep you
+              refreshed all day, flaunting that natural fragrance from inside
+              out.
               <br />
               <br />
-              In egestas pellentesque sagittis facilisi egestas. Orci a sit
-              tortor egestas sed. Ut tincidunt eget cursus sodales praesent cras
-              elit non elementum. Aliquet purus ipsum mauris vel ut. Consectetur
-              enim risus quis quam diam enim nisi et. Sed dui auctor laoreet
-              vitae elit. Nunc interdum consequat egestas ornare nunc. Sapien
-              viverra purus non et.
+              Our Flagship Product Vaginne® Allure Refreshing Intimate Gel
+              maintains and improves the health of a woman’s vagina. It balances
+              “good” bacteria (lactobacilli) and “bad” bacteria (anaerobes). In
+              addition, Vaginne® Allure helps the vagina regain its immune
+              system and increase its defensive power.
             </p>
           </div>
         </section>
@@ -44,14 +45,19 @@ export const AboutUsPage = () => {
         <section className='w-full'>
           <div className='max-w-[1040px] w-full mx-auto gap-y-6 flex flex-col py-10 md:py-20 max-md:px-6'>
             <h2 className='text-3xl md:text-[64px] font-medium text-[#2C2844]'>
-              Our Mission
+              Why our refreshing intimate gel
             </h2>
             <p className='max-md:text-lg text-2xl text-black/70'>
-              Lorem ipsum dolor sit amet consectetur. Faucibus vivamus a non
-              nunc sapien. Ridiculus odio quam sit odio tortor mauris viverra.
-              Eros in auctor neque ut. Ut pharetra amet tempor adipiscing quam
-              consectetur urna mattis sodales. Auctor scelerisque feugiat morbi
-              vitae commodo euismod faucibus nam volutpat.
+              Increase the inhibition of bacteria, strengthens good bacteria:
+              Inhibits bad bacteria, protects good bacteria and raises the
+              self-cleaning mechanism <br />
+              <br />
+              Firming, Moisturizing, Refreshing and Repairing: <br />
+              Total repair of epithelial tissue, boosts nutrient, anti-aging and
+              nourishing and enhances the elasticity of the vagina wall <br />{' '}
+              <br />
+              Enjoy Blissfulness: <br />
+              Eliminates odor, feel and smell fresh all day
             </p>
           </div>
         </section>

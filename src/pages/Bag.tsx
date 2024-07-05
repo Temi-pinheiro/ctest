@@ -124,7 +124,6 @@ export const BagPage = () => {
                             </option>
                           ))}
                         </select>{' '}
-                        {/* {it.quantity} */}
                       </td>
                       <td align='right' className='font-medium'>
                         {getFullMoney(it.price * it.quantity)}
@@ -133,6 +132,77 @@ export const BagPage = () => {
                   ))}
                 </tbody>
               </table>
+              <div className='flex flex-col gap-y-5 md:hidden'>
+                {cart.items.map((item) => (
+                  <div className=' pb-5 flex items-center gap-x-5 relative w-full '>
+                    <button
+                      className='shrink-0'
+                      onClick={() =>
+                        removeItemFromCart.remove(
+                          item.itemId,
+                          item.price * item.quantity
+                        )
+                      }
+                    >
+                      <svg
+                        width='20'
+                        height='21'
+                        viewBox='0 0 20 21'
+                        fill='none'
+                        xmlns='http://www.w3.org/2000/svg'
+                      >
+                        <path
+                          d='M10.8887 10.3575L17.627 17.1056L16.748 17.9845L10 11.2462L3.25195 17.9845L2.37305 17.1056L9.11133 10.3575L2.37305 3.6095L3.25195 2.73059L10 9.46887L16.748 2.73059L17.627 3.6095L10.8887 10.3575Z'
+                          fill='black'
+                        />
+                      </svg>
+                    </button>
+                    <div className='flex items-center gap-x-5 w-full'>
+                      <div className='w-[160px] rounded-lg h-[100px] overflow-clip'>
+                        <img
+                          src={item.image}
+                          className='object-cover w-full h-full'
+                        />
+                      </div>
+                      <div className='flex flex-col w-full'>
+                        <h3 className='text-sm text-[#2C2844] font-medium'>
+                          {item.name}
+                        </h3>
+                        <span className='text-xs text-black/50 block'>
+                          Extra product details
+                        </span>
+                        <div className='w-full flex items-center justify-between mt-2'>
+                          <span className='text-xs text-black/50'>
+                            Qty:{' '}
+                            <select
+                              className='outline-none'
+                              onChange={(e) => {
+                                handleAdd({
+                                  ...item,
+                                  quantity: e.target.value,
+                                });
+                              }}
+                            >
+                              <option disabled>Qty</option>
+                              {quantities.map((qty) => (
+                                <option
+                                  selected={qty == item.quantity}
+                                  value={qty}
+                                >
+                                  {qty}
+                                </option>
+                              ))}
+                            </select>{' '}
+                          </span>
+                          <span className='text-sm block font-semibold text-black'>
+                            {getFullMoney(item.price)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
               <Group key='promo'>
                 <div className='flex flex-col mt-10 max-w-[560px]'>
                   <h5 className='text-xl font-medium'>Promo Code</h5>
